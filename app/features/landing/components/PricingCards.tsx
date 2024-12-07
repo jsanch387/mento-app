@@ -5,20 +5,20 @@ const pricingTiers = [
   {
     tier: "Basic",
     description: "For individual educators starting out.",
-    price: "$8/month",
+    price: "$8",
     credits: "30 credits a month",
   },
   {
     tier: "Pro",
     description: "Extra credits for advanced needs.",
-    price: "$14/month",
+    price: "$14",
     credits: "100 credits a month",
     badge: "Most Popular", // Add a badge field for Pro
   },
   {
     tier: "UNLIMITED",
     description: "UNLIMITED credits for power users.",
-    price: "$22/month",
+    price: "$22",
     credits: "UNLIMITED credits",
   },
 ];
@@ -27,24 +27,28 @@ export default function PricingCards() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
       {pricingTiers.map((plan, index) => (
-        <Card key={index} className="relative">
+        <Card key={index}>
           <div className="flex flex-col items-start space-y-4">
-            {/* Badge (Conditionally Rendered) */}
-            {plan.badge && (
-              <div className="absolute top-0 right-0 bg-primary text-white text-lg font-medium px-3 py-1 rounded-bl-lg">
-                {plan.badge}
-              </div>
-            )}
-            {/* Plan Tier */}
-            <h3 className="text-3xl font-semibold">{plan.tier}</h3>
+            {/* Plan Tier and Badge */}
+            <div className="flex items-center justify-between w-full">
+              <h3 className="text-3xl font-semibold">{plan.tier}</h3>
+              {plan.badge && (
+                <span className="bg-primary text-white text-md font-semibold px-3 py-1 rounded-lg">
+                  {plan.badge}
+                </span>
+              )}
+            </div>
             {/* Description */}
             <p>{plan.description}</p>
             {/* Price */}
-            <p className="text-2xl font-bold">{plan.price}</p>
+            <p className="flex items-end">
+              <span className="text-4xl font-bold">{plan.price}</span>
+              <span className="text-lg ml-1 font-medium">/month</span>
+            </p>
             {/* Credits */}
-            <p className="text-text-secondary">{plan.credits}</p>
+            <p className="text-text-secondary pb-5">{plan.credits}</p>
             {/* Button */}
-            <Button label="Get Started" />
+            <Button label="Get Started" variant="secondary" />
           </div>
         </Card>
       ))}

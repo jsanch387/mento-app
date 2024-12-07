@@ -1,10 +1,19 @@
+import Image from "next/image";
+import MentoLogo from "@/public/mento-text.svg";
+
 export default function Footer() {
   return (
     <footer className="bg-primary bg-opacity-20 text-white py-8">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 flex flex-wrap justify-evenly items-start">
         {/* Logo */}
         <div className="flex-shrink-0 mb-6 sm:mb-0">
-          <p className="text-2xl font-bold">Mento</p>
+          <Image
+            src={MentoLogo}
+            alt={`Mento Logo`}
+            width={90}
+            height={90}
+            priority
+          />
         </div>
 
         {/* Links Container */}

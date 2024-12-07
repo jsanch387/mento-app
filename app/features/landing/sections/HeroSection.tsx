@@ -8,11 +8,11 @@ export default function HeroSection() {
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between px-6 sm:px-8">
         {/* Left Column - Text Content */}
         <div className="flex flex-col items-start max-w-lg space-y-8">
-          <h1 className="text-4xl sm:text-5xl font-black">
+          <h1 className="text-4xl sm:text-5xl  font-black">
             <span>More Time To </span>
             <span className="text-primary">Teach</span>
             <br />
-            <span className="pt-8 inline-block">Less Time To </span>
+            <span className="pt-7 inline-block">Less Time To </span>
             <span className="text-primary"> Plan</span>
           </h1>
           <p className="text-xl text-text-secondary">
