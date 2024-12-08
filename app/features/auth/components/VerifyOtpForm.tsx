@@ -1,7 +1,7 @@
+// Components/VerifyOtpForm.tsx
 import Button from "@/app/shared/components/Button";
 import Input from "@/app/shared/components/Input";
 
-// Components/VerifyOtpForm.tsx
 export function VerifyOtpForm({
   email,
   otp,
@@ -28,6 +28,8 @@ export function VerifyOtpForm({
         onChange={(e) => setOtp(e.target.value)}
         required
       />
+      {/* Hidden field to include the email */}
+      <input type="hidden" name="email" value={email} />
       <Button label="Login" variant="primary" className="w-full" />
     </form>
   );

@@ -1,15 +1,17 @@
-"use client";
-
 import { useState } from "react";
 import { requestOtp, verifyOtp } from "../actions";
-import { useRouter } from "next/navigation"; // Import useRouter
+import { useRouter } from "next/navigation";
+import Card from "@/app/shared/components/Card";
+import { LoginHeader } from "./LoginHeader";
+import { RequestOtpForm } from "./RequestOtpForm";
+import { VerifyOtpForm } from "./VerifyOtpForm";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [message, setMessage] = useState("");
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
 
   const handleOtpRequest = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,6 +28,13 @@ export default function LoginForm() {
   ) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget as HTMLFormElement);
+
+    // Debugging log to verify email and OTP are passed
+    console.log("Verifying OTP with payload:", {
+      email: formData.get("email"),
+      otp: formData.get("otp"),
+    });
+
     const responseMessage = await verifyOtp(formData);
     setMessage(responseMessage);
 
@@ -35,58 +44,30 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="bg-white p-6 rounded shadow-md">
-      {!isOtpSent ? (
-        <form onSubmit={handleOtpRequest}>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Email:
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="mt-1 p-2 w-full border rounded"
+    <Card
+      variant="solid"
+      className="w-full max-w-md sm:max-w-lg lg:max-w-xl mx-4 sm:mx-auto p-6 sm:p-8 lg:p-10"
+    >
+      <div className="space-y-8 py-8">
+        <LoginHeader />
+        {!isOtpSent ? (
+          <RequestOtpForm
+            email={email}
+            setEmail={setEmail}
+            handleSubmit={handleOtpRequest}
           />
-          <button
-            type="submit"
-            className="mt-4 bg-primary text-white px-4 py-2 rounded"
-          >
-            Request OTP
-          </button>
-        </form>
-      ) : (
-        <form onSubmit={handleOtpVerification}>
-          <label
-            htmlFor="otp"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Enter OTP:
-          </label>
-          <input
-            id="otp"
-            name="otp"
-            type="text"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-            required
-            className="mt-1 p-2 w-full border rounded"
+        ) : (
+          <VerifyOtpForm
+            email={email}
+            otp={otp}
+            setOtp={setOtp}
+            handleSubmit={handleOtpVerification}
           />
-          <input type="hidden" name="email" value={email} />
-          <button
-            type="submit"
-            className="mt-4 bg-primary text-white px-4 py-2 rounded"
-          >
-            Verify OTP
-          </button>
-        </form>
-      )}
-      {message && <p className="mt-4 text-sm text-green-500">{message}</p>}
-    </div>
+        )}
+        {message && (
+          <p className="mt-4 text-sm text-green-500 text-center">{message}</p>
+        )}
+      </div>
+    </Card>
   );
 }
