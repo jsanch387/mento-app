@@ -4,9 +4,10 @@
 
 :root {
   --background: #ffffff;
-  --primary: #0066cc;
+  --primary: #0066cc; /* Bright blue for active elements */
   --text-primary: #000000; /* Black for primary text */
-  --text-secondary: #6b7280; /* Gray for secondary text */
+  --text-secondary: #6b7280; /* Medium gray for secondary text */
+  --inactive: #a3a3a3; /* Light gray for inactive text */
 }
 
 /* @media (prefers-color-scheme: dark) {

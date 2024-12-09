@@ -10,6 +10,7 @@ export default {
     extend: {
       colors: {
         background: "var(--background)",
+        inactive: "var(--inactive)",
         primary: "var(--primary)",
         "text-primary": "#000000", // Black for primary text
         "text-secondary": "#6b7280", // Gray for secondary text
