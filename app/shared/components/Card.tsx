@@ -11,7 +11,7 @@ export default function Card({
   className = "",
   variant = "outline", // Default to outlined variant
 }: CardProps) {
-  const baseStyles = "rounded-2xl shadow-sm";
+  const baseStyles = "rounded-2xl shadow-sm p-6";
 
   const variantStyles =
     variant === "outline"

@@ -9,13 +9,15 @@ export default function TopNav() {
       {/* Centered Content */}
       <div className="container mx-auto h-full flex items-center justify-between px-8">
         {/* Left Side - Logo */}
-        <Image
-          src={MentoLogo}
-          alt={`Mento Logo`}
-          width={90}
-          height={90}
-          priority
-        />
+        <Link href="/">
+          <Image
+            src={MentoLogo}
+            alt={`Mento Logo`}
+            width={90}
+            height={90}
+            priority
+          />
+        </Link>
 
         {/* Middle - Links */}
         <div className="hidden md:flex space-x-10">
@@ -41,7 +43,7 @@ export default function TopNav() {
               size="small"
             />
           </Link>
-          <Link href="/auth/signup">
+          <Link href="/signup">
             <Button
               label={"Sign Up"}
               variant="primary"

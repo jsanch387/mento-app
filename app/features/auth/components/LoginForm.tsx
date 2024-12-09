@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { requestOtp, verifyOtp } from "../actions";
+import { requestLoginOtp, verifyOtp } from "../actions";
 import { useRouter } from "next/navigation";
 import Card from "@/app/shared/components/Card";
 import { LoginHeader } from "./LoginHeader";
@@ -16,7 +16,7 @@ export default function LoginForm() {
   const handleOtpRequest = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget as HTMLFormElement);
-    const responseMessage = await requestOtp(formData);
+    const responseMessage = await requestLoginOtp(formData);
     setMessage(responseMessage);
     if (responseMessage === "OTP sent!") {
       setIsOtpSent(true);
