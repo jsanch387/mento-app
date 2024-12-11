@@ -1,7 +1,7 @@
 import Button from "@/app/shared/components/Button";
 import Image from "next/image";
 import Link from "next/link";
-import MentoLogo from "@/public/mento-text.svg";
+import TextLogo from "@/app/shared/components/TextLogo";
 
 export default function TopNav() {
   return (
@@ -10,13 +10,7 @@ export default function TopNav() {
       <div className="container mx-auto h-full flex items-center justify-between px-8">
         {/* Left Side - Logo */}
         <Link href="/">
-          <Image
-            src={MentoLogo}
-            alt={`Mento Logo`}
-            width={90}
-            height={90}
-            priority
-          />
+          <TextLogo color="white" />
         </Link>
 
         {/* Middle - Links */}

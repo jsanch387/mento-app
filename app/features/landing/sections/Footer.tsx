@@ -1,5 +1,4 @@
-import Image from "next/image";
-import MentoLogo from "@/public/mento-text.svg";
+import TextLogo from "@/app/shared/components/TextLogo";
 
 export default function Footer() {
   return (
@@ -7,13 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 sm:px-8 flex flex-wrap justify-evenly items-start">
         {/* Logo */}
         <div className="flex-shrink-0 mb-6 sm:mb-0">
-          <Image
-            src={MentoLogo}
-            alt={`Mento Logo`}
-            width={90}
-            height={90}
-            priority
-          />
+          <TextLogo color="white" />
         </div>
 
         {/* Links Container */}

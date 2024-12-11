@@ -3,25 +3,6 @@
 import { createClient } from "@/app/lib/utils/supabase/server";
 import { redirect } from "next/navigation";
 
-// Action to request OTP for Login
-// export async function requestLoginOtp(formData: FormData): Promise<string> {
-//   const supabase = await createClient();
-//   const email = formData.get("email") as string;
-
-//   // Send OTP
-//   const { error } = await supabase.auth.signInWithOtp({
-//     email,
-//     options: { shouldCreateUser: false },
-//   });
-
-//   if (error) {
-//     console.error("Error requesting OTP:", error.message);
-//     return "Failed to send OTP. Please try again.";
-//   }
-
-//   return "OTP sent!";
-// }
-
 export async function requestLoginOtp(formData: FormData): Promise<string> {
   const supabase = await createClient();
   const email = formData.get("email") as string;
@@ -61,14 +42,12 @@ export async function requestLoginOtp(formData: FormData): Promise<string> {
   }
 }
 
-// Action to request OTP for Signup
 export async function requestSignUpOtp(formData: FormData): Promise<string> {
   const supabase = await createClient();
   const email = formData.get("email") as string;
   const firstName = formData.get("first_name") as string;
   const lastName = formData.get("last_name") as string;
 
-  // Send OTP
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
@@ -85,14 +64,12 @@ export async function requestSignUpOtp(formData: FormData): Promise<string> {
   return "OTP sent! Please check your email.";
 }
 
-// Action to verify OTP
 export async function verifyOtp(formData: FormData): Promise<string> {
   const supabase = await createClient();
 
   const email = formData.get("email") as string;
   const otp = formData.get("otp") as string;
 
-  // Verify OTP
   const { error } = await supabase.auth.verifyOtp({
     email,
     token: otp,
@@ -106,4 +83,19 @@ export async function verifyOtp(formData: FormData): Promise<string> {
 
   redirect("/dashboard");
   return "Login successful!";
+}
+
+// Action to log out the user
+export async function logout(): Promise<void> {
+  const supabase = await createClient();
+
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    console.error("Error during logout:", error.message);
+    throw new Error("Failed to log out. Please try again.");
+  }
+
+  // This will stop further execution and handle the redirection
+  redirect("/");
 }
