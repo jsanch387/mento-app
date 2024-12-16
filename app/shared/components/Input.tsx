@@ -43,7 +43,7 @@ const Input: React.FC<InputProps> = ({
         value={value}
         onChange={onChange}
         required={required}
-        className="p-3 w-full border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+        className="p-3 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary"
       />
     </div>
   );

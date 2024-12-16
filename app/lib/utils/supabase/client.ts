@@ -1,14 +1,18 @@
 import { createBrowserClient } from "@supabase/ssr";
 
-/**
- * Creates a browser client for Supabase.
- * This is used for client-side operations such as login, signup, or fetching user data.
- * The client uses the public Supabase URL and anon key from environment variables.
- */
-
-export function createClient() {
-  return createBrowserClient(
+export async function getAccessToken() {
+  const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
+
+  const { data, error } = await supabase.auth.getSession();
+
+  if (error || !data.session) {
+    console.error("Error fetching session:", error?.message);
+    return null;
+  }
+  console.log("data.session.access_token", data.session.access_token);
+
+  return data.session.access_token; // Extract the access token
 }

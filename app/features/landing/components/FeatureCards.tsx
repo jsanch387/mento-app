@@ -1,30 +1,30 @@
 import Card from "@/app/shared/components/Card";
 import React from "react";
+import Image from "next/image";
 
-// Import SVG files
-import BookIcon from "@/public/books.svg";
+// Import image assets
 import FlaskIcon from "@/public/flask.svg";
 import QuestionIcon from "@/public/question.svg";
-import Image from "next/image";
+import BooksIcon from "@/public/books-icon.png";
 
 const features = [
   {
     title: "Lesson Plan Generator",
     description:
       "Create detailed lesson plans in minutes with AI-powered tools. Save time and focus on engaging your students.",
-    icon: BookIcon,
+    icon: BooksIcon, // Updated to use the image source
   },
   {
     title: "Lab Creator",
     description:
       "Design engaging, hands-on lab activities with ease. Generate experiments tailored to your lesson and grade level.",
-    icon: FlaskIcon,
+    icon: FlaskIcon, // Updated to use the image source
   },
   {
     title: "Question Set Creator",
     description:
       "Effortlessly create quizzes and question sets tailored to your lesson content. Save time and assess student understanding with ease.",
-    icon: QuestionIcon,
+    icon: QuestionIcon, // Updated to use the image source
   },
 ];
 

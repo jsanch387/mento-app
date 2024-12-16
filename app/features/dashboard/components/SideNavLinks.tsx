@@ -19,11 +19,11 @@ const primaryLinks = [
     href: "/dashboard/my-items",
     icon: DocumentDuplicateIcon,
   },
-  { name: "Rate Us", href: "/rate", icon: StarIcon },
 ];
 
 const secondaryLinks = [
-  { name: "Settings", href: "/settings", icon: Cog6ToothIcon },
+  { name: "Rate Us", href: "/rate", icon: StarIcon },
+  { name: "Settings", href: "/dashboard/settings", icon: Cog6ToothIcon },
   { name: "Contact Us", href: "/contact", icon: EnvelopeIcon },
 ];
 
