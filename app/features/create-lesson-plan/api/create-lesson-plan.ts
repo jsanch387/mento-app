@@ -16,7 +16,7 @@ export const createLessonPlan = async ({
   additionalDetails?: string;
 }): Promise<CreateLessonPlanResponse> => {
   try {
-    const response = await apiClient.post("/lesson-plan", {
+    const response = await apiClient.post("/lesson-plans", {
       gradeLevel,
       subject,
       duration,

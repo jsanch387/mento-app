@@ -22,7 +22,7 @@ const primaryLinks = [
 ];
 
 const secondaryLinks = [
-  { name: "Rate Us", href: "/rate", icon: StarIcon },
+  { name: "Rate Us", href: "/dashboard/rate", icon: StarIcon },
   { name: "Settings", href: "/dashboard/settings", icon: Cog6ToothIcon },
   { name: "Contact Us", href: "/contact", icon: EnvelopeIcon },
 ];
