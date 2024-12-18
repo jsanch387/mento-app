@@ -24,7 +24,7 @@ const primaryLinks = [
 const secondaryLinks = [
   { name: "Rate Us", href: "/dashboard/rate", icon: StarIcon },
   { name: "Settings", href: "/dashboard/settings", icon: Cog6ToothIcon },
-  { name: "Contact Us", href: "/contact", icon: EnvelopeIcon },
+  { name: "Contact Us", href: "/dashboard/contact", icon: EnvelopeIcon },
 ];
 
 export default function SideNavLinks() {

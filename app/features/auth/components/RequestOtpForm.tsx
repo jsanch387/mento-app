@@ -25,7 +25,10 @@ export function RequestOtpForm({
       <Button label="Get Code" variant="primary" className="w-full" />
       <p className="text-sm text-gray-700 text-center">
         Don’t have an account?{" "}
-        <a href="/signup" className="text-primary font-medium hover:underline">
+        <a
+          href="/signup"
+          className="text-primary font-semibold hover:underline"
+        >
           Sign up
         </a>
       </p>

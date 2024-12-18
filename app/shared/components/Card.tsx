@@ -3,27 +3,29 @@ import React, { ReactNode } from "react";
 interface CardProps {
   children: ReactNode; // Accept any type of content
   className?: string; // Allow additional styles if needed
-  variant?: "outline" | "solid"; // Two variants: outlined or solid
+  variant?: "frosted" | "solid" | "outline"; // Three variants
   handleOnClick?: () => any;
 }
 
 export default function Card({
   children,
   className = "",
-  variant = "outline", // Default to outlined variant
+  variant = "outline", // Default to outline variant
   handleOnClick,
 }: CardProps) {
-  const baseStyles = "rounded-2xl shadow-sm p-6";
+  const baseStyles = "rounded-2xl p-6";
 
-  const variantStyles =
-    variant === "outline"
-      ? "bg-white border border-gray-300"
-      : "bg-white border-none";
+  // Variant styles
+  const variantStyles = {
+    outline: "bg-white border border-gray-300 shadow-sm",
+    solid: "bg-white border-none shadow-md",
+    frosted: "backdrop-blur-xs bg-white/40 border-white/20 shadow-lg",
+  };
 
   return (
     <div
       onClick={handleOnClick}
-      className={`${baseStyles} ${variantStyles} ${className}`}
+      className={`${baseStyles} ${variantStyles[variant]} ${className}`}
     >
       {children}
     </div>

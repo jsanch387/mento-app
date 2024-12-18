@@ -32,7 +32,7 @@ export default function FeatureCards() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
       {features.map((feature, index) => (
-        <Card key={index}>
+        <Card variant="frosted" key={index}>
           <div className="flex flex-col items-start">
             {/* Icon */}
             <Image
@@ -44,9 +44,9 @@ export default function FeatureCards() {
               priority // Ensures this is loaded as a priority for LCP
             />
             {/* Title */}
-            <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+            <h3 className="text-2xl font-semibold mb-5">{feature.title}</h3>
             {/* Description */}
-            <p className="text-text-secondary">{feature.description}</p>
+            <p className="text-text-secondary text-lg">{feature.description}</p>
           </div>
         </Card>
       ))}

@@ -27,7 +27,7 @@ export default function PricingCards() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
       {pricingTiers.map((plan, index) => (
-        <Card key={index}>
+        <Card variant="frosted" key={index}>
           <div className="flex flex-col items-start space-y-4">
             {/* Plan Tier and Badge */}
             <div className="flex items-center justify-between w-full">
@@ -39,16 +39,16 @@ export default function PricingCards() {
               )}
             </div>
             {/* Description */}
-            <p>{plan.description}</p>
+            <p className="text-lg pb-10">{plan.description}</p>
             {/* Price */}
             <p className="flex items-end">
               <span className="text-4xl font-bold">{plan.price}</span>
               <span className="text-lg ml-1 font-medium">/month</span>
             </p>
             {/* Credits */}
-            <p className="text-text-secondary pb-5">{plan.credits}</p>
+            <p className="text-text-secondary  text-lg pb-5 ">{plan.credits}</p>
             {/* Button */}
-            <Button label="Get Started" variant="secondary" />
+            <Button label="Get Started" variant="primary" />
           </div>
         </Card>
       ))}
