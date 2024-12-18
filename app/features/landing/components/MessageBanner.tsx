@@ -3,7 +3,7 @@ import React from "react";
 
 export default function MessageBanner() {
   return (
-    <div className="w-full h-auto bg-white flex flex-col items-center justify-center space-y-2">
+    <div className="w-full h-auto  flex flex-col items-center justify-center space-y-2">
       <p className="text-black text-lg ">Teachers Favorite Planning App</p>
       <div className="flex space-x-1">
         {Array.from({ length: 5 }).map((_, index) => (
