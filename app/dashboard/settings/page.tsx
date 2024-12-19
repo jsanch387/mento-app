@@ -1,18 +1,21 @@
-import UpgradeCard from "@/app/features/settings/components/UpgradeCard";
-import UserInfo from "@/app/features/settings/components/UserInfo";
+import SettingsPage from "@/app/features/settings/components/SettingsPage";
+import { createServerApiClient } from "@/app/lib/utils/api/serverApiClient";
 
-export default function SettingsPage() {
+export default async function Settings() {
+  let user = { firstName: "", lastName: "", tier: "free" }; // Default user object
+
+  try {
+    const apiClient = await createServerApiClient();
+    const response = await apiClient.get("/user/profile"); // No need for query params
+    user = response.data;
+    console.log("user", user);
+  } catch (error: any) {
+    console.error("Error fetching user profile:", error.message);
+  }
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start  p-6 space-y-8">
-      <h1 className="text-3xl font-bold text-left w-full max-w-3xl">
-        Settings
-      </h1>
-
-      {/* Upgrade Card */}
-      <UpgradeCard />
-
-      {/* User Info Card */}
-      <UserInfo />
+    <div className="min-h-screen">
+      <SettingsPage user={user} />
     </div>
   );
 }

@@ -5,19 +5,26 @@ import Card from "@/app/shared/components/Card";
 import Input from "@/app/shared/components/Input";
 import Button from "@/app/shared/components/Button";
 
-const UserInfo = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+const UserInfo = ({
+  firstName: initialFirstName = "",
+  lastName: initialLastName = "",
+}: {
+  firstName?: string;
+  lastName?: string;
+}) => {
+  const [firstName, setFirstName] = useState(initialFirstName);
+  const [lastName, setLastName] = useState(initialLastName);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("User Info Updated:", { firstName, lastName });
+    // Add API call here to update user info
   };
 
   return (
     <Card className="w-full max-w-3xl">
       {/* Heading */}
-      <h2 className="text-3xl font-bold text-blue-600 mb-6">Your Info</h2>
+      <h2 className="text-xl font-bold text-blue-600 mb-6">Your Info</h2>
 
       {/* Form */}
       <form className="space-y-6" onSubmit={handleSubmit}>

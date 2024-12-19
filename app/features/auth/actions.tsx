@@ -48,17 +48,52 @@ export async function requestSignUpOtp(formData: FormData): Promise<string> {
   const firstName = formData.get("first_name") as string;
   const lastName = formData.get("last_name") as string;
 
-  const { error } = await supabase.auth.signInWithOtp({
+  // Step 1: Sign up the user
+  const { error: authError } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      shouldCreateUser: true, // Automatically create the user
-      data: { first_name: firstName, last_name: lastName },
+      shouldCreateUser: true, // Automatically create the user in auth.users
+      data: { first_name: firstName, last_name: lastName }, // Add metadata
     },
   });
 
-  if (error) {
-    console.error("Error requesting signup OTP:", error.message);
+  if (authError) {
+    console.error("Error requesting signup OTP:", authError.message);
     return "Failed to send OTP. Please try again.";
+  }
+
+  // Step 2: Retrieve the user using listUsers() to find by email
+  const { data: userData, error: userListError } =
+    await supabase.auth.admin.listUsers();
+
+  if (userListError) {
+    console.error("Error fetching user list:", userListError.message);
+    return "Signup failed. Please try again.";
+  }
+
+  // Find the user in the list by email
+  const user = userData?.users.find((user) => user.email === email);
+
+  if (!user) {
+    console.error("User not found after signup.");
+    return "Signup failed. Please contact support.";
+  }
+
+  const userId = user.id;
+
+  // Step 3: Create a profile for the new user
+  const { error: profileError } = await supabase.from("profiles").insert([
+    {
+      id: userId, // Link to auth.users.id
+      first_name: firstName,
+      last_name: lastName,
+      tier: "free", // Default tier
+    },
+  ]);
+
+  if (profileError) {
+    console.error("Error creating user profile:", profileError.message);
+    return "Failed to create user profile. Please contact support.";
   }
 
   return "OTP sent! Please check your email.";
