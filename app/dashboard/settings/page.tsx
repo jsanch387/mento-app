@@ -1,14 +1,13 @@
+import { fetchUserProfile } from "@/app/features/settings/components/api/server-user-api";
 import SettingsPage from "@/app/features/settings/components/SettingsPage";
-import { createServerApiClient } from "@/app/lib/utils/api/serverApiClient";
 
 export default async function Settings() {
   let user = { firstName: "", lastName: "", tier: "free" }; // Default user object
 
   try {
-    const apiClient = await createServerApiClient();
-    const response = await apiClient.get("/user/profile"); // No need for query params
-    user = response.data;
-    console.log("user", user);
+    // Fetch user profile using the server-side utility
+    user = await fetchUserProfile();
+    console.log("Fetched user profile:", user);
   } catch (error: any) {
     console.error("Error fetching user profile:", error.message);
   }

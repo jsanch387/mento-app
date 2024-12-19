@@ -4,31 +4,44 @@ import React, { useState } from "react";
 import Card from "@/app/shared/components/Card";
 import Input from "@/app/shared/components/Input";
 import Button from "@/app/shared/components/Button";
+import { updateUserInfo } from "./api/user-api";
 
 const UserInfo = ({
-  firstName: initialFirstName = "",
-  lastName: initialLastName = "",
+  firstName: initialFirstName,
+  lastName: initialLastName,
 }: {
-  firstName?: string;
-  lastName?: string;
+  firstName: string;
+  lastName: string;
 }) => {
   const [firstName, setFirstName] = useState(initialFirstName);
   const [lastName, setLastName] = useState(initialLastName);
+  const [status, setStatus] = useState<{
+    success: boolean;
+    message: string;
+  } | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("User Info Updated:", { firstName, lastName });
-    // Add API call here to update user info
+
+    try {
+      // Use API utility to update user info
+      const updatedUser = await updateUserInfo({ firstName, lastName });
+
+      setStatus({ success: true, message: "Profile updated successfully!" });
+
+      // Update state with the latest data
+      setFirstName(updatedUser.firstName);
+      setLastName(updatedUser.lastName);
+    } catch (error: any) {
+      setStatus({ success: false, message: error.message });
+    }
   };
 
   return (
     <Card className="w-full max-w-3xl">
-      {/* Heading */}
       <h2 className="text-xl font-bold text-blue-600 mb-6">Your Info</h2>
 
-      {/* Form */}
       <form className="space-y-6" onSubmit={handleSubmit}>
-        {/* Inputs */}
         <div className="flex flex-col sm:flex-row gap-4">
           <Input
             id="firstName"
@@ -52,8 +65,17 @@ const UserInfo = ({
           />
         </div>
 
-        {/* Update Button */}
         <Button label="Update" size="large" className="w-32" />
+
+        {status && (
+          <p
+            className={`text-center mt-4 font-semibold ${
+              status.success ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {status.message}
+          </p>
+        )}
       </form>
     </Card>
   );
