@@ -3,14 +3,11 @@
 import Link from "next/link";
 import SideNavLinks from "./SideNavLinks";
 import TextLogo from "@/app/shared/components/TextLogo";
-import { useRouter } from "next/navigation";
-import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/solid";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/20/solid";
 import { logout } from "../../auth/actions";
+import TokenTracker from "../../token-tracker/components/TokenTracker";
 
 export default function SideNav() {
-  const creditsRemaining = 42; // Replace this with dynamic value if available
-
   const handleLogout = async () => {
     try {
       await logout(); // This will trigger server-side redirect to "/"
@@ -38,7 +35,7 @@ export default function SideNav() {
       </div>
 
       {/* Footer Section */}
-      <div className="p-4 ">
+      <div className="p-4">
         {/* Logout Button */}
         <button
           onClick={handleLogout}
@@ -48,11 +45,8 @@ export default function SideNav() {
           <span className="font-semibold">Log Out</span>
         </button>
 
-        {/* Credits Display */}
-        <div className="flex items-center px-4 mb-4 justify-between text-text-secondary ">
-          <span className="font-medium">Credits Remaining:</span>
-          <span className="font-bold text-primary">{creditsRemaining}</span>
-        </div>
+        {/* Token Tracker */}
+        <TokenTracker />
       </div>
     </div>
   );

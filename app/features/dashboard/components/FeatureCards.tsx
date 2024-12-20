@@ -3,6 +3,7 @@ import React from "react";
 import BooksIcon from "@/public/books-icon.png";
 import QuestionIcon from "@/public/question-icons.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const features = [
   {
@@ -25,7 +26,7 @@ const FeatureCards = () => {
     <div className="grid gap-4 justify-center md:grid-cols-2">
       {features.map((feature) => (
         <Card key={feature.title} variant="outline" className="max-w-sm">
-          <a href={feature.href} className="flex items-center gap-4">
+          <Link href={feature.href} className="flex items-center gap-4">
             <Image
               src={feature.iconSrc}
               alt={`${feature.title} Icon`}
@@ -39,7 +40,7 @@ const FeatureCards = () => {
                 {feature.description}
               </p>
             </div>
-          </a>
+          </Link>
         </Card>
       ))}
     </div>
