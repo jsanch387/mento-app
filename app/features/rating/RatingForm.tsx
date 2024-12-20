@@ -61,7 +61,7 @@ const RatingForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
         name="email"
         type="email"
         label="Email Address"
-        placeholder="Enter your email"
+        placeholder="example@gmail.com"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required

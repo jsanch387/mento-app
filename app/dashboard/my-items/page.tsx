@@ -13,9 +13,11 @@ export default async function MyItemsPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-6">My Items</h1>
-      <MyItemsList items={items} />
+    <div className="min-h-screen flex flex-col items-center ">
+      <div className="mt-10 ">
+        <h1 className="text-4xl font-bold mb-10">My Items</h1>
+        <MyItemsList items={items} />
+      </div>
     </div>
   );
 }

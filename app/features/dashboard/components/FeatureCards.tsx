@@ -13,19 +13,23 @@ const features = [
     href: "/dashboard/create-plan",
     iconSrc: BooksIcon, // Pass icon source here
   },
-  {
-    title: "Question Sets",
-    description: "Create quizzes or practice questions with answer keys.",
-    href: "/question-sets",
-    iconSrc: QuestionIcon, // Placeholder for now
-  },
+  // {
+  //   title: "Question Sets",
+  //   description: "Create quizzes or practice questions with answer keys.",
+  //   href: "/question-sets",
+  //   iconSrc: QuestionIcon, // Placeholder for now
+  // },
 ];
 
 const FeatureCards = () => {
   return (
     <div className="grid gap-4 justify-center md:grid-cols-2">
       {features.map((feature) => (
-        <Card key={feature.title} variant="outline" className="max-w-sm">
+        <Card
+          key={feature.title}
+          variant="outline"
+          className="max-w-sm cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
+        >
           <Link href={feature.href} className="flex items-center gap-4">
             <Image
               src={feature.iconSrc}

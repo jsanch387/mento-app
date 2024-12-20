@@ -27,7 +27,7 @@ export default function Home() {
 
       {/* Main Section with Frosted Glass Effect */}
       <main className="flex-1">
-        <div className="frosted-glass relative p-6 backdrop-blur-lg bg-white/30 rounded-lg shadow-md">
+        <div className="frosted-glass relative p-6 backdrop-blur-md bg-white/20 rounded-lg shadow-md">
           <HeroSection />
           <MessageBanner />
           <FeaturesSection />
