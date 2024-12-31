@@ -3,8 +3,16 @@
 import Button from "@/app/shared/components/Button";
 import Card from "@/app/shared/components/Card";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const UpgradeCard = () => {
+  const router = useRouter();
+
+  const handleUpgradeClick = () => {
+    //take to upgrade page
+    router.push("/dashboard/upgrade");
+  };
+
   return (
     <Card className="w-full max-w-3xl">
       {/* Crown Icon and Title */}
@@ -21,7 +29,7 @@ const UpgradeCard = () => {
       </p>
 
       {/* Upgrade Button */}
-      <Button label="Upgrade" size="large" />
+      <Button label="Upgrade" size="large" onClick={handleUpgradeClick} />
     </Card>
   );
 };

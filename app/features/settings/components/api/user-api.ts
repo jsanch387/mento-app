@@ -1,5 +1,4 @@
 import apiClient from "@/app/lib/utils/api/apiClient";
-import { createServerApiClient } from "@/app/lib/utils/api/serverApiClient";
 
 /**
  * Updates the user's profile information.

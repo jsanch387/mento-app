@@ -44,6 +44,7 @@ const UserInfo = ({
       <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="flex flex-col sm:flex-row gap-4">
           <Input
+            label="First Name"
             id="firstName"
             name="firstName"
             type="text"
@@ -54,6 +55,7 @@ const UserInfo = ({
             className="flex-1"
           />
           <Input
+            label="Last Name"
             id="lastName"
             name="lastName"
             type="text"

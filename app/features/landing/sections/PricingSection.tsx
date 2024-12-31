@@ -7,7 +7,7 @@ export default function PricingSection() {
         <h2 className="text-3xl sm:text-4xl font-bold  text-center mb-12">
           Plans That Work For You
         </h2>
-        <PricingCards />
+        <PricingCards cardVariant="frosted" />
       </div>
     </section>
   );

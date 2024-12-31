@@ -19,7 +19,7 @@ export default function Card({
   const variantStyles = {
     outline: "bg-white border border-gray-300 shadow-sm",
     solid: "bg-white border-none shadow-md",
-    frosted: "backdrop-blur-xs bg-white/50 border-white/20 shadow-lg",
+    frosted: "backdrop-blur-sm bg-white/70",
   };
 
   return (

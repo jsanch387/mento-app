@@ -1,3 +1,6 @@
+"use client";
+
+import PropTypes from "prop-types";
 import Button from "@/app/shared/components/Button";
 import Card from "@/app/shared/components/Card";
 
@@ -6,28 +9,39 @@ const pricingTiers = [
     tier: "Basic",
     description: "For individual educators starting out.",
     price: "$8",
-    credits: "30 credits a month",
+    credits: "20 credits a month",
+    pricingId: "price_1QbUv4CuDoiqLeJmdmUz8HgV",
   },
   {
     tier: "Pro",
-    description: "Extra credits for advanced needs.",
-    price: "$14",
-    credits: "100 credits a month",
-    badge: "Most Popular", // Add a badge field for Pro
+    description: "Do more with extra credits for advanced needs.",
+    price: "$15",
+    credits: "50 credits a month",
+    badge: "Most Popular",
+    pricingId: "price_1QbUwKCuDoiqLeJm4RkK6lTu",
   },
   {
     tier: "UNLIMITED",
     description: "UNLIMITED credits for power users.",
     price: "$22",
     credits: "UNLIMITED credits",
+    pricingId: "price_1QbUzkCuDoiqLeJmfEpaPWsq",
   },
 ];
 
-export default function PricingCards() {
+interface PricingCardsProps {
+  cardVariant?: "frosted" | "solid" | "outline";
+  onButtonClick?: (priceId: string) => void;
+}
+
+export default function PricingCards({
+  cardVariant,
+  onButtonClick,
+}: PricingCardsProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
       {pricingTiers.map((plan, index) => (
-        <Card variant="frosted" key={index}>
+        <Card variant={cardVariant} key={index}>
           <div className="flex flex-col items-start space-y-4">
             {/* Plan Tier and Badge */}
             <div className="flex items-center justify-between w-full">
@@ -46,12 +60,23 @@ export default function PricingCards() {
               <span className="text-lg ml-1 font-medium">/month</span>
             </p>
             {/* Credits */}
-            <p className="text-text-secondary  text-lg pb-5 ">{plan.credits}</p>
+            <p className="text-text-secondary text-lg pb-5">{plan.credits}</p>
             {/* Button */}
-            <Button label="Get Started" variant="primary" />
+            <Button
+              label="Get Started"
+              variant="primary"
+              onClick={() =>
+                onButtonClick && plan.pricingId && onButtonClick(plan.pricingId)
+              }
+            />
           </div>
         </Card>
       ))}
     </div>
   );
 }
+
+PricingCards.propTypes = {
+  cardVariant: PropTypes.oneOf(["solid", "outline", "frosted"]),
+  onButtonClick: PropTypes.func,
+};
