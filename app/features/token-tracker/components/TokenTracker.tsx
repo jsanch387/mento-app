@@ -10,6 +10,8 @@ export default function TokenTracker() {
 
   useEffect(() => {
     async function fetchTokens() {
+      console.log("tokens", tokens);
+
       // Fetch tokens only if tokens are undefined or a specific value
       if (tokens === undefined) {
         try {

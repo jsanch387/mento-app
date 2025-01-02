@@ -20,6 +20,7 @@ export const updateUserInfo = async ({
     });
 
     return response.data; // Updated user profile from the server
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error(
       "Error updating user info:",
@@ -40,6 +41,7 @@ export const getUserTokens = async (): Promise<number> => {
   try {
     const response = await apiClient.get("/user/tokens");
     return response.data.tokens;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error("Error fetching user tokens:", error.message);
     throw new Error("Failed to fetch user tokens.");
@@ -56,6 +58,7 @@ export const consumeToken = async (): Promise<void> => {
     if (!response.data.success) {
       throw new Error(response.data.error || "Failed to consume token.");
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     throw new Error(error.response?.data?.error || "Token consumption failed.");
   }
