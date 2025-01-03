@@ -1,5 +1,4 @@
 import Button from "@/app/shared/components/Button";
-import Image from "next/image";
 import Link from "next/link";
 import TextLogo from "@/app/shared/components/TextLogo";
 
