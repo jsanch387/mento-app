@@ -5,7 +5,7 @@ import { createBrowserClient } from "@supabase/ssr";
 import useAuthStore from "./store/authStore";
 
 export default function AuthInitializer() {
-  const { setAuthenticated } = useAuthStore();
+  const { authenticated, setAuthenticated } = useAuthStore();
 
   useEffect(() => {
     const supabase = createBrowserClient(
@@ -42,7 +42,7 @@ export default function AuthInitializer() {
     }
 
     fetchSession();
-  }, [setAuthenticated]);
+  }, [setAuthenticated, authenticated]);
 
   return null; // This component doesn't render anything
 }
