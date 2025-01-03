@@ -8,10 +8,13 @@ import {
   StarIcon,
   Cog6ToothIcon,
   EnvelopeIcon,
-  ArrowLeftEndOnRectangleIcon,
 } from "@heroicons/react/24/solid";
 
-// Primary and secondary links
+interface SideNavLinksProps {
+  authenticated: boolean;
+}
+
+// Primary links for authenticated users
 const primaryLinks = [
   { name: "Dashboard", href: "/dashboard", icon: Squares2X2Icon },
   {
@@ -21,17 +24,31 @@ const primaryLinks = [
   },
 ];
 
-const secondaryLinks = [
+// Secondary links for all users
+const secondaryLinksAuth = [
   { name: "Rate Us", href: "/dashboard/rate", icon: StarIcon },
   { name: "Settings", href: "/dashboard/settings", icon: Cog6ToothIcon },
   { name: "Contact Us", href: "/dashboard/contact", icon: EnvelopeIcon },
 ];
 
-export default function SideNavLinks() {
+const secondaryLinksUnauth = [
+  { name: "Rate Us", href: "/dashboard/rate", icon: StarIcon },
+  { name: "Contact Us", href: "/dashboard/contact", icon: EnvelopeIcon },
+];
+
+export default function SideNavLinks({ authenticated }: SideNavLinksProps) {
   const pathname = usePathname();
 
+  // Determine links to render
+  const renderPrimaryLinks = authenticated ? primaryLinks : [];
+  const renderSecondaryLinks = authenticated
+    ? secondaryLinksAuth
+    : secondaryLinksUnauth;
+
   // Render links
-  const renderLinks = (links: typeof primaryLinks) =>
+  const renderLinks = (
+    links: typeof primaryLinks | typeof secondaryLinksAuth
+  ) =>
     links.map((link) => {
       const isActive = pathname === link.href;
 
@@ -70,10 +87,13 @@ export default function SideNavLinks() {
 
   return (
     <nav className="mt-3 mx-4">
-      <ul className="space-y-4">{renderLinks(primaryLinks)}</ul>
-      {/* Divider */}
-      <div className="my-6 border-t border-gray-300"></div>
-      <ul className="space-y-4">{renderLinks(secondaryLinks)}</ul>
+      {renderPrimaryLinks.length > 0 && (
+        <ul className="space-y-4">{renderLinks(renderPrimaryLinks)}</ul>
+      )}
+      {renderPrimaryLinks.length > 0 && (
+        <div className="my-6 border-t border-gray-300"></div>
+      )}
+      <ul className="space-y-4">{renderLinks(renderSecondaryLinks)}</ul>
     </nav>
   );
 }

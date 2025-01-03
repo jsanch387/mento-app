@@ -14,7 +14,7 @@ export default function Footer() {
           {/* Company Column */}
           <div className="flex flex-col">
             <h4 className="text-lg font-semibold mb-3">Company</h4>
-            <a href="#contact" className="text-sm hover:underline">
+            <a href="/dashboard/contact" className="text-sm hover:underline">
               Contact
             </a>
           </div>

@@ -6,13 +6,29 @@ export async function getAccessToken() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 
-  const { data, error } = await supabase.auth.getSession();
+  try {
+    const { data, error } = await supabase.auth.getSession();
 
-  if (error || !data.session) {
-    console.error("Error fetching session:", error?.message);
+    if (error) {
+      console.warn(
+        "Error fetching session:",
+        error.message || "No error message provided"
+      );
+      return null;
+    }
+
+    if (!data.session) {
+      console.warn("No active session found. Proceeding as guest.");
+      return null;
+    }
+
+    console.log("data.session.access_token", data.session.access_token);
+    return data.session.access_token; // Extract the access token
+  } catch (unexpectedError) {
+    console.error(
+      "Unexpected error while fetching access token:",
+      unexpectedError
+    );
     return null;
   }
-  console.log("data.session.access_token", data.session.access_token);
-
-  return data.session.access_token; // Extract the access token
 }

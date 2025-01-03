@@ -1,7 +1,7 @@
+import AuthInitializer from "@/app/features/auth/AuthInitializer";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-// import GlobalProvider from "./providers/GlobalProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,6 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <AuthInitializer />
         {children}
       </body>
     </html>

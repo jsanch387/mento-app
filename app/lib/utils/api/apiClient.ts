@@ -12,14 +12,21 @@ const apiClient = axios.create({
 // Add a request interceptor to include the access token
 apiClient.interceptors.request.use(
   async (config) => {
-    const token = await getAccessToken(); // Fetch access token from Supabase
-    console.log("token", token);
+    try {
+      const token = await getAccessToken(); // Fetch access token from Supabase
+      console.log("token", token);
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`; // Attach token to headers
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`; // Attach token to headers
+      } else {
+        console.info("Proceeding without token for unauthenticated route.");
+      }
+
+      return config;
+    } catch (error) {
+      console.error("Error attaching token to request:", error);
+      return Promise.reject(error);
     }
-
-    return config;
   },
   (error) => {
     return Promise.reject(error);

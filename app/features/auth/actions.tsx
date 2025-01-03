@@ -2,6 +2,7 @@
 
 import { createClient } from "@/app/lib/utils/supabase/server";
 import { redirect } from "next/navigation";
+import useAuthStore from "./store/authStore";
 
 export async function requestLoginOtp(formData: FormData): Promise<string> {
   const supabase = await createClient();
@@ -98,7 +99,6 @@ export async function requestSignUpOtp(formData: FormData): Promise<string> {
 
   return "OTP sent! Please check your email.";
 }
-
 export async function verifyOtp(formData: FormData): Promise<string> {
   const supabase = await createClient();
 
@@ -116,7 +116,11 @@ export async function verifyOtp(formData: FormData): Promise<string> {
     return "Invalid OTP. Please try again.";
   }
 
-  redirect("/dashboard");
+  // Update Zustand state to authenticated
+  const setAuthenticated = useAuthStore.getState().setAuthenticated;
+  setAuthenticated(true);
+
+  redirect("/dashboard"); // Navigate to the dashboard
   return "Login successful!";
 }
 
@@ -131,6 +135,9 @@ export async function logout(): Promise<void> {
     throw new Error("Failed to log out. Please try again.");
   }
 
-  // This will stop further execution and handle the redirection
-  redirect("/");
+  // Update Zustand state to unauthenticated
+  const setAuthenticated = useAuthStore.getState().setAuthenticated;
+  setAuthenticated(false);
+
+  redirect("/"); // Redirect to the homepage
 }

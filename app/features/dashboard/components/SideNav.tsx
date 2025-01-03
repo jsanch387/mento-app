@@ -3,21 +3,24 @@
 import Link from "next/link";
 import SideNavLinks from "./SideNavLinks";
 import TextLogo from "@/app/shared/components/TextLogo";
-import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/20/solid";
 import { logout } from "../../auth/actions";
-import TokenTracker from "../../token-tracker/components/TokenTracker";
+import useAuthStore from "../../auth/store/authStore";
+import NavFooter from "./NavFooter";
 
 export default function SideNav() {
+  const { authenticated } = useAuthStore();
+
   const handleLogout = async () => {
     try {
-      await logout(); // This will trigger server-side redirect to "/"
-    } catch (error: any) {
-      // Ignore NEXT_REDIRECT error as it's expected for redirects
-      if (error?.message !== "NEXT_REDIRECT") {
-        console.error("Logout failed:", error.message);
+      await logout();
+    } catch (error: unknown) {
+      if ((error as Error)?.message !== "NEXT_REDIRECT") {
+        console.error("Logout failed:", (error as Error).message);
       }
     }
   };
+
+  console.log("authenticated", authenticated);
 
   return (
     <div className="w-[260px] h-screen bg-gray-100 shadow-md flex flex-col justify-between">
@@ -31,23 +34,12 @@ export default function SideNav() {
         </div>
 
         {/* Navigation Tabs */}
-        <SideNavLinks />
+        <SideNavLinks authenticated={authenticated} />
       </div>
 
       {/* Footer Section */}
-      <div className="p-4">
-        {/* Logout Button */}
-        <button
-          onClick={handleLogout}
-          className="flex items-center mb-4 gap-4 px-4 py-2 w-full rounded-md text-text-secondary hover:bg-gray-200 "
-        >
-          <ArrowLeftEndOnRectangleIcon className="h-5 w-5" aria-hidden="true" />
-          <span className="font-semibold">Log Out</span>
-        </button>
-
-        {/* Token Tracker */}
-        <TokenTracker />
-      </div>
+      {/* Footer Section */}
+      {authenticated && <NavFooter handleLogout={handleLogout} />}
     </div>
   );
 }
