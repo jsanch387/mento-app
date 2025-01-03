@@ -10,6 +10,7 @@ interface ButtonProps {
   label: string; // Button text
   onClick?: () => void; // Click handler
   className?: string; // Additional custom classes
+  disabled?: boolean; // Disabled state
 }
 
 export default function Button({
@@ -21,10 +22,11 @@ export default function Button({
   label,
   onClick,
   className,
+  disabled = false, // Default to not disabled
 }: ButtonProps) {
   // Base styles for the button
   const baseStyles =
-    "rounded-full font-semibold text-center transition-transform duration-200"; // Updated font to font-semibold
+    "rounded-full font-semibold text-center transition-transform duration-200";
 
   // Size-specific styles
   const sizeStyles = {
@@ -43,16 +45,20 @@ export default function Button({
     } hover:bg-opacity-10`,
   };
 
+  // Disabled styles
+  const disabledStyles = "opacity-50 cursor-not-allowed";
+
   // Combine styles
   const buttonClasses = classNames(
     baseStyles,
     sizeStyles[size], // Apply size styles
     variantStyles[variant], // Apply variant styles
+    { [disabledStyles]: disabled }, // Apply disabled styles if needed
     className // Allow additional custom classes
   );
 
   return (
-    <button onClick={onClick} className={buttonClasses}>
+    <button onClick={onClick} className={buttonClasses} disabled={disabled}>
       {label}
     </button>
   );

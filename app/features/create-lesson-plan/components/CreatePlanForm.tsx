@@ -21,7 +21,17 @@ const CreatePlanForm = () => {
     duration: string;
     additionalDetails?: string;
   }) => {
-    if (tokens === null || tokens <= 0) {
+    console.log("Starting lesson plan generation...");
+    console.log("Current token count:", tokens);
+
+    if (tokens === undefined) {
+      console.error("Tokens state is undefined.");
+      setError("Unable to determine token status. Please try again later.");
+      return;
+    }
+
+    if (tokens !== null && tokens <= 0) {
+      console.error("No tokens remaining.");
       setError("You have no tokens remaining. Please upgrade your plan.");
       return;
     }
@@ -30,19 +40,28 @@ const CreatePlanForm = () => {
     setError(null);
 
     try {
-      // Generate the lesson plan
+      console.log("Generating lesson plan with data:", requestData);
+
       const response = await createLessonPlan(requestData);
+      console.log("Lesson plan generated successfully:", response.lessonPlan);
       setLessonPlan(response.lessonPlan);
 
-      // Consume a token after a successful generation
-      await consumeToken();
-
-      // Update local token state
       if (tokens !== null) {
+        console.log("Consuming a token...");
+        await consumeToken();
         setTokens(tokens - 1);
+        console.log("Token consumed. Remaining tokens:", tokens - 1);
+      } else {
+        console.log("User has unlimited tokens. Skipping token consumption.");
       }
-    } catch (err: any) {
-      setError(err.message || "Failed to create lesson plan.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error("Error generating lesson plan:", err.message);
+        setError(err.message || "Failed to create lesson plan.");
+      } else {
+        console.error("Unexpected error:", err);
+        setError("An unexpected error occurred.");
+      }
     } finally {
       setLoading(false);
     }

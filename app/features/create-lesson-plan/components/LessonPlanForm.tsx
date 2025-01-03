@@ -5,6 +5,25 @@ import Dropdown from "@/app/shared/components/DropDown";
 import Input from "@/app/shared/components/Input";
 import Button from "@/app/shared/components/Button";
 
+// Predefined options for subjects and grades
+const subjectOptions = [
+  "Math",
+  "Science",
+  "History",
+  "Language Arts",
+  "English Literature",
+];
+
+const gradeOptions = [
+  "1st Grade",
+  "2nd Grade",
+  "3rd Grade",
+  "4th Grade",
+  "5th Grade",
+  "6th Grade",
+  "11th Grade",
+];
+
 const LessonPlanForm = ({
   onSubmit,
 }: {
@@ -20,14 +39,25 @@ const LessonPlanForm = ({
   const [time, setTime] = useState("");
   const [lessonDetails, setLessonDetails] = useState("");
 
+  const isFormValid = () => {
+    return (
+      subject.trim() !== "" &&
+      grade.trim() !== "" &&
+      time.trim() !== "" &&
+      lessonDetails.trim() !== ""
+    );
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({
-      gradeLevel: grade,
-      subject,
-      duration: time,
-      additionalDetails: lessonDetails,
-    });
+    if (isFormValid()) {
+      onSubmit({
+        gradeLevel: grade,
+        subject,
+        duration: time,
+        additionalDetails: lessonDetails,
+      });
+    }
   };
 
   return (
@@ -37,27 +67,14 @@ const LessonPlanForm = ({
       <Dropdown
         label="What subject are you teaching?"
         placeholder="Select a subject"
-        options={[
-          "Math",
-          "Science",
-          "History",
-          "Language Arts",
-          "English Literature",
-        ]}
+        options={subjectOptions}
         onSelect={(value: string) => setSubject(value)}
       />
 
       <Dropdown
         label="What grade are you teaching?"
         placeholder="Select a grade"
-        options={[
-          "1st Grade",
-          "2nd Grade",
-          "3rd Grade",
-          "4th Grade",
-          "5th Grade",
-          "11th Grade",
-        ]}
+        options={gradeOptions}
         onSelect={(value: string) => setGrade(value)}
       />
 
@@ -85,7 +102,6 @@ const LessonPlanForm = ({
           placeholder="e.g., 5th grade science lesson cycle with group activities"
           value={lessonDetails}
           onChange={(e) => setLessonDetails(e.target.value)}
-          required
           className="p-3 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary h-32 resize-none"
         />
       </div>
@@ -94,6 +110,7 @@ const LessonPlanForm = ({
         label="Create Lesson Plan"
         size="large"
         onClick={() => handleSubmit}
+        disabled={!isFormValid()}
       />
     </form>
   );

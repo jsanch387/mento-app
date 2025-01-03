@@ -4,24 +4,40 @@ import React, { useState } from "react";
 import Input from "@/app/shared/components/Input";
 import Button from "@/app/shared/components/Button";
 
-export default function ContactForm({
-  onSubmit,
-}: {
-  onSubmit: (data: any) => void;
-}) {
+interface ContactFormProps {
+  onSubmit: (data: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    message: string;
+  }) => void;
+}
+
+export default function ContactForm({ onSubmit }: ContactFormProps) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
+  const isFormValid = () => {
+    return (
+      firstName.trim() !== "" &&
+      lastName.trim() !== "" &&
+      email.trim() !== "" &&
+      message.trim() !== ""
+    );
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({
-      firstName,
-      lastName,
-      email,
-      message,
-    });
+    if (isFormValid()) {
+      onSubmit({
+        firstName,
+        lastName,
+        email,
+        message,
+      });
+    }
   };
 
   return (
@@ -57,18 +73,19 @@ export default function ContactForm({
           onChange={(e) => setLastName(e.target.value)}
           required
         />
-        {/* Email */}
-        <Input
-          label="Email"
-          id="email"
-          name="email"
-          type="email"
-          placeholder="example@email.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
       </div>
+
+      {/* Email */}
+      <Input
+        label="Email"
+        id="email"
+        name="email"
+        type="email"
+        placeholder="example@email.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
 
       {/* Message */}
       <div className="space-y-2">
@@ -84,8 +101,8 @@ export default function ContactForm({
       </div>
 
       {/* Submit Button */}
-      <div className="flex ">
-        <Button label="Submit" size="large" />
+      <div className="flex">
+        <Button label="Submit" size="large" disabled={!isFormValid()} />
       </div>
     </form>
   );

@@ -5,22 +5,46 @@ import Input from "@/app/shared/components/Input";
 import Button from "@/app/shared/components/Button";
 import StarRating from "@/app/shared/components/StarRating";
 
-const RatingForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
+interface RatingFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  rating: number;
+  comment: string;
+}
+
+const RatingForm = ({
+  onSubmit,
+}: {
+  onSubmit: (data: RatingFormData) => void;
+}) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
+  const isFormValid = () => {
+    return (
+      firstName.trim() !== "" &&
+      lastName.trim() !== "" &&
+      email.trim() !== "" &&
+      rating > 0 &&
+      comment.trim() !== ""
+    );
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({
-      firstName,
-      lastName,
-      email,
-      rating,
-      comment,
-    });
+    if (isFormValid()) {
+      onSubmit({
+        firstName,
+        lastName,
+        email,
+        rating,
+        comment,
+      });
+    }
   };
 
   return (
@@ -31,6 +55,7 @@ const RatingForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
       <h1 className="text-4xl font-bold mb-6 text-left">
         We Value Your Feedback!
       </h1>
+
       {/* First Name */}
       <Input
         id="firstName"
@@ -94,7 +119,7 @@ const RatingForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
       </div>
 
       {/* Submit Button */}
-      <Button label="Submit" size="large" />
+      <Button label="Submit" size="large" disabled={!isFormValid()} />
     </form>
   );
 };

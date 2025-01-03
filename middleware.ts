@@ -3,14 +3,17 @@ import { updateSession } from "@/app/lib/utils/supabase/middleware";
 
 /**
  * Middleware for handling protected routes.
- * It excludes the `/dashboard/contact` route and only applies authentication checks
+ * It excludes the specified routes and only applies authentication checks
  * to other `/dashboard/*` routes.
  */
 export async function middleware(request: NextRequest) {
   const { nextUrl } = request;
 
-  // Exclude `/dashboard/contact` from authentication
-  if (nextUrl.pathname === "/dashboard/contact") {
+  // Define routes to exclude from authentication
+  const excludedRoutes = ["/dashboard/contact", "/dashboard/rate"];
+
+  // Exclude specified routes from authentication
+  if (excludedRoutes.includes(nextUrl.pathname)) {
     return NextResponse.next(); // Allow public access
   }
 
