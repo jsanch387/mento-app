@@ -3,7 +3,7 @@ import React from "react";
 
 export default function MessageBanner() {
   return (
-    <div className="w-full h-auto flex flex-col items-center justify-center space-y-2">
+    <div className="w-full h-auto flex flex-col items-center justify-center space-y-2 mt-10">
       <p className="text-black text-xl font-bold">
         Teachers Favorite Planning App
       </p>

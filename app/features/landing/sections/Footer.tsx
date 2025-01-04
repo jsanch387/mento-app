@@ -1,8 +1,17 @@
+"use client";
+
 import TextLogo from "@/app/shared/components/TextLogo";
 
 export default function Footer() {
+  const handleScrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
-    <footer className="bg-primary bg-opacity-20 text-white py-8">
+    <footer id="footer" className="bg-primary bg-opacity-20 text-white py-8">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 flex flex-wrap justify-evenly items-start">
         {/* Logo */}
         <div className="flex-shrink-0 mb-6 sm:mb-0">
@@ -22,12 +31,18 @@ export default function Footer() {
           {/* Product Column */}
           <div className="flex flex-col">
             <h4 className="text-lg font-semibold mb-3">Product</h4>
-            <a href="#features" className="text-sm hover:underline">
+            <button
+              onClick={() => handleScrollToSection("features")}
+              className="text-sm hover:underline text-left"
+            >
               Features
-            </a>
-            <a href="#pricing" className="text-sm hover:underline">
+            </button>
+            <button
+              onClick={() => handleScrollToSection("pricing")}
+              className="text-sm hover:underline text-left"
+            >
               Pricing
-            </a>
+            </button>
           </div>
 
           {/* Resources Column */}

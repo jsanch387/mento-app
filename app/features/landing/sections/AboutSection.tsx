@@ -1,6 +1,6 @@
 export default function AboutSection() {
   return (
-    <section className="py-16">
+    <section id="about" className="py-16">
       <div className="max-w-4xl mx-auto px-6 sm:px-8">
         <h2 className="text-4xl sm:text-4xl font-bold  text-center mb-10">
           About Mento

@@ -3,26 +3,26 @@ import Image from "next/image";
 
 export default function HeroSection() {
   return (
-    <section className="py-20">
+    <section id="hero" className="py-20 bg-primary">
       {/* Centered Content */}
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between px-6 sm:px-8">
         {/* Left Column - Text Content */}
-        <div className="flex flex-col items-start max-w-lg space-y-6">
-          <h1 className="text-4xl sm:text-6xl font-black leading-tight">
+        <div className="flex flex-col items-start max-w-lg space-y-6 text-white">
+          <h1 className="text-4xl sm:text-6xl font-black leading-tight ">
             <span className="">More Time To </span>
-            <span className="text-primary">Teach</span>
+            <span className="text-white">Teach</span>
             <br />
             <span className="block mt-4">Less Time To </span>
-            <span className="text-primary">Plan</span>
+            <span className="text-white">Plan</span>
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600">
+          <p className="text-lg sm:text-xl text-gray-100">
             Revolutionize Your Teaching – Create Powerful Lesson Plans in Just
             Minutes with the Magic of AI!
           </p>
           <Button
             label="Sign Up For Free"
             size="large"
-            className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/80 transition"
+            className="bg-white text-text-primary px-6 py-3 rounded-lg hover:bg-primary/80 transition"
           />
         </div>
 

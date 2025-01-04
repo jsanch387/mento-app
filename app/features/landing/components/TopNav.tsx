@@ -9,6 +9,13 @@ import AuthInitializer from "../../auth/AuthInitializer";
 export default function TopNav() {
   const { authenticated } = useAuthStore(); // Access authentication state
 
+  const handleScrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <nav className="bg-primary text-white h-[60px] w-full">
       <AuthInitializer />
@@ -21,15 +28,24 @@ export default function TopNav() {
 
         {/* Middle - Links */}
         <div className="hidden md:flex space-x-10 font-semibold">
-          <a href="#features" className="hover:underline">
+          <button
+            onClick={() => handleScrollToSection("features")}
+            className="hover:underline"
+          >
             Features
-          </a>
-          <a href="#pricing" className="hover:underline">
+          </button>
+          <button
+            onClick={() => handleScrollToSection("pricing")}
+            className="hover:underline"
+          >
             Pricing
-          </a>
-          <a href="#contact" className="hover:underline">
+          </button>
+          <button
+            onClick={() => handleScrollToSection("about")}
+            className="hover:underline"
+          >
             About
-          </a>
+          </button>
         </div>
 
         {/* Right Side - Buttons */}
