@@ -1,5 +1,6 @@
 import Button from "@/app/shared/components/Button";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -18,13 +19,15 @@ export default function HeroSection() {
             Plan, Teach, Inspire – Mento Does the Heavy Lifting with AI-Powered
             Tools for Every Teacher.
           </p>
-          <Button
-            label="Sign Up For Free"
-            size="large"
-            bgColor="bg-white"
-            textColor="text-text-primary"
-            className="px-6 py-3 rounded-lg hover:bg-primary/80 transition"
-          />
+          <Link href="/signup">
+            <Button
+              label="Sign Up For Free"
+              size="large"
+              bgColor="bg-white"
+              textColor="text-primary"
+              className="px-6 py-3 rounded-lg hover:bg-primary/80 transition"
+            />
+          </Link>
         </div>
 
         {/* Right Column - Natural Image */}
