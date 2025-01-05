@@ -10,19 +10,17 @@ export default function Home() {
   return (
     <div className="relative min-h-screen flex flex-col">
       {/* Top Navigation Bar */}
-      <header className="relative z-10">
+      <header className="sticky top-0 z-50">
         <TopNav />
       </header>
 
-      {/* Main Section with Frosted Glass Effect */}
+      {/* Main Section */}
       <main className="flex-1 bg-background">
-        {/* <div className="frosted-glass relative p-6 backdrop-blur-md bg-white/20 rounded-lg shadow-md"> */}
         <HeroSection />
         <MessageBanner />
         <FeaturesSection />
         <PricingSection />
         <AboutSection />
-        {/* </div> */}
       </main>
 
       {/* Footer */}

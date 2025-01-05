@@ -1,24 +1,21 @@
 "use client";
 
-import Button from "@/app/shared/components/Button";
+import { useState } from "react";
 import Link from "next/link";
 import TextLogo from "@/app/shared/components/TextLogo";
+import Button from "@/app/shared/components/Button";
 import useAuthStore from "../../auth/store/authStore";
-import AuthInitializer from "../../auth/AuthInitializer";
+import HamburgerMenu from "@/app/shared/components/HamburgerMenu";
+import { handleScrollToSection } from "@/app/lib/utils/helpers/helperFunctions";
 
 export default function TopNav() {
   const { authenticated } = useAuthStore(); // Access authentication state
+  const [menuOpen, setMenuOpen] = useState(false); // Manage menu visibility
 
-  const handleScrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+  // Smooth scrolling to a section by ID
 
   return (
-    <nav className="bg-primary text-white h-[60px] w-full">
-      <AuthInitializer />
+    <nav className="bg-primary text-white h-[60px] w-full sticky top-0 z-50">
       {/* Centered Content */}
       <div className="container mx-auto h-full flex items-center justify-between px-8">
         {/* Left Side - Logo */}
@@ -26,7 +23,32 @@ export default function TopNav() {
           <TextLogo color="white" />
         </Link>
 
-        {/* Middle - Links */}
+        {/* Right Side - Hamburger Menu (visible on small screens) */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="focus:outline-none"
+            aria-label="Toggle Menu"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="h-8 w-8"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 6h18M3 12h18M3 18h18"
+              />
+            </svg>
+          </button>
+          {menuOpen && <HamburgerMenu onClose={() => setMenuOpen(false)} />}
+        </div>
+
+        {/* Middle Links (hidden on small screens) */}
         <div className="hidden md:flex space-x-10 font-semibold">
           <button
             onClick={() => handleScrollToSection("features")}
@@ -48,8 +70,8 @@ export default function TopNav() {
           </button>
         </div>
 
-        {/* Right Side - Buttons */}
-        <div className="space-x-4">
+        {/* Right Side - Buttons (hidden on small screens) */}
+        <div className="hidden md:flex space-x-4">
           {authenticated ? (
             <Link href="/dashboard">
               <Button
@@ -75,7 +97,7 @@ export default function TopNav() {
                   label="Sign Up"
                   variant="primary"
                   bgColor="bg-white"
-                  textColor="text-black"
+                  textColor="text-primary"
                   size="small"
                 />
               </Link>

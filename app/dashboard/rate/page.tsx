@@ -20,10 +20,11 @@ export default function RatePage() {
     try {
       const response = await submitUserFeedback(data);
       setSubmissionStatus({ success: true, message: response.message });
-    } catch (error: any) {
+    } catch (error: unknown) {
       setSubmissionStatus({
         success: false,
-        message: error.message || "Failed to submit feedback.",
+        message:
+          error instanceof Error ? error.message : "Failed to submit feedback.",
       });
     }
   };
