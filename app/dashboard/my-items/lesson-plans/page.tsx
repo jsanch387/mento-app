@@ -9,8 +9,12 @@ export default async function LessonPlansPage() {
     const apiClient = await createServerApiClient();
     const response = await apiClient.get("/items/preview/lesson-plans");
     previews = response.data.previews; // Extract the array of previews
-  } catch (error: any) {
-    console.error("Error fetching lesson plan previews:", error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error fetching lesson plan previews:", error.message);
+    } else {
+      console.error("Error fetching lesson plan previews:", error);
+    }
   }
 
   return (

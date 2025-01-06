@@ -38,7 +38,6 @@ export default function SideNav() {
       </div>
 
       {/* Footer Section */}
-      {/* Footer Section */}
       {authenticated && <NavFooter handleLogout={handleLogout} />}
     </div>
   );

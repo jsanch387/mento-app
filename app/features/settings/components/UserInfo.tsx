@@ -32,6 +32,7 @@ const UserInfo = ({
       // Update state with the latest data
       setFirstName(updatedUser.firstName);
       setLastName(updatedUser.lastName);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setStatus({ success: false, message: error.message });
     }

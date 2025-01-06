@@ -18,6 +18,7 @@ export const submitUserFeedback = async (data: RatingData) => {
   try {
     const response = await apiClient.post("/rating", data);
     return response.data; // Backend returns success message
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error("Error submitting feedback:", error.message);
     throw new Error(

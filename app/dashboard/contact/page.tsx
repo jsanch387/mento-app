@@ -19,8 +19,12 @@ export default function ContactPage() {
     try {
       const response = await submitContactForm(data);
       setStatus({ success: true, message: response.message });
-    } catch (error: any) {
-      setStatus({ success: false, message: error.message });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setStatus({ success: false, message: error.message });
+      } else {
+        setStatus({ success: false, message: "An unknown error occurred" });
+      }
     }
   };
 

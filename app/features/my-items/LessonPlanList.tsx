@@ -19,7 +19,7 @@ const LessonPlanList: React.FC<LessonPlanListProps> = ({ previews }) => {
   const router = useRouter();
 
   return (
-    <div className="flex flex-wrap gap-4 px-4">
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
       {previews.map((plan) => (
         <Card
           key={plan.id}
@@ -27,7 +27,7 @@ const LessonPlanList: React.FC<LessonPlanListProps> = ({ previews }) => {
           handleOnClick={() =>
             router.push(`/dashboard/my-items/lesson-plans/${plan.id}`)
           }
-          className="cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-200 p-4 flex flex-col min-h-[220px] w-[220px]"
+          className="cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-200 p-4 flex flex-col min-h-[180px]"
         >
           {/* Title */}
           <div className="h-12 mb-2">
@@ -43,9 +43,9 @@ const LessonPlanList: React.FC<LessonPlanListProps> = ({ previews }) => {
           </div>
 
           {/* Date */}
-          <div className="mt-auto">
+          <div className="mt-5">
             <p className="text-sm text-text-secondary">
-              Created on: {new Date(plan.created_at).toLocaleDateString()}
+              Created: {new Date(plan.created_at).toLocaleDateString()}
             </p>
           </div>
         </Card>

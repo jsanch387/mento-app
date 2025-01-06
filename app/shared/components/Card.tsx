@@ -4,7 +4,7 @@ interface CardProps {
   children: ReactNode; // Accept any type of content
   className?: string; // Allow additional styles if needed
   variant?: "frosted" | "solid" | "outline"; // Three variants
-  handleOnClick?: () => any;
+  handleOnClick?: () => void;
 }
 
 export default function Card({

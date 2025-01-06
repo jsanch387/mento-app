@@ -15,6 +15,7 @@ export const createCheckoutSession = async (
     });
 
     return response.data.url; // URL for Stripe Checkout session
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error(
       "Error creating checkout session:",

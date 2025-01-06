@@ -5,11 +5,13 @@ export default async function Settings() {
   let user = { firstName: "", lastName: "", tier: "free" }; // Default user object
 
   try {
-    // Fetch user profile using the server-side utility
     user = await fetchUserProfile();
-    console.log("Fetched user profile:", user);
-  } catch (error: any) {
-    console.error("Error fetching user profile:", error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error fetching user profile:", error.message);
+    } else {
+      console.error("Error fetching user profile:", error);
+    }
   }
 
   return (

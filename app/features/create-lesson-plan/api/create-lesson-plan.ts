@@ -1,7 +1,12 @@
 import apiClient from "@/app/lib/utils/api/apiClient";
 
 interface CreateLessonPlanResponse {
-  lessonPlan: any; // Adjust based on your backend response
+  // Define the structure of the response here
+  id: string;
+  gradeLevel: string;
+  subject: string;
+  duration: string;
+  additionalDetails?: string;
 }
 
 export const createLessonPlan = async ({
@@ -24,6 +29,7 @@ export const createLessonPlan = async ({
     });
 
     return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error(
       "Error creating lesson plan:",

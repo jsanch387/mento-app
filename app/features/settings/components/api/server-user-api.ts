@@ -14,6 +14,7 @@ export const fetchUserProfile = async (): Promise<{
     const apiClient = await createServerApiClient();
     const response = await apiClient.get("/user/profile");
     return response.data; // Profile data from the server
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error(
       "Error fetching user profile:",

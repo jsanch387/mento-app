@@ -1,6 +1,7 @@
 import LessonPlan from "@/app/features/create-lesson-plan/components/LessonPlan";
 import { createServerApiClient } from "@/app/lib/utils/api/serverApiClient";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function convertToCamelCase(lessonPlan: any) {
   return {
     ...lessonPlan,
@@ -34,8 +35,12 @@ export default async function LessonPlanPage(props: {
     const response = await apiClient.get(`/lesson-plans/${id}`);
 
     lessonPlan = convertToCamelCase(response.data);
-  } catch (error: any) {
-    console.error("Error fetching lesson plan:", error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error fetching lesson plan:", error.message);
+    } else {
+      console.error("Error fetching lesson plan:", error);
+    }
   }
 
   if (!lessonPlan) {

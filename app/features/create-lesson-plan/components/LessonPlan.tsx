@@ -2,7 +2,25 @@
 
 import React from "react";
 
-const LessonPlan = ({ lessonPlan }: { lessonPlan: any }) => {
+interface LessonPlanProps {
+  title: string;
+  overview: {
+    gradeLevel: string;
+    subject: string;
+    duration: string;
+    standards: string;
+  };
+  materials: string[];
+  learningObjectives: string[];
+  lessonPlanStructure: {
+    [key: string]: {
+      time: string;
+      description: string;
+    };
+  };
+}
+
+const LessonPlan = ({ lessonPlan }: { lessonPlan: LessonPlanProps }) => {
   if (!lessonPlan) {
     return null; // Render nothing if no lesson plan is available
   }
@@ -59,7 +77,10 @@ const LessonPlan = ({ lessonPlan }: { lessonPlan: any }) => {
       <div className="mb-6">
         <h2 className="text-lg font-semibold mb-4">Lesson Plan Structure</h2>
         {Object.entries(lessonPlan.lessonPlanStructure).map(
-          ([key, value]: [string, any], index: number) => (
+          (
+            [key, value]: [string, { time: string; description: string }],
+            index: number
+          ) => (
             <div key={index} className="mb-4">
               <h3 className="text-md font-semibold mb-2 capitalize">
                 {key} ({value.time})

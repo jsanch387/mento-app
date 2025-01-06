@@ -49,11 +49,11 @@ const RatingForm = ({
 
   return (
     <form
-      className="space-y-6 w-full max-w-lg mx-auto rounded-lg"
+      className="space-y-6 mt-10 w-full max-w-lg mx-auto rounded-lg"
       onSubmit={handleSubmit}
     >
-      <h1 className="text-4xl font-bold mb-6 text-left">
-        We Value Your Feedback!
+      <h1 className="text-4xl font-bold mb-10 text-left">
+        We value your feedback!
       </h1>
 
       {/* First Name */}

@@ -14,10 +14,15 @@ export const submitContactForm = async (data: {
   try {
     const response = await apiClient.post("/contact", data);
     return response.data; // Return the response from the backend
-  } catch (error: any) {
-    console.error("Error submitting contact form:", error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error submitting contact form:", error.message);
+    } else {
+      console.error("Error submitting contact form:", error);
+    }
     throw new Error(
-      error.response?.data?.message || "Failed to submit contact form."
+      (error as { response?: { data?: { message?: string } } }).response?.data
+        ?.message || "Failed to submit contact form."
     );
   }
 };

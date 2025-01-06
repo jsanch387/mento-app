@@ -1,7 +1,6 @@
 import Card from "@/app/shared/components/Card";
 import React from "react";
 import BooksIcon from "@/public/books-icon.png";
-import QuestionIcon from "@/public/question-icons.png";
 import Image from "next/image";
 import Link from "next/link";
 

@@ -61,8 +61,11 @@ const LessonPlanForm = ({
   };
 
   return (
-    <form className="space-y-8 w-full max-w-lg mx-auto" onSubmit={handleSubmit}>
-      <h1 className="text-4xl font-bold mb-16">Create A New Lesson Plan</h1>
+    <form
+      className="space-y-8 mt-10 w-full max-w-lg px-4 mx-auto"
+      onSubmit={handleSubmit}
+    >
+      <h1 className="text-4xl font-bold mb-16">Create a new lesson plan</h1>
 
       <Dropdown
         label="What subject are you teaching?"
