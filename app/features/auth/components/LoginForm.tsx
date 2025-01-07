@@ -48,7 +48,7 @@ export default function LoginForm() {
       variant="solid"
       className="w-full max-w-md sm:max-w-lg lg:max-w-xl mx-4 sm:mx-auto p-6 sm:p-8 lg:p-10"
     >
-      <div className="space-y-8 py-8">
+      <div className="space-y-6 py-8">
         <LoginHeader />
         {!isOtpSent ? (
           <RequestOtpForm
@@ -65,7 +65,9 @@ export default function LoginForm() {
           />
         )}
         {message && (
-          <p className="mt-4 text-sm text-green-500 text-center">{message}</p>
+          <p className="mt-4 font-semibold text-md text-green-500 text-center">
+            {message}
+          </p>
         )}
       </div>
     </Card>

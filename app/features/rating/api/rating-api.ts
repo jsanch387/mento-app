@@ -1,4 +1,3 @@
-// src/app/lib/utils/api/rating.ts
 import apiClient from "@/app/lib/utils/api/apiClient";
 
 interface RatingData {
@@ -9,21 +8,34 @@ interface RatingData {
   comment?: string;
 }
 
+interface ApiError {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
+  message?: string;
+}
+
 /**
  * Submit user feedback to the backend API.
  * @param data - User rating form data
  * @returns Confirmation message from backend
  */
-export const submitUserFeedback = async (data: RatingData) => {
+export const submitUserFeedback = async (
+  data: RatingData
+): Promise<{ message: string }> => {
   try {
     const response = await apiClient.post("/rating", data);
     return response.data; // Backend returns success message
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    console.error("Error submitting feedback:", error.message);
-    throw new Error(
-      error.response?.data?.error ||
-        "Failed to submit feedback. Please try again."
-    );
+  } catch (error) {
+    const typedError = error as ApiError; // Use the `ApiError` type
+    console.error("Error submitting feedback:", typedError);
+
+    const errorMessage =
+      typedError.response?.data?.message ||
+      "Failed to submit feedback. Please try again.";
+
+    throw new Error(errorMessage);
   }
 };

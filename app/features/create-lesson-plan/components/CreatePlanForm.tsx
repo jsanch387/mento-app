@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { createLessonPlan } from "../api/create-lesson-plan";
 import useTokenStore from "../../token-tracker/store/tokenStore";
 import LessonPlanForm from "./LessonPlanForm";
-import LoadingIndicator from "./LoadingIndicator";
-import ErrorMessage from "./ErrorMessage";
+import ErrorMessage from "../../../shared/components/ErrorMessage";
 import LessonPlan from "./LessonPlan";
 import { consumeToken } from "../../settings/components/api/user-api";
+import LoadingSpinner from "@/app/shared/components/LoadingSpinner";
 
 const CreatePlanForm = () => {
   const { tokens, setTokens } = useTokenStore();
@@ -72,7 +72,7 @@ const CreatePlanForm = () => {
       {!lessonPlan && !loading && !error && (
         <LessonPlanForm onSubmit={handleGenerateLessonPlan} />
       )}
-      {loading && <LoadingIndicator />}
+      {loading && <LoadingSpinner />}
       {lessonPlan && <LessonPlan lessonPlan={lessonPlan} />}
       {error && <ErrorMessage error={error} />}
     </div>

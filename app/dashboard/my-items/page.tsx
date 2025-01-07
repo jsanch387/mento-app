@@ -1,3 +1,4 @@
+import ErrorMessage from "@/app/shared/components/ErrorMessage";
 import MyItemsList from "@/app/features/my-items/MyItemsList";
 import { createServerApiClient } from "@/app/lib/utils/api/serverApiClient";
 import Button from "@/app/shared/components/Button";
@@ -6,16 +7,22 @@ import Link from "next/link";
 
 export default async function MyItemsPage() {
   let items = [];
+  let error: string | null = null;
 
   try {
     const apiClient = await createServerApiClient();
     const response = await apiClient.get("/items");
     items = response.data; // Backend response: [{ itemType, count }]
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error("Error fetching user items:", error.message);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(
+        "Error fetching user items:",
+        err.message || "Unknown error"
+      );
+      error = err.message || "An unknown error occurred.";
     } else {
-      console.error("Unexpected error:", error);
+      console.error("Unexpected error:", err);
+      error = "An unexpected error occurred.";
     }
   }
 
@@ -25,7 +32,11 @@ export default async function MyItemsPage() {
       <h1 className="text-3xl sm:text-4xl font-bold mb-10 text-left">
         My Items
       </h1>
-      {items.length > 0 ? (
+
+      {/* If there's an error, display the error message */}
+      {error ? (
+        <ErrorMessage error={error} />
+      ) : items.length > 0 ? (
         <MyItemsList items={items} />
       ) : (
         <Card className="flex flex-col items-center text-center w-full max-w-lg">

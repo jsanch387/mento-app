@@ -7,6 +7,7 @@ import Button from "@/app/shared/components/Button";
 import useAuthStore from "../../auth/store/authStore";
 import HamburgerMenu from "@/app/shared/components/HamburgerMenu";
 import { handleScrollToSection } from "@/app/lib/utils/helpers/helperFunctions";
+import AuthInitializer from "../../auth/AuthInitializer";
 
 export default function TopNav() {
   const { authenticated } = useAuthStore(); // Access authentication state
@@ -16,6 +17,7 @@ export default function TopNav() {
 
   return (
     <nav className="bg-primary text-white h-[60px] w-full sticky top-0 z-50">
+      <AuthInitializer />
       {/* Centered Content */}
       <div className="container mx-auto h-full flex items-center justify-between px-8">
         {/* Left Side - Logo */}

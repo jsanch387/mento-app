@@ -3,12 +3,17 @@
 import React, { useState } from "react";
 import RatingForm from "@/app/features/rating/RatingForm";
 import { submitUserFeedback } from "@/app/features/rating/api/rating-api";
+import ErrorMessage from "@/app/shared/components/ErrorMessage";
+import SuccessMessage from "@/app/shared/components/SuccessMessage";
+
+interface SubmissionStatus {
+  success: boolean;
+  message: string;
+}
 
 export default function RatePage() {
-  const [submissionStatus, setSubmissionStatus] = useState<{
-    success: boolean;
-    message: string;
-  } | null>(null);
+  const [submissionStatus, setSubmissionStatus] =
+    useState<SubmissionStatus | null>(null);
 
   const handleFormSubmit = async (data: {
     firstName: string;
@@ -20,26 +25,26 @@ export default function RatePage() {
     try {
       const response = await submitUserFeedback(data);
       setSubmissionStatus({ success: true, message: response.message });
-    } catch (error: unknown) {
+    } catch (error) {
+      const typedError = error as Error;
+      console.error("Error submitting feedback:", typedError.message);
+
       setSubmissionStatus({
         success: false,
-        message:
-          error instanceof Error ? error.message : "Failed to submit feedback.",
+        message: typedError.message || "An unknown error occurred.",
       });
     }
   };
 
   return (
-    <div className="min-h-screen flex  justify-center px-6">
+    <div className="min-h-screen flex flex-col items-center px-6">
       {/* Show Success/Error Message */}
       {submissionStatus ? (
-        <div
-          className={`text-center text-4xl font-semibold ${
-            submissionStatus.success ? "text-green-600" : "text-red-600"
-          }`}
-        >
-          {submissionStatus.message}
-        </div>
+        submissionStatus.success ? (
+          <SuccessMessage message={submissionStatus.message} />
+        ) : (
+          <ErrorMessage error={submissionStatus.message} />
+        )
       ) : (
         <RatingForm onSubmit={handleFormSubmit} />
       )}
