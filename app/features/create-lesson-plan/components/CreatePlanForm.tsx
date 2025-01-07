@@ -7,12 +7,13 @@ import LessonPlanForm from "./LessonPlanForm";
 import ErrorMessage from "../../../shared/components/ErrorMessage";
 import LessonPlan from "./LessonPlan";
 import { consumeToken } from "../../settings/components/api/user-api";
-import LoadingSpinner from "@/app/shared/components/LoadingSpinner";
+import ProgressLoading from "@/app/shared/components/ProgressLoading";
 
 const CreatePlanForm = () => {
   const { tokens, setTokens } = useTokenStore();
   const [lessonPlan, setLessonPlan] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [loadingComplete, setLoadingComplete] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleGenerateLessonPlan = async (requestData: {
@@ -22,48 +23,36 @@ const CreatePlanForm = () => {
     additionalDetails?: string;
   }) => {
     console.log("Starting lesson plan generation...");
-    console.log("Current token count:", tokens);
 
     if (tokens === undefined) {
-      console.error("Tokens state is undefined.");
       setError("Unable to determine token status. Please try again later.");
       return;
     }
 
     if (tokens !== null && tokens <= 0) {
-      console.error("No tokens remaining.");
       setError("You have no tokens remaining. Please upgrade your plan.");
       return;
     }
 
     setLoading(true);
+    setLoadingComplete(false); // Reset loadingComplete state
     setError(null);
 
     try {
-      console.log("Generating lesson plan with data:", requestData);
-
-      const response = await createLessonPlan(requestData);
-      console.log("Lesson plan generated successfully:", response.lessonPlan);
+      const response = await createLessonPlan(requestData); // Simulate async task
       setLessonPlan(response.lessonPlan);
 
       if (tokens !== null) {
-        console.log("Consuming a token...");
         await consumeToken();
         setTokens(tokens - 1);
-        console.log("Token consumed. Remaining tokens:", tokens - 1);
-      } else {
-        console.log("User has unlimited tokens. Skipping token consumption.");
       }
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        console.error("Error generating lesson plan:", err.message);
-        setError(err.message || "Failed to create lesson plan.");
-      } else {
-        console.error("Unexpected error:", err);
-        setError("An unexpected error occurred.");
-      }
+      setError(
+        err instanceof Error ? err.message : "An unexpected error occurred."
+      );
     } finally {
-      setLoading(false);
+      setLoadingComplete(true); // Mark loading as complete
+      setTimeout(() => setLoading(false), 500); // Add slight delay to ensure smooth UX
     }
   };
 
@@ -72,7 +61,18 @@ const CreatePlanForm = () => {
       {!lessonPlan && !loading && !error && (
         <LessonPlanForm onSubmit={handleGenerateLessonPlan} />
       )}
-      {loading && <LoadingSpinner />}
+
+      {loading && (
+        <ProgressLoading
+          isComplete={loadingComplete}
+          duration={10000} // Match the 10-second generation duration
+          onCancel={() => {
+            setLoading(false);
+            setError("Lesson plan generation canceled.");
+          }}
+        />
+      )}
+
       {lessonPlan && <LessonPlan lessonPlan={lessonPlan} />}
       {error && <ErrorMessage error={error} />}
     </div>

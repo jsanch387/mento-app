@@ -2,7 +2,7 @@ import CreatePlanForm from "@/app/features/create-lesson-plan/components/CreateP
 
 export default function CreatePlanPage() {
   return (
-    <div className="min-h-screen flex flex-col items-center  ">
+    <div className="min-h-screen flex flex-col ">
       <CreatePlanForm />
     </div>
   );
