@@ -74,7 +74,7 @@ const CreatePlanForm = () => {
       )}
 
       {lessonPlan && <LessonPlan lessonPlan={lessonPlan} />}
-      {error && <ErrorMessage error={error} />}
+      {error && <ErrorMessage className="max-w-lg mx-auto" error={error} />}
     </div>
   );
 };

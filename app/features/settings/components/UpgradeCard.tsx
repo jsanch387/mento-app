@@ -25,7 +25,7 @@ const UpgradeCard = () => {
 
       {/* Description */}
       <p className="text-text-secondary text-lg mb-6">
-        Upgrade your plan to Pro or Unlimited and keep creating without limits!
+        Choose Basic, Pro, or Unlimited and keep creating without limits!
       </p>
 
       {/* Upgrade Button */}
