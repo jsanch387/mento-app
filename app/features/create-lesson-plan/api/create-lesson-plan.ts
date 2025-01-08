@@ -1,13 +1,5 @@
 import apiClient from "@/app/lib/utils/api/apiClient";
-
-interface CreateLessonPlanResponse {
-  // Define the structure of the response here
-  id: string;
-  gradeLevel: string;
-  subject: string;
-  duration: string;
-  additionalDetails?: string;
-}
+import { CreateLessonPlanResponse } from "../types/types";
 
 export const createLessonPlan = async ({
   gradeLevel,
@@ -27,6 +19,11 @@ export const createLessonPlan = async ({
       duration,
       additionalDetails,
     });
+
+    // Validate that the response contains the `lessonPlan` object
+    if (!response.data.lessonPlan) {
+      throw new Error("Invalid API response: Missing 'lessonPlan' field.");
+    }
 
     return response.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

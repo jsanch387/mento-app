@@ -6,12 +6,15 @@ import useTokenStore from "../../token-tracker/store/tokenStore";
 import LessonPlanForm from "./LessonPlanForm";
 import ErrorMessage from "../../../shared/components/ErrorMessage";
 import LessonPlan from "./LessonPlan";
-import { consumeToken } from "../../settings/components/api/user-api";
 import ProgressLoading from "@/app/shared/components/ProgressLoading";
+import { consumeToken } from "../../settings/components/api/user-api";
+import { CreateLessonPlanResponse } from "../types/types";
 
 const CreatePlanForm = () => {
   const { tokens, setTokens } = useTokenStore();
-  const [lessonPlan, setLessonPlan] = useState<string | null>(null);
+  const [lessonPlan, setLessonPlan] = useState<
+    CreateLessonPlanResponse["lessonPlan"] | null
+  >(null); // Use the correct type
   const [loading, setLoading] = useState(false);
   const [loadingComplete, setLoadingComplete] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -39,8 +42,11 @@ const CreatePlanForm = () => {
     setError(null);
 
     try {
-      const response = await createLessonPlan(requestData); // Simulate async task
-      setLessonPlan(response.lessonPlan);
+      const response: CreateLessonPlanResponse = await createLessonPlan(
+        requestData
+      ); // Fetch the lesson plan
+      console.log("API Response:", response); // Debugging log
+      setLessonPlan(response.lessonPlan); // Access lessonPlan from response
 
       if (tokens !== null) {
         await consumeToken();
@@ -61,7 +67,6 @@ const CreatePlanForm = () => {
       {!lessonPlan && !loading && !error && (
         <LessonPlanForm onSubmit={handleGenerateLessonPlan} />
       )}
-
       {loading && (
         <ProgressLoading
           isComplete={loadingComplete}
@@ -72,8 +77,8 @@ const CreatePlanForm = () => {
           }}
         />
       )}
-
-      {lessonPlan && <LessonPlan lessonPlan={lessonPlan} />}
+      {lessonPlan && <LessonPlan lessonPlan={lessonPlan} />}{" "}
+      {/* Render the lesson plan */}
       {error && <ErrorMessage className="max-w-lg mx-auto" error={error} />}
     </div>
   );

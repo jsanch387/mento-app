@@ -1,21 +1,25 @@
 import LessonPlan from "@/app/features/create-lesson-plan/components/LessonPlan";
 import { createServerApiClient } from "@/app/lib/utils/api/serverApiClient";
 
+type Params = Promise<{ id: string }>;
+
+interface LessonPlanPageProps {
+  params: Params;
+}
+
+// Utility function to handle camel case
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function convertToCamelCase(lessonPlan: any) {
   return {
     ...lessonPlan,
-    materials: lessonPlan.materials || [], // Ensure array fallback
-    learningObjectives: lessonPlan.learning_objectives || [], // Ensure array fallback
-    lessonPlanStructure: lessonPlan.lesson_plan_structure || {}, // Ensure object fallback
+    materials: lessonPlan.materials || [],
+    learningObjectives: lessonPlan.learning_objectives || [],
+    lessonPlanStructure: lessonPlan.lesson_plan_structure || {},
   };
 }
 
-export default async function LessonPlanPage(props: {
-  params: { id: string };
-}) {
-  const params = await Promise.resolve(props.params); // Ensures params is awaited properly
-  const id = params?.id;
+export default async function LessonPlanPage({ params }: LessonPlanPageProps) {
+  const { id } = await params;
 
   if (!id) {
     console.error("Missing ID in params");
@@ -33,7 +37,6 @@ export default async function LessonPlanPage(props: {
   try {
     const apiClient = await createServerApiClient();
     const response = await apiClient.get(`/lesson-plans/${id}`);
-
     lessonPlan = convertToCamelCase(response.data);
   } catch (error: unknown) {
     if (error instanceof Error) {
