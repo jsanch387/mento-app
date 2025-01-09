@@ -34,9 +34,7 @@ export default function TokenTracker() {
         console.error("Error fetching tokens:", err);
 
         // Provide user-friendly error message
-        setError(
-          "Unable to fetch tokens. Please check your connection and try again."
-        );
+        setError("Token Error");
       } finally {
         setLoading(false); // Stop loading spinner
       }

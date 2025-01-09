@@ -3,7 +3,7 @@ import { getAccessToken } from "../supabase/client";
 
 // Create an Axios instance
 const apiClient = axios.create({
-  baseURL: "http://localhost:8000", // Backend API URL
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL, // Backend API URL
   headers: {
     "Content-Type": "application/json",
   },
