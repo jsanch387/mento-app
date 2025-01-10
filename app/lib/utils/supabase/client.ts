@@ -22,7 +22,6 @@ export async function getAccessToken() {
       return null;
     }
 
-    console.log("data.session.access_token", data.session.access_token);
     return data.session.access_token; // Extract the access token
   } catch (unexpectedError) {
     console.error(

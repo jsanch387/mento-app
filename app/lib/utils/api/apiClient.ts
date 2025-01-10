@@ -14,7 +14,6 @@ apiClient.interceptors.request.use(
   async (config) => {
     try {
       const token = await getAccessToken(); // Fetch access token from Supabase
-      console.log("token", token);
 
       if (token) {
         config.headers.Authorization = `Bearer ${token}`; // Attach token to headers

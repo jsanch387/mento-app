@@ -20,8 +20,6 @@ export default function SideNav() {
     }
   };
 
-  console.log("authenticated", authenticated);
-
   return (
     <div className="w-[260px] h-screen bg-gray-100 shadow-md flex flex-col justify-between">
       {/* Top Section */}

@@ -18,10 +18,7 @@ export default function TokenTracker() {
     async function fetchTokens() {
       setLoading(true); // Start loading spinner
       try {
-        console.log("Fetching tokens...");
-
         const tokenCount = await getUserTokens();
-        console.log("Tokens:", tokenCount);
 
         if (tokenCount === null) {
           setTokens(null); // Unlimited tokens

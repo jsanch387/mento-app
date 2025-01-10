@@ -14,8 +14,6 @@ export default function AuthInitializer() {
     );
 
     async function fetchSession() {
-      console.log("Fetching session...");
-
       try {
         const { data, error } = await supabase.auth.getSession();
 
@@ -29,7 +27,6 @@ export default function AuthInitializer() {
           console.warn("No active session found.");
           setAuthenticated(false);
         } else {
-          console.log("Session found:", data.session);
           setAuthenticated(true);
         }
       } catch (unexpectedError) {

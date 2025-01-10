@@ -29,12 +29,6 @@ export default function LoginForm() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget as HTMLFormElement);
 
-    // Debugging log to verify email and OTP are passed
-    console.log("Verifying OTP with payload:", {
-      email: formData.get("email"),
-      otp: formData.get("otp"),
-    });
-
     const responseMessage = await verifyOtp(formData);
     setMessage(responseMessage);
 

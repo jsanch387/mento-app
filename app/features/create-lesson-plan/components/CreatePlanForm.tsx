@@ -25,8 +25,6 @@ const CreatePlanForm = () => {
     duration: string;
     additionalDetails?: string;
   }) => {
-    console.log("Starting lesson plan generation...");
-
     if (tokens === undefined) {
       setError("Unable to determine token status. Please try again later.");
       return;
@@ -45,7 +43,6 @@ const CreatePlanForm = () => {
       const response: CreateLessonPlanResponse = await createLessonPlan(
         requestData
       ); // Fetch the lesson plan
-      console.log("API Response:", response); // Debugging log
       setLessonPlan(response.lessonPlan); // Access lessonPlan from response
 
       if (tokens !== null) {
