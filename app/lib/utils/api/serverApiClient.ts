@@ -20,7 +20,7 @@ export async function createServerApiClient() {
 
   // Create and return an Axios client with the Authorization header
   return axios.create({
-    baseURL: "http://localhost:8000", // Backend API URL
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL, // Backend API URL
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
