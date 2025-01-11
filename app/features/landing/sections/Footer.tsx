@@ -1,6 +1,7 @@
 "use client";
 
 import TextLogo from "@/app/shared/components/TextLogo";
+import Link from "next/link";
 
 export default function Footer() {
   const handleScrollToSection = (sectionId: string) => {
@@ -48,9 +49,10 @@ export default function Footer() {
           {/* Resources Column */}
           <div className="flex flex-col">
             <h4 className="text-lg font-semibold mb-3">Resources</h4>
-            <a href="#terms" className="text-sm hover:underline">
-              Terms and Conditions
-            </a>
+
+            <Link href="/resources/privacy" className="text-sm hover:underline">
+              Privacy and terms of use
+            </Link>
           </div>
         </div>
       </div>
