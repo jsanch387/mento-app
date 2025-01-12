@@ -13,7 +13,7 @@ export default function NavFooter({ handleLogout }: NavFooterProps) {
       {/* Logout Button */}
       <button
         onClick={handleLogout}
-        className="flex items-center mb-4 gap-4 px-4 py-2 w-full rounded-md text-text-secondary hover:bg-gray-200"
+        className="flex items-center  gap-4 px-4 py-2 w-full rounded-md text-text-secondary hover:bg-gray-200"
       >
         <ArrowLeftEndOnRectangleIcon className="h-5 w-5" aria-hidden="true" />
         <span className="font-semibold">Log Out</span>

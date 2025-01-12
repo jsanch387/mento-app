@@ -12,19 +12,22 @@ const features = [
     title: "Lesson Plan Generator",
     description:
       "Create detailed lesson plans in minutes with AI-powered tools. Save time and focus on engaging your students.",
-    icon: BooksIcon, // Updated to use the image source
+    icon: BooksIcon,
+    isComingSoon: false, // Indicates the feature is available
   },
   {
     title: "Lab Creator",
     description:
       "Design engaging, hands-on lab activities with ease. Generate experiments tailored to your lesson and grade level.",
-    icon: FlaskIcon, // Updated to use the image source
+    icon: FlaskIcon,
+    isComingSoon: true, // Indicates the feature is coming soon
   },
   {
     title: "Question Set Creator",
     description:
       "Effortlessly create quizzes and question sets tailored to your lesson content. Save time and assess student understanding with ease.",
-    icon: QuestionIcon, // Updated to use the image source
+    icon: QuestionIcon,
+    isComingSoon: true, // Indicates the feature is coming soon
   },
 ];
 
@@ -34,15 +37,24 @@ export default function FeatureCards() {
       {features.map((feature, index) => (
         <Card variant="outline" key={index}>
           <div className="flex flex-col items-start">
-            {/* Icon */}
-            <Image
-              className="mb-5"
-              src={feature.icon}
-              alt={`${feature.title} Icon`}
-              width={70}
-              height={70}
-              priority // Ensures this is loaded as a priority for LCP
-            />
+            {/* Icon and Coming Soon Label */}
+            <div className="flex items-center justify-between w-full mb-5">
+              {/* Icon on the left */}
+              <Image
+                src={feature.icon}
+                alt={`${feature.title} Icon`}
+                width={70}
+                height={70}
+                priority
+              />
+
+              {/* "Coming Soon" message on the right */}
+              {feature.isComingSoon && (
+                <span className="text-sm font-semibold text-gray-500 px-2 py-1 border border-gray-300 rounded">
+                  Coming Soon
+                </span>
+              )}
+            </div>
             {/* Title */}
             <h3 className="text-2xl font-semibold mb-5">{feature.title}</h3>
             {/* Description */}

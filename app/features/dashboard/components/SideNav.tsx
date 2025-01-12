@@ -7,12 +7,17 @@ import { logout } from "../../auth/actions";
 import useAuthStore from "../../auth/store/authStore";
 import NavFooter from "./NavFooter";
 
-export default function SideNav() {
+interface SideNavProps {
+  closeSideNav: () => void;
+}
+
+export default function SideNav({ closeSideNav }: SideNavProps) {
   const { authenticated } = useAuthStore();
 
   const handleLogout = async () => {
     try {
       await logout();
+      closeSideNav(); // Close the side nav after logging out
     } catch (error: unknown) {
       if ((error as Error)?.message !== "NEXT_REDIRECT") {
         console.error("Logout failed:", (error as Error).message);
@@ -26,13 +31,16 @@ export default function SideNav() {
       <div>
         {/* Logo */}
         <div className="py-6 text-center">
-          <Link href="/">
+          <Link href="/" onClick={closeSideNav}>
             <TextLogo />
           </Link>
         </div>
 
         {/* Navigation Tabs */}
-        <SideNavLinks authenticated={authenticated} />
+        <SideNavLinks
+          authenticated={authenticated}
+          closeSideNav={closeSideNav}
+        />
       </div>
 
       {/* Footer Section */}

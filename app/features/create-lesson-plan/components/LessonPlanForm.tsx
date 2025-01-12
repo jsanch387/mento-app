@@ -1,27 +1,26 @@
-"use client";
-
 import React, { useState } from "react";
 import Dropdown from "@/app/shared/components/DropDown";
 import Input from "@/app/shared/components/Input";
 import Button from "@/app/shared/components/Button";
 
-// Predefined options for subjects and grades
 const subjectOptions = [
   "Math",
   "Science",
   "History",
   "Language Arts",
   "English Literature",
-];
-
-const gradeOptions = [
-  "1st Grade",
-  "2nd Grade",
-  "3rd Grade",
-  "4th Grade",
-  "5th Grade",
-  "6th Grade",
-  "11th Grade",
+  "Social Studies",
+  "Art",
+  "Music",
+  "Physical Education",
+  "Health",
+  "Computer Science",
+  "STEM/STEAM",
+  "Economics",
+  "Government",
+  "World Languages",
+  "Geography",
+  "Special Education",
 ];
 
 const LessonPlanForm = ({
@@ -35,13 +34,14 @@ const LessonPlanForm = ({
   }) => void;
 }) => {
   const [subject, setSubject] = useState("");
+  const [customSubject, setCustomSubject] = useState("");
   const [grade, setGrade] = useState("");
   const [time, setTime] = useState("");
   const [lessonDetails, setLessonDetails] = useState("");
 
   const isFormValid = () => {
     return (
-      subject.trim() !== "" &&
+      (subject.trim() !== "" || customSubject.trim() !== "") &&
       grade.trim() !== "" &&
       time.trim() !== "" &&
       lessonDetails.trim() !== ""
@@ -53,7 +53,7 @@ const LessonPlanForm = ({
     if (isFormValid()) {
       onSubmit({
         gradeLevel: grade,
-        subject,
+        subject: customSubject || subject,
         duration: time,
         additionalDetails: lessonDetails,
       });
@@ -74,10 +74,33 @@ const LessonPlanForm = ({
         onSelect={(value: string) => setSubject(value)}
       />
 
+      <Input
+        id="customSubject"
+        name="customSubject"
+        type="text"
+        label="Or type your own subject"
+        placeholder="e.g., Marine Biology, Creative Writing"
+        value={customSubject}
+        onChange={(e) => setCustomSubject(e.target.value)}
+      />
+
       <Dropdown
         label="What grade are you teaching?"
         placeholder="Select a grade"
-        options={gradeOptions}
+        options={[
+          "1st Grade",
+          "2nd Grade",
+          "3rd Grade",
+          "4th Grade",
+          "5th Grade",
+          "6th Grade",
+          "7th Grade",
+          "8th Grade",
+          "9th Grade",
+          "10th Grade",
+          "11th Grade",
+          "12th Grade",
+        ]}
         onSelect={(value: string) => setGrade(value)}
       />
 
@@ -97,15 +120,20 @@ const LessonPlanForm = ({
           htmlFor="lessonDetails"
           className="block text-md font-semibold text-gray-700"
         >
-          Lesson Topic and Details
+          Describe the Lesson Topic and Key Details
         </label>
+        <p className="text-sm text-text-secondary">
+          The more details you provide, the better the generated lesson plan
+          will be. Include specifics like topic, activities, and any teaching
+          aids or goals.
+        </p>
         <textarea
           id="lessonDetails"
           name="lessonDetails"
-          placeholder="e.g., 5th grade science lesson cycle with group activities"
+          placeholder="e.g., A 5th-grade science lesson on the water cycle, including an engaging group activity where students simulate evaporation and condensation"
           value={lessonDetails}
           onChange={(e) => setLessonDetails(e.target.value)}
-          className="p-3 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary h-32 resize-none"
+          className="p-3 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary h-40 resize-none"
         />
       </div>
 

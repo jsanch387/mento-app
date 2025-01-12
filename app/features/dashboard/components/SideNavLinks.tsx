@@ -12,6 +12,7 @@ import {
 
 interface SideNavLinksProps {
   authenticated: boolean;
+  closeSideNav: () => void; // Add this property
 }
 
 // Primary links for authenticated users
@@ -36,7 +37,10 @@ const secondaryLinksUnauth = [
   { name: "Contact Us", href: "/dashboard/contact", icon: EnvelopeIcon },
 ];
 
-export default function SideNavLinks({ authenticated }: SideNavLinksProps) {
+export default function SideNavLinks({
+  authenticated,
+  closeSideNav,
+}: SideNavLinksProps) {
   const pathname = usePathname();
 
   // Determine links to render
@@ -46,9 +50,7 @@ export default function SideNavLinks({ authenticated }: SideNavLinksProps) {
     : secondaryLinksUnauth;
 
   // Render links
-  const renderLinks = (
-    links: typeof primaryLinks | typeof secondaryLinksAuth
-  ) =>
+  const renderLinks = (links: typeof primaryLinks) =>
     links.map((link) => {
       const isActive = pathname === link.href;
 
@@ -61,6 +63,7 @@ export default function SideNavLinks({ authenticated }: SideNavLinksProps) {
         >
           <Link
             href={link.href}
+            onClick={closeSideNav} // Close side nav on link click
             className={`flex items-center gap-4 px-4 py-2 rounded-md ${
               isActive
                 ? "text-primary"
@@ -88,10 +91,10 @@ export default function SideNavLinks({ authenticated }: SideNavLinksProps) {
   return (
     <nav className="mt-3 mx-4">
       {renderPrimaryLinks.length > 0 && (
-        <ul className="space-y-4">{renderLinks(renderPrimaryLinks)}</ul>
-      )}
-      {renderPrimaryLinks.length > 0 && (
-        <div className="my-6 border-t border-gray-300"></div>
+        <>
+          <ul className="space-y-4">{renderLinks(renderPrimaryLinks)}</ul>
+          <div className="my-6 border-t border-gray-300"></div>
+        </>
       )}
       <ul className="space-y-4">{renderLinks(renderSecondaryLinks)}</ul>
     </nav>
