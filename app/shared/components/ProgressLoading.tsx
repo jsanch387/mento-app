@@ -3,13 +3,11 @@
 import React, { useState, useEffect } from "react";
 
 interface ProgressLoadingProps {
-  onCancel?: () => void;
   isComplete?: boolean; // Indicates when the operation is done
   duration?: number; // Total time in milliseconds for progress bar animation
 }
 
 export default function ProgressLoading({
-  onCancel,
   isComplete = false,
   duration = 10000, // Default to 10 seconds
 }: ProgressLoadingProps) {
@@ -70,16 +68,6 @@ export default function ProgressLoading({
           {currentMessage}
         </p>
       </div>
-
-      {/* Cancel Button */}
-      {onCancel && (
-        <button
-          onClick={onCancel}
-          className="mt-4 px-4 py-2 text-sm font-medium text-white bg-red-500 rounded hover:bg-red-600"
-        >
-          Cancel
-        </button>
-      )}
     </div>
   );
 }

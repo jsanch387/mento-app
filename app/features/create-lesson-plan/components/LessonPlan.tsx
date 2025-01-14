@@ -26,7 +26,7 @@ const LessonPlan = ({ lessonPlan }: { lessonPlan: LessonPlanProps }) => {
   }
 
   return (
-    <div className="mt-8 p-6 border rounded max-w-4xl ">
+    <div className="mt-8 p-6 border rounded max-w-4xl mx-auto">
       {/* Title */}
       <h1 className="text-3xl font-bold mb-6">{lessonPlan.title}</h1>
 

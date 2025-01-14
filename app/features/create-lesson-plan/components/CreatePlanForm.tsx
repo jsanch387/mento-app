@@ -68,13 +68,9 @@ const CreatePlanForm = () => {
         <ProgressLoading
           isComplete={loadingComplete}
           duration={10000} // Match the 10-second generation duration
-          onCancel={() => {
-            setLoading(false);
-            setError("Lesson plan generation canceled.");
-          }}
         />
       )}
-      {lessonPlan && <LessonPlan lessonPlan={lessonPlan} />}{" "}
+      {lessonPlan && <LessonPlan lessonPlan={lessonPlan} />}
       {/* Render the lesson plan */}
       {error && <ErrorMessage className="max-w-lg mx-auto" error={error} />}
     </div>
