@@ -9,7 +9,7 @@ const UpgradeCard = () => {
   const router = useRouter();
 
   const handleUpgradeClick = () => {
-    //take to upgrade page
+    // Take to upgrade page
     router.push("/dashboard/upgrade");
   };
 

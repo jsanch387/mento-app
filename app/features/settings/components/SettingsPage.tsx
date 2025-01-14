@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import Card from "@/app/shared/components/Card";
 import UpgradeCard from "./UpgradeCard";
 import UserInfo from "./UserInfo";
+import UserPlan from "./UserPlan";
 
 export default function SettingsPage({
   user,
@@ -17,16 +17,7 @@ export default function SettingsPage({
       </h1>
 
       {/* Conditional Rendering for Upgrade or Current Plan Card */}
-      {user.tier === "free" ? (
-        <UpgradeCard />
-      ) : (
-        <Card className="w-full max-w-3xl">
-          <h2 className="text-3xl font-bold text-blue-600 mb-4">Your Plan</h2>
-          <p className="text-text-secondary text-lg mb-6">
-            You are currently on the <strong>{user.tier}</strong> plan.
-          </p>
-        </Card>
-      )}
+      {user.tier === "free" ? <UpgradeCard /> : <UserPlan tier={user.tier} />}
 
       {/* User Info Card */}
       <UserInfo firstName={user.firstName} lastName={user.lastName} />
