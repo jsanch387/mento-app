@@ -13,7 +13,7 @@ export default function Card({
   variant = "outline", // Default to outline variant
   handleOnClick,
 }: CardProps) {
-  const baseStyles = "rounded-2xl p-6";
+  const baseStyles = "rounded-xl p-6";
 
   // Variant styles
   const variantStyles = {
