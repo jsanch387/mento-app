@@ -11,16 +11,22 @@ export default function LoginForm() {
   const [otp, setOtp] = useState("");
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState<"success" | "error" | "">("");
   const router = useRouter();
 
   const handleOtpRequest = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget as HTMLFormElement);
+
     const responseMessage = await requestLoginOtp(formData);
-    setMessage(responseMessage);
+
     if (responseMessage === "OTP sent!") {
+      setMessageType("success");
       setIsOtpSent(true);
+    } else {
+      setMessageType("error");
     }
+    setMessage(responseMessage);
   };
 
   const handleOtpVerification = async (
@@ -30,11 +36,14 @@ export default function LoginForm() {
     const formData = new FormData(event.currentTarget as HTMLFormElement);
 
     const responseMessage = await verifyOtp(formData);
-    setMessage(responseMessage);
 
     if (responseMessage === "Login successful!") {
+      setMessageType("success");
       router.push("/dashboard"); // Redirect to dashboard after successful verification
+    } else {
+      setMessageType("error");
     }
+    setMessage(responseMessage);
   };
 
   return (
@@ -59,9 +68,15 @@ export default function LoginForm() {
           />
         )}
         {message && (
-          <p className="mt-4 font-semibold text-md text-green-500 text-center">
+          <div
+            className={`mt-4 p-4 rounded-md text-center font-semibold text-md ${
+              messageType === "success"
+                ? "bg-green-100 text-green-700 border border-green-300"
+                : "bg-red-100 text-red-700 border border-red-300"
+            }`}
+          >
             {message}
-          </p>
+          </div>
         )}
       </div>
     </Card>

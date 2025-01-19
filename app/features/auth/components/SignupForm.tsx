@@ -47,8 +47,8 @@ export default function SignUpForm() {
     >
       <div className="space-y-8 py-8">
         <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl text-primary font-bold">
-            Sign Up
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl text-primary font-sans font-black">
+            Create Account
           </h1>
         </div>
 

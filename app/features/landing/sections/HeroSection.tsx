@@ -9,7 +9,7 @@ export default function HeroSection() {
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between px-6 sm:px-8">
         {/* Left Column - Text Content */}
         <div className="flex flex-col items-start max-w-lg space-y-6">
-          <h1 className="text-4xl sm:text-6xl font-extrabold leading-tight tracking-tight text-white mb-8">
+          <h1 className="text-4xl sm:text-6xl font-sans font-black  text-white mb-8">
             <span className="block whitespace-nowrap">More Time To Teach</span>
             <span className="block mt-4 whitespace-nowrap">
               Less Time To Plan
