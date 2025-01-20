@@ -6,6 +6,7 @@ import Card from "@/app/shared/components/Card";
 import Input from "@/app/shared/components/Input";
 import Button from "@/app/shared/components/Button";
 import { VerifyOtpForm } from "./VerifyOtpForm";
+import Link from "next/link";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
@@ -84,6 +85,17 @@ export default function SignUpForm() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            <p className="text-sm text-gray-600 text-center mt-2">
+              By signing up, you agree to our{" "}
+              <Link
+                href="/resources/privacy"
+                className="text-primary font-semibold"
+              >
+                terms
+              </Link>
+              .
+            </p>
+
             <Button label="Sign Up" variant="primary" className="w-full" />
           </form>
         ) : (
