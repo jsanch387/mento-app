@@ -21,7 +21,7 @@ export default function HeroSection() {
           </p>
           <Link href="/signup">
             <Button
-              label="Sign Up For Free"
+              label="Try For Free"
               size="large"
               bgColor="bg-white"
               textColor="text-primary"
