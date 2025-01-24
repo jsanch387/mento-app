@@ -25,19 +25,17 @@ export default function ProgressLoading({
   ];
 
   useEffect(() => {
-    let progressInterval: NodeJS.Timeout;
-    let messageInterval: NodeJS.Timeout;
     let messageIndex = 0;
 
     setCurrentMessage(messages[messageIndex]); // Set initial message
 
     const increment = (stopAt90 ? 90 : 100) / (duration / 100); // Stop at 90% if requested
-    progressInterval = setInterval(() => {
+
+    const progressInterval = setInterval(() => {
       setProgress((prev) => Math.min(prev + increment, stopAt90 ? 90 : 100));
     }, 100);
 
-    // Rotate messages every 2 seconds with fade effect
-    messageInterval = setInterval(() => {
+    const messageInterval = setInterval(() => {
       setFade(true); // Trigger fade-out
       setTimeout(() => {
         messageIndex = (messageIndex + 1) % messages.length;
@@ -50,6 +48,7 @@ export default function ProgressLoading({
       clearInterval(progressInterval);
       clearInterval(messageInterval);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [duration, stopAt90]);
 
   return (

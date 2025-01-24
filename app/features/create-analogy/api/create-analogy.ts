@@ -27,7 +27,7 @@ export const createAnalogy = async ({
   context: string;
 }): Promise<CreateAnalogyResponse> => {
   try {
-    const response = await apiClient.post("/analogies", {
+    const response = await apiClient.post<CreateAnalogyResponse>("/analogies", {
       gradeLevel,
       subject,
       context,
@@ -39,13 +39,22 @@ export const createAnalogy = async ({
     }
 
     return response.data;
-  } catch (error: any) {
-    console.error(
-      "Error creating analogies:",
-      error.response?.data || error.message
-    );
-    throw new Error(
-      error.response?.data?.message || "Failed to create analogies"
-    );
+  } catch (error: unknown) {
+    if (error instanceof Error && "response" in error) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+
+      console.error(
+        "Error creating analogies:",
+        axiosError.response?.data || error.message
+      );
+      throw new Error(
+        axiosError.response?.data?.message || "Failed to create analogies"
+      );
+    }
+
+    console.error("Unexpected error:", error);
+    throw new Error("An unexpected error occurred.");
   }
 };
