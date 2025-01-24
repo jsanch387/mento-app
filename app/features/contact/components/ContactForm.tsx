@@ -44,7 +44,9 @@ export default function ContactForm({ onSubmit }: ContactFormProps) {
     <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-3xl p-6 ">
       {/* Header */}
       <div className="mb-16">
-        <h1 className="text-4xl font-bold text-left mb-2">Contact Us</h1>
+        <h1 className="text-4xl font-black font-sans text-left mb-2">
+          Contact Us
+        </h1>
         <p className="text-text-secondary text-left">
           Your experience matters to us! Whether you have feedback, questions,
           or need help, our team is ready to assist.

@@ -3,30 +3,30 @@ import React from "react";
 import Image from "next/image";
 
 // Import image assets
-import FlaskIcon from "@/public/flask.svg";
-import QuestionIcon from "@/public/question.svg";
+import FlaskIcon from "@/public/flask-icon.png";
+import PuzzleIcon from "@/public/puzzle-icon.png";
 import BooksIcon from "@/public/books-icon.png";
 
 const features = [
   {
     title: "Lesson Plan Generator",
     description:
-      "Create detailed lesson plans in minutes with AI-powered tools. Save time and focus on engaging your students.",
+      "Enter a few details, and we’ll generate a complete lesson plan so you can focus on teaching.",
     icon: BooksIcon,
     isComingSoon: false, // Indicates the feature is available
   },
   {
-    title: "Lab Creator",
+    title: "Analogies Crafter",
     description:
-      "Design engaging, hands-on lab activities with ease. Generate experiments tailored to your lesson and grade level.",
-    icon: FlaskIcon,
-    isComingSoon: true, // Indicates the feature is coming soon
+      "Provide a topic, and we’ll craft analogies that break it down for your students in an engaging way.",
+    icon: PuzzleIcon,
+    isComingSoon: false, // Indicates the feature is coming soon
   },
   {
-    title: "Question Set Creator",
+    title: "Lab Creator",
     description:
-      "Effortlessly create quizzes and question sets tailored to your lesson content. Save time and assess student understanding with ease.",
-    icon: QuestionIcon,
+      "Provide your topic, and we’ll design engaging experiments tailored to your class.",
+    icon: FlaskIcon,
     isComingSoon: true, // Indicates the feature is coming soon
   },
 ];

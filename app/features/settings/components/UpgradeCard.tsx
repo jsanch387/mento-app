@@ -18,7 +18,7 @@ const UpgradeCard = () => {
       {/* Crown Icon and Title */}
       <div className="flex items-center mb-4">
         <span className="text-yellow-500 text-4xl mr-4">👑</span>
-        <h2 className="text-3xl font-bold text-blue-600">
+        <h2 className="text-3xl font-black font-sans text-blue-600">
           Unlock the Full Potential
         </h2>
       </div>

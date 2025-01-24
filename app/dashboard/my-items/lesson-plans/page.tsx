@@ -19,7 +19,7 @@ export default async function LessonPlansPage() {
 
   return (
     <div className="min-h-screen p-6">
-      <h1 className="text-3xl font-bold mb-6">Lesson Plans</h1>
+      <h1 className="text-3xl font-black font-sans mb-6">Lesson Plans</h1>
       <LessonPlanList previews={previews} />
     </div>
   );

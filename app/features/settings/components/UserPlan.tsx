@@ -11,7 +11,9 @@ interface UserPlanProps {
 const UserPlan: React.FC<UserPlanProps> = ({ tier }) => {
   return (
     <Card className="w-full max-w-3xl">
-      <h2 className="text-3xl font-bold text-blue-600 mb-4">Your Plan</h2>
+      <h2 className="text-3xl font-black font-sans text-blue-600 mb-4">
+        Your Plan
+      </h2>
       <p className="text-text-secondary text-lg mb-6">
         You are currently on the <strong>{tier}</strong> plan.
       </p>

@@ -40,7 +40,9 @@ const UserInfo = ({
 
   return (
     <Card className="w-full max-w-3xl">
-      <h2 className="text-xl font-bold text-blue-600 mb-6">Your Info</h2>
+      <h2 className="text-2xl font-black font-sans text-blue-600 mb-6">
+        Your Info
+      </h2>
 
       <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="flex flex-col sm:flex-row gap-4">

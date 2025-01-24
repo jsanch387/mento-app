@@ -12,7 +12,7 @@ export default function SettingsPage({
 }) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-start p-6 space-y-8">
-      <h1 className="text-4xl font-bold text-left w-full max-w-3xl">
+      <h1 className="text-4xl font-black font-sans text-left w-full max-w-3xl">
         Settings
       </h1>
 

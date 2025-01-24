@@ -52,7 +52,7 @@ const RatingForm = ({
       className="space-y-6 mt-10 w-full max-w-lg mx-auto rounded-lg"
       onSubmit={handleSubmit}
     >
-      <h1 className="text-4xl font-bold mb-10 text-left">
+      <h1 className="text-4xl font-black font-sans mb-10 text-left">
         We value your feedback!
       </h1>
 

@@ -9,23 +9,23 @@ const pricingTiers = [
     tier: "Basic",
     description: "For individual educators starting out.",
     price: "$8",
-    credits: "20 credits a month",
-    pricingId: "price_1QgGnlCuDoiqLeJmyZ9pDLpK", //prod
+    credits: "30 credits a month",
+    pricingId: "price_1QgGnlCuDoiqLeJmyZ9pDLpK", //basic-prod
   },
   {
     tier: "Pro",
     description: "Do more with extra credits for advanced needs.",
     price: "$15",
-    credits: "50 credits a month",
+    credits: "100 credits a month",
     badge: "Most Popular",
-    pricingId: "price_1QgGriCuDoiqLeJmGAIaZu0l", //prod
+    pricingId: "price_1QgGriCuDoiqLeJmGAIaZu0l", //pro-prod
   },
   {
     tier: "UNLIMITED",
     description: "UNLIMITED credits for power users.",
     price: "$22",
     credits: "UNLIMITED credits",
-    pricingId: "price_1QgGsYCuDoiqLeJm4LAVL8ca", //prod
+    pricingId: "price_1QgGsYCuDoiqLeJm4LAVL8ca", //unlimited-prod
   },
 ];
 
