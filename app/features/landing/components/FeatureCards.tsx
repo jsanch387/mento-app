@@ -11,21 +11,21 @@ const features = [
   {
     title: "Lesson Plan Generator",
     description:
-      "Create detailed lesson plans in minutes with AI-powered tools. Save time and focus on engaging your students.",
+      "Enter a few details, and we’ll generate a complete lesson plan so you can focus on teaching.",
     icon: BooksIcon,
     isComingSoon: false, // Indicates the feature is available
   },
   {
-    title: "Analogies",
+    title: "Analogies Crafter",
     description:
-      "Simplify complex topics with relatable analogies that make learning easier and more engaging for your students.",
+      "Provide a topic, and we’ll craft analogies that break it down for your students in an engaging way.",
     icon: PuzzleIcon,
     isComingSoon: false, // Indicates the feature is coming soon
   },
   {
     title: "Lab Creator",
     description:
-      "Design engaging, hands-on lab activities with ease. Generate experiments tailored to your lesson and grade level.",
+      "Provide your topic, and we’ll design engaging experiments tailored to your class.",
     icon: FlaskIcon,
     isComingSoon: true, // Indicates the feature is coming soon
   },

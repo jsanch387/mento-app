@@ -16,8 +16,8 @@ export default function HeroSection() {
             </span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-200 ">
-            Plan, Teach, Inspire – Mento Does the Heavy Lifting with AI-Powered
-            Tools for Every Teacher.
+            Create lesson plans, labs, analogies, and more in minutes – Mento
+            makes teaching easier, faster, and more effective.
           </p>
           <Link href="/signup">
             <Button
