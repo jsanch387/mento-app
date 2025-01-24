@@ -4,7 +4,7 @@ import Image from "next/image";
 
 // Import image assets
 import FlaskIcon from "@/public/flask-icon.png";
-import QuestionIcon from "@/public/question-icons.png";
+import PuzzleIcon from "@/public/puzzle-icon.png";
 import BooksIcon from "@/public/books-icon.png";
 
 const features = [
@@ -16,17 +16,17 @@ const features = [
     isComingSoon: false, // Indicates the feature is available
   },
   {
+    title: "Analogies",
+    description:
+      "Simplify complex topics with relatable analogies that make learning easier and more engaging for your students.",
+    icon: PuzzleIcon,
+    isComingSoon: false, // Indicates the feature is coming soon
+  },
+  {
     title: "Lab Creator",
     description:
       "Design engaging, hands-on lab activities with ease. Generate experiments tailored to your lesson and grade level.",
     icon: FlaskIcon,
-    isComingSoon: true, // Indicates the feature is coming soon
-  },
-  {
-    title: "Question Set Creator",
-    description:
-      "Effortlessly create quizzes and question sets tailored to your lesson content. Save time and assess student understanding with ease.",
-    icon: QuestionIcon,
     isComingSoon: true, // Indicates the feature is coming soon
   },
 ];
