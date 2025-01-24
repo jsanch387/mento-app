@@ -29,7 +29,7 @@ export default async function MyItemsPage() {
   return (
     <div className="min-h-screen flex flex-col mt-10 items-start px-4 sm:px-8">
       {/* Left-aligned heading */}
-      <h1 className="text-3xl sm:text-4xl font-bold mb-10 text-left">
+      <h1 className="text-3xl sm:text-4xl font-black font-sans mb-10 text-left">
         My Items
       </h1>
 
@@ -39,7 +39,7 @@ export default async function MyItemsPage() {
       ) : items.length > 0 ? (
         <MyItemsList items={items} />
       ) : (
-        <Card className="flex flex-col items-center text-center w-full max-w-lg">
+        <Card className="flex mx-auto flex-col items-center text-center w-full max-w-lg">
           <p className="text-xl text-text-secondary mb-10">
             It looks like you haven&apos;t created anything yet.
             <br /> Let&apos;s get started!

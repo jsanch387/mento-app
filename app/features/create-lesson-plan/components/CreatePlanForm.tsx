@@ -1,23 +1,23 @@
 "use client";
 
 import React, { useState } from "react";
-import { createLessonPlan } from "../api/create-lesson-plan";
 import useTokenStore from "../../token-tracker/store/tokenStore";
 import LessonPlanForm from "./LessonPlanForm";
 import ErrorMessage from "../../../shared/components/ErrorMessage";
-import LessonPlan from "./LessonPlan";
 import ProgressLoading from "@/app/shared/components/ProgressLoading";
+import LessonPlan from "./LessonPlan";
+import { createLessonPlan } from "../api/create-lesson-plan";
 import { consumeToken } from "../../settings/components/api/user-api";
 import { CreateLessonPlanResponse } from "../types/types";
 
 const CreatePlanForm = () => {
-  const { tokens, setTokens } = useTokenStore();
+  const { tokens, setTokens } = useTokenStore(); // Token management hook
   const [lessonPlan, setLessonPlan] = useState<
     CreateLessonPlanResponse["lessonPlan"] | null
-  >(null); // Use the correct type
-  const [loading, setLoading] = useState(false);
-  const [loadingComplete, setLoadingComplete] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  >(null);
+  const [loading, setLoading] = useState(false); // Tracks loading state
+  const [progressPaused, setProgressPaused] = useState(false); // Tracks if progress stops at 90%
+  const [error, setError] = useState<string | null>(null); // Error state
 
   const handleGenerateLessonPlan = async (requestData: {
     gradeLevel: string;
@@ -36,43 +36,46 @@ const CreatePlanForm = () => {
     }
 
     setLoading(true);
-    setLoadingComplete(false); // Reset loadingComplete state
+    setProgressPaused(false); // Reset progress bar state
     setError(null);
 
     try {
-      const response: CreateLessonPlanResponse = await createLessonPlan(
-        requestData
-      ); // Fetch the lesson plan
-      setLessonPlan(response.lessonPlan); // Access lessonPlan from response
+      const response = await createLessonPlan(requestData); // Fetch lesson plan
+      setLessonPlan(response.lessonPlan); // Set the lesson plan
 
+      // Consume token
       if (tokens !== null) {
         await consumeToken();
         setTokens(tokens - 1);
       }
+
+      setLoading(false); // Stop loading immediately when response is ready
     } catch (err: unknown) {
       setError(
         err instanceof Error ? err.message : "An unexpected error occurred."
       );
-    } finally {
-      setLoadingComplete(true); // Mark loading as complete
-      setTimeout(() => setLoading(false), 500); // Add slight delay to ensure smooth UX
+      setLoading(false); // Ensure loading stops on error
     }
   };
 
   return (
-    <div>
+    <div className="flex items-center justify-center">
       {!lessonPlan && !loading && !error && (
         <LessonPlanForm onSubmit={handleGenerateLessonPlan} />
       )}
       {loading && (
-        <ProgressLoading
-          isComplete={loadingComplete}
-          duration={10000} // Match the 10-second generation duration
-        />
+        <div className="min-h-screen flex items-center justify-center w-full">
+          <ProgressLoading
+            className="w-full"
+            duration={20000}
+            stopAt90={!progressPaused}
+          />
+        </div>
       )}
-      {lessonPlan && <LessonPlan lessonPlan={lessonPlan} />}
-      {/* Render the lesson plan */}
-      {error && <ErrorMessage className="max-w-lg mx-auto" error={error} />}
+      {!loading && error && (
+        <ErrorMessage className="max-w-lg mx-auto" error={error} />
+      )}
+      {!loading && lessonPlan && <LessonPlan lessonPlan={lessonPlan} />}
     </div>
   );
 };

@@ -3,8 +3,8 @@ import React from "react";
 import Image from "next/image";
 
 // Import image assets
-import FlaskIcon from "@/public/flask.svg";
-import QuestionIcon from "@/public/question.svg";
+import FlaskIcon from "@/public/flask-icon.png";
+import QuestionIcon from "@/public/question-icons.png";
 import BooksIcon from "@/public/books-icon.png";
 
 const features = [

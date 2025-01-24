@@ -4,6 +4,7 @@ import Card from "@/app/shared/components/Card";
 import { useRouter } from "next/navigation";
 import Image, { StaticImageData } from "next/image";
 import BooksIcon from "@/public/books-icon.png";
+import PuzzleIcon from "@/public/puzzle-icon.png";
 
 interface MyItemsListProps {
   items: { itemType: string; count: number }[]; // Dynamic item list
@@ -15,12 +16,11 @@ const MyItemsList: React.FC<MyItemsListProps> = ({ items }) => {
   // A map to handle icons dynamically (you can expand this later)
   const iconMap: Record<string, StaticImageData> = {
     "Lesson Plans": BooksIcon,
-    Analogies: BooksIcon,
-    Quizzes: BooksIcon,
+    Analogies: PuzzleIcon,
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {items.map((item) => (
         <Card
           key={item.itemType}
