@@ -1,4 +1,3 @@
-// Components/VerifyOtpForm.tsx
 import Button from "@/app/shared/components/Button";
 import Input from "@/app/shared/components/Input";
 
@@ -15,8 +14,11 @@ export function VerifyOtpForm({
 }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <p className="text-md text-text-secondary text-center">
-        We&apos;ve sent a code to <strong>{email}</strong>
+      <p className="text-md text-text-primary text-center">
+        We&apos;ve sent a code to <strong>{email}</strong>.
+      </p>
+      <p className="text-sm text-gray-500 text-center">
+        If you don&apos;t see the email, please check your spam or junk folder.
       </p>
       <Input
         id="otp"

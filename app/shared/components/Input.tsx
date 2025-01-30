@@ -1,6 +1,7 @@
-"use-client";
+"use client";
 
 import React from "react";
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 
 interface InputProps {
   id: string; // For accessibility
@@ -12,6 +13,7 @@ interface InputProps {
   label?: string; // Optional label text
   required?: boolean; // Marks the input as required
   className?: string; // Custom class for styling
+  error?: string; // Error message to display
 }
 
 const Input: React.FC<InputProps> = ({
@@ -24,6 +26,7 @@ const Input: React.FC<InputProps> = ({
   label,
   required = false,
   className = "",
+  error,
 }) => {
   return (
     <div className={`space-y-2 ${className}`}>
@@ -43,8 +46,16 @@ const Input: React.FC<InputProps> = ({
         value={value}
         onChange={onChange}
         required={required}
-        className="p-3 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary"
+        className={`p-3 w-full border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary ${
+          error ? "border-red-500" : "border-gray-300"
+        }`}
       />
+      {error && (
+        <div className="flex items-center space-x-2 mt-1">
+          <ExclamationCircleIcon className="w-5 h-5 text-red-500" />
+          <p className="text-sm text-black">{error}</p>
+        </div>
+      )}
     </div>
   );
 };

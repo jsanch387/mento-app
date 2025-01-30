@@ -7,6 +7,7 @@ import Input from "@/app/shared/components/Input";
 import Button from "@/app/shared/components/Button";
 import { VerifyOtpForm } from "./VerifyOtpForm";
 import Link from "next/link";
+import { validateEmail } from "../utils/helpers";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
@@ -15,9 +16,19 @@ export default function SignUpForm() {
   const [otp, setOtp] = useState("");
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [message, setMessage] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    // Validate the email before submitting
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    }
+
+    setEmailError(""); // Clear any previous error
+
     const formData = new FormData(event.currentTarget);
     const responseMessage = await requestSignUpOtp(formData);
     setMessage(responseMessage);
@@ -83,6 +94,7 @@ export default function SignUpForm() {
               label="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              error={emailError}
               required
             />
             <p className="text-sm text-gray-600 text-center mt-2">
