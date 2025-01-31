@@ -5,10 +5,12 @@ export function RequestOtpForm({
   email,
   setEmail,
   handleSubmit,
+  emailError,
 }: {
   email: string;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  emailError?: string; // New prop to show error message
 }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -20,8 +22,10 @@ export function RequestOtpForm({
         label="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        error={emailError} // Display error
         required
       />
+
       <Button label="Get Code" variant="primary" className="w-full" />
       <p className="text-sm text-gray-700 text-center">
         Don’t have an account?{" "}

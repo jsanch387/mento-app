@@ -5,6 +5,8 @@ import Card from "@/app/shared/components/Card";
 import { LoginHeader } from "./LoginHeader";
 import { RequestOtpForm } from "./RequestOtpForm";
 import { VerifyOtpForm } from "./VerifyOtpForm";
+import { validateEmail } from "../utils/helpers";
+import AlertMessage from "@/app/shared/components/AlertMessage";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -12,12 +14,23 @@ export default function LoginForm() {
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error" | "">("");
+  const [emailError, setEmailError] = useState("");
   const router = useRouter();
 
   const handleOtpRequest = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget as HTMLFormElement);
 
+    // Validate email before submitting
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      setMessageType("error");
+      setMessage("");
+      return;
+    }
+
+    setEmailError(""); // Clear previous error if valid
+
+    const formData = new FormData(event.currentTarget as HTMLFormElement);
     const responseMessage = await requestLoginOtp(formData);
 
     if (responseMessage === "OTP sent!") {
@@ -39,7 +52,7 @@ export default function LoginForm() {
 
     if (responseMessage === "Login successful!") {
       setMessageType("success");
-      router.push("/dashboard"); // Redirect to dashboard after successful verification
+      router.push("/dashboard");
     } else {
       setMessageType("error");
     }
@@ -58,6 +71,7 @@ export default function LoginForm() {
             email={email}
             setEmail={setEmail}
             handleSubmit={handleOtpRequest}
+            emailError={emailError} // Pass email error
           />
         ) : (
           <VerifyOtpForm
@@ -68,15 +82,10 @@ export default function LoginForm() {
           />
         )}
         {message && (
-          <div
-            className={`mt-4 p-4 rounded-md text-center font-semibold text-md ${
-              messageType === "success"
-                ? "bg-green-100 text-green-700 border border-green-300"
-                : "bg-red-100 text-red-700 border border-red-300"
-            }`}
-          >
-            {message}
-          </div>
+          <AlertMessage
+            message={message}
+            type={messageType as "success" | "error"}
+          />
         )}
       </div>
     </Card>

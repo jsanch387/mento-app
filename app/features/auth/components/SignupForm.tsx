@@ -3,10 +3,9 @@
 import { useState } from "react";
 import { requestSignUpOtp, verifyOtp } from "../actions";
 import Card from "@/app/shared/components/Card";
-import Input from "@/app/shared/components/Input";
-import Button from "@/app/shared/components/Button";
+import SignupDetailsForm from "./SignupDetailsForm";
 import { VerifyOtpForm } from "./VerifyOtpForm";
-import Link from "next/link";
+import AlertMessage from "@/app/shared/components/AlertMessage";
 import { validateEmail } from "../utils/helpers";
 
 export default function SignUpForm() {
@@ -16,6 +15,7 @@ export default function SignUpForm() {
   const [otp, setOtp] = useState("");
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState<"success" | "error" | "">("");
   const [emailError, setEmailError] = useState("");
 
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -24,6 +24,8 @@ export default function SignUpForm() {
     // Validate the email before submitting
     if (!validateEmail(email)) {
       setEmailError("Please enter a valid email address.");
+      setMessageType("error");
+      setMessage("");
       return;
     }
 
@@ -31,11 +33,14 @@ export default function SignUpForm() {
 
     const formData = new FormData(event.currentTarget);
     const responseMessage = await requestSignUpOtp(formData);
-    setMessage(responseMessage);
 
     if (responseMessage.includes("OTP sent")) {
+      setMessageType("success");
       setIsOtpSent(true);
+    } else {
+      setMessageType("error");
     }
+    setMessage(responseMessage);
   };
 
   const handleOtpVerification = async (
@@ -44,12 +49,14 @@ export default function SignUpForm() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const responseMessage = await verifyOtp(formData);
-    setMessage(responseMessage);
 
     if (responseMessage === "Login successful!") {
-      // Redirect to dashboard or perform other post-login actions
+      setMessageType("success");
       console.log("User successfully signed up and logged in");
+    } else {
+      setMessageType("error");
     }
+    setMessage(responseMessage);
   };
 
   return (
@@ -65,51 +72,16 @@ export default function SignUpForm() {
         </div>
 
         {!isOtpSent ? (
-          <form onSubmit={handleSignUp} className="space-y-6">
-            <Input
-              id="first_name"
-              name="first_name"
-              type="text"
-              placeholder="John"
-              label="First Name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-            />
-            <Input
-              id="last_name"
-              name="last_name"
-              type="text"
-              placeholder="Doe"
-              label="Last Name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              required
-            />
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="example@email.com"
-              label="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              error={emailError}
-              required
-            />
-            <p className="text-sm text-gray-600 text-center mt-2">
-              By signing up, you agree to our{" "}
-              <Link
-                href="/resources/privacy"
-                className="text-primary font-semibold"
-              >
-                terms
-              </Link>
-              .
-            </p>
-
-            <Button label="Sign Up" variant="primary" className="w-full" />
-          </form>
+          <SignupDetailsForm
+            email={email}
+            setEmail={setEmail}
+            firstName={firstName}
+            setFirstName={setFirstName}
+            lastName={lastName}
+            setLastName={setLastName}
+            emailError={emailError}
+            handleSubmit={handleSignUp}
+          />
         ) : (
           <VerifyOtpForm
             email={email}
@@ -120,7 +92,10 @@ export default function SignUpForm() {
         )}
 
         {message && (
-          <p className="mt-4 text-sm text-green-500 text-center">{message}</p>
+          <AlertMessage
+            message={message}
+            type={messageType as "success" | "error"}
+          />
         )}
       </div>
     </Card>

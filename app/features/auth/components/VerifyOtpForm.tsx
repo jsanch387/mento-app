@@ -14,12 +14,15 @@ export function VerifyOtpForm({
 }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <p className="text-md text-text-primary text-center">
-        We&apos;ve sent a code to <strong>{email}</strong>.
-      </p>
-      <p className="text-sm text-gray-500 text-center">
-        If you don&apos;t see the email, please check your spam or junk folder.
-      </p>
+      <div className="space-y-2">
+        <p className="text-md text-text-primary text-center">
+          We&apos;ve sent a code to <strong>{email}</strong>.
+        </p>
+        <p className="text-sm text-gray-500 text-center">
+          If you don&apos;t see the email, please check your spam or junk
+          folder.
+        </p>
+      </div>
       <Input
         id="otp"
         name="otp"
