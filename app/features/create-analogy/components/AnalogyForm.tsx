@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Dropdown from "@/app/shared/components/DropDown";
+import TextArea from "@/app/shared/components/TextArea";
 import Input from "@/app/shared/components/Input";
 import Button from "@/app/shared/components/Button";
 
@@ -102,21 +103,21 @@ const AnalogyForm = ({
         onSelect={setGrade}
       />
 
-      <Input
+      <TextArea
         id="context"
         name="context"
-        type="text"
         label="Describe the topic or concept"
-        placeholder="e.g., Explain photosynthesis in simple terms for 6th graders."
+        placeholder="e.g., Explain how checks and balances work in the U.S. government."
         value={context}
         onChange={(e) => setContext(e.target.value)}
+        helperText="Provide details on the concept you want to explain. The more context you give, the better the analogy will be."
+        rows={6}
       />
 
       <Button
         label="Generate Analogies"
         size="large"
         disabled={!isFormValid()}
-        // type="submit"
       />
     </form>
   );
