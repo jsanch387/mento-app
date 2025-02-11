@@ -2,6 +2,7 @@ import Card from "@/app/shared/components/Card";
 import React from "react";
 import BooksIcon from "@/public/books-icon.png";
 import PuzzleIcon from "@/public/puzzle-icon.png";
+import FlaskIcon from "@/public/flask-icon.png";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,6 +20,13 @@ const features = [
       "Simplify complex topics with relatable analogies that make learning easier and more engaging for your students.",
     href: "/dashboard/create-analogy",
     iconSrc: PuzzleIcon,
+  },
+  {
+    title: "Lab",
+    description:
+      "Create a complete lab with objectives, materials, and activities tailored to your class needs.",
+    href: "/dashboard/create-lab",
+    iconSrc: FlaskIcon,
   },
 ];
 
