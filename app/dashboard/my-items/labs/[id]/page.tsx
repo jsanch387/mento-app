@@ -1,15 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import LabDisplay from "@/app/features/create-lab/components/LabDisplay";
 import { createServerApiClient } from "@/app/lib/utils/api/serverApiClient";
 
+type Params = Promise<{ id: string }>;
+
 interface LabPageProps {
-  params: { id: string };
+  params: Params;
 }
 
 export default async function LabPage({ params }: LabPageProps) {
-  // Explicitly await `params`
-  const { id } = await Promise.resolve(params);
+  const { id } = await params;
 
   if (!id) {
+    console.error("Missing ID in params");
     return (
       <div className="min-h-screen flex items-center justify-center">
         <h1 className="text-2xl font-bold text-gray-600">
