@@ -8,7 +8,7 @@ import { Lab } from "../types/Lab.types";
 
 const LabDisplay = ({ lab }: { lab: Lab }) => {
   return (
-    <div className="max-w-3xl mx-auto p-8 space-y-8 bg-white rounded-2xl shadow-lg relative">
+    <div className="max-w-3xl mx-auto p-8 space-y-4 bg-white rounded-2xl shadow-lg relative">
       {/* Copy Button */}
       <button
         onClick={() => handleCopyLabDetails(lab)}
@@ -20,14 +20,24 @@ const LabDisplay = ({ lab }: { lab: Lab }) => {
 
       <h1 className="text-4xl font-bold">{lab.title} 🧪</h1>
 
+      <p className="text-md font-semibold text-gray-800">
+        Grade Level:{" "}
+        <span className="text-gray-700 font-medium">{lab.grade_level}</span>
+      </p>
+
+      <p className="text-md font-semibold text-gray-800">
+        Duration:{" "}
+        <span className="text-gray-700 font-medium">{lab.duration}</span>
+      </p>
+      <p className="text-md font-semibold text-gray-800">
+        Subject:{" "}
+        <span className="text-gray-700 font-medium">{lab.subject}</span>
+      </p>
+
       <section>
         <h2 className="text-xl font-semibold mb-2">Standards Alignment</h2>
         <p className="text-gray-700">{lab.standards_alignment}</p>
       </section>
-
-      <p className="text-lg font-semibold text-gray-800">
-        Duration: <span className="text-gray-700">{lab.duration}</span>
-      </p>
 
       <section>
         <h2 className="text-2xl font-semibold mb-2">Overview</h2>
@@ -85,7 +95,7 @@ const LabDisplay = ({ lab }: { lab: Lab }) => {
 
       <section>
         <h2 className="text-2xl font-semibold mb-2">Safety Notes</h2>
-        <ul className="list-disc pl-6 space-y-1">{lab.safety_notes}</ul>
+        <ul className="list-disc pl-2 space-y-1">{lab.safety_notes}</ul>
       </section>
     </div>
   );

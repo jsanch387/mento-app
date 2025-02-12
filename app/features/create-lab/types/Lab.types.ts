@@ -1,6 +1,8 @@
 export interface Lab {
   title: string;
   overview: string;
+  subject: string;
+  grade_level: string;
   materials: string[];
   learning_objectives: string[];
   procedure: string[];

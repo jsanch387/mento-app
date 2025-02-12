@@ -32,10 +32,11 @@ export const createLab = async ({
       throw new Error("Invalid API response: Missing 'lab' field.");
     }
 
-    // Ensure consistent handling of snake case data on the frontend
+    // Include the grade level in the response lab object
     return {
       lab: {
         ...response.data.lab,
+        grade_level: response.data.lab.grade_level, // New field included
         learning_objectives: response.data.lab.learning_objectives,
         discussion_questions: response.data.lab.discussion_questions,
         safety_notes: response.data.lab.safety_notes,

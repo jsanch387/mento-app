@@ -1,35 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import useTokenStore from "../../token-tracker/store/tokenStore";
 import LabForm from "./LabForm";
 import ErrorMessage from "../../../shared/components/ErrorMessage";
 import ProgressLoading from "@/app/shared/components/ProgressLoading";
 import { createLab } from "../api/create-lab";
 import LabDisplay from "./LabDisplay";
-
-interface Lab {
-  title: string;
-  duration: string;
-  overview: string;
-  materials: string[];
-  learning_objectives: string[];
-  procedure: string[];
-  discussion_questions: {
-    question: string;
-    answer: string;
-    explanation: string;
-  }[];
-  extensions: string[];
-  safety_notes: string[];
-  standards_alignment: string;
-  context: string;
-}
+import { Lab } from "../types/Lab.types";
+import { useConsumeToken } from "../../token-tracker/utils/tokenUtils";
 
 const CreateLabPage = () => {
-  const { tokens, setTokens } = useTokenStore(); // Token management hook
+  const { tokens, handleConsumeToken } = useConsumeToken(); // Use token utility
   const [lab, setLab] = useState<Lab | null>(null); // Holds the generated lab
-  const [loading, setLoading] = useState(false); // Tracks if loading
+  const [loading, setLoading] = useState(false); // Tracks loading state
+  const [progressPaused, setProgressPaused] = useState(false); // Tracks if progress should pause at 90%
   const [error, setError] = useState<string | null>(null); // Error state
 
   const handleGenerateLab = async (requestData: {
@@ -49,7 +33,8 @@ const CreateLabPage = () => {
       return;
     }
 
-    setLoading(true); // Start loading
+    setLoading(true);
+    setProgressPaused(false); // Reset progress bar pause state
     setError(null); // Reset error state
 
     try {
@@ -65,16 +50,15 @@ const CreateLabPage = () => {
         standards_alignment: response.lab.standards_alignment,
       });
 
-      // Consume a token
-      if (tokens !== null) {
-        setTokens(tokens - 1);
-      }
+      // Consume a token only if the user has a limited plan
+      handleConsumeToken();
+
+      setLoading(false); // Stop loading when response is ready
     } catch (err: unknown) {
       setError(
         err instanceof Error ? err.message : "An unexpected error occurred."
       );
-    } finally {
-      setLoading(false); // Stop loading immediately when content is ready
+      setLoading(false); // Ensure loading stops on error
     }
   };
 
@@ -83,12 +67,13 @@ const CreateLabPage = () => {
       {/* Show the form when not loading or displaying results */}
       {!lab && !loading && !error && <LabForm onSubmit={handleGenerateLab} />}
 
-      {/* Show loading indicator */}
+      {/* Show loading indicator with progress pause */}
       {loading && (
         <div className="min-h-screen flex items-center justify-center w-full">
           <ProgressLoading
             className="my-auto w-full"
-            duration={20000} // Expected duration
+            duration={30000} // Expected duration
+            stopAt90={!progressPaused}
           />
         </div>
       )}

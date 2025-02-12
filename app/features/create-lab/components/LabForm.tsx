@@ -81,9 +81,10 @@ const LabForm = ({ onSubmit }: LabFormProps) => {
 
   return (
     <form className="space-y-8 w-full max-w-lg" onSubmit={handleSubmit}>
-      <h1 className="text-4xl font-black font-sans mb-4">Generate a Lab</h1>
+      <h1 className="text-4xl font-black font-sans mb-4">Create a Lab</h1>
       <p className="text-md text-text-secondary mb-8">
-        Create a detailed, structured lab activity tailored to your needs.
+        Create a complete lab with objectives, materials, and activities
+        tailored to your class needs.
       </p>
 
       <Dropdown
