@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image, { StaticImageData } from "next/image";
 import BooksIcon from "@/public/books-icon.png";
 import PuzzleIcon from "@/public/puzzle-icon.png";
+import FlaskIcon from "@/public/flask-icon.png";
 
 interface MyItemsListProps {
   items: { itemType: string; count: number }[]; // Dynamic item list
@@ -17,6 +18,7 @@ const MyItemsList: React.FC<MyItemsListProps> = ({ items }) => {
   const iconMap: Record<string, StaticImageData> = {
     "Lesson Plans": BooksIcon,
     Analogies: PuzzleIcon,
+    Labs: FlaskIcon,
   };
 
   return (
