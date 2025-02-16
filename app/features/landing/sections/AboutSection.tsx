@@ -3,7 +3,7 @@ export default function AboutSection() {
     <section id="about" className="py-16">
       <div className="max-w-4xl mx-auto px-6 sm:px-8">
         <h2 className="text-3xl sm:text-4xl font-sans font-black text-center mb-10">
-          About Mento
+          About Mento – The AI-Powered Teaching Assistant
         </h2>
         <p className="text-lg sm:text-xl md:text-2xl text-center  font-semibold leading-relaxed">
           At Mento, we understand the challenges teachers face in juggling

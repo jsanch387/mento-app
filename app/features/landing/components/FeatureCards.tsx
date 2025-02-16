@@ -27,7 +27,7 @@ const features = [
     description:
       "Provide your topic, and we’ll design engaging experiments tailored to your class.",
     icon: FlaskIcon,
-    isComingSoon: true, // Indicates the feature is coming soon
+    isComingSoon: false, // Indicates the feature is coming soon
   },
 ];
 
