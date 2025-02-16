@@ -1,0 +1,17 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /dashboard
+Disallow: /login
+Disallow: /signup
+Disallow: /icon.png
+Disallow: /resources/privacy
+
+# Host
+Host: https://www.mentoteaching.com
+
+# Sitemaps
+Sitemap: https://www.mentoteaching.com/sitemap.xml
