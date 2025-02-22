@@ -15,7 +15,7 @@ const Toggle: React.FC<ToggleProps> = ({ label, options, value, onChange }) => {
   return (
     <div className="w-full">
       {/* Label */}
-      <label className="block text-md font-semibold text-gray-700 mb-1">
+      <label className="block text-md font-semibold text-gray-700 mb-3">
         {label}
       </label>
 

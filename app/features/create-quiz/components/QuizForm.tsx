@@ -7,41 +7,7 @@ import Input from "@/app/shared/components/Input";
 import Button from "@/app/shared/components/Button";
 import MultiSelect from "@/app/shared/components/MultiSelect";
 import Toggle from "@/app/shared/components/Toggle";
-
-const subjectOptions = [
-  "Math",
-  "Science",
-  "History",
-  "Language Arts",
-  "English Literature",
-  "Social Studies",
-  "Art",
-  "Music",
-  "Physical Education",
-  "Health",
-  "Computer Science",
-  "STEM/STEAM",
-  "Economics",
-  "Government",
-  "World Languages",
-  "Geography",
-  "Special Education",
-];
-
-const gradeOptions = [
-  "1st Grade",
-  "2nd Grade",
-  "3rd Grade",
-  "4th Grade",
-  "5th Grade",
-  "6th Grade",
-  "7th Grade",
-  "8th Grade",
-  "9th Grade",
-  "10th Grade",
-  "11th Grade",
-  "12th Grade",
-];
+import { gradeOptions, subjectOptions } from "@/app/shared/constants/constants";
 
 const questionCountOptions = ["5", "10", "15"];
 const questionTypeOptions = [
@@ -183,27 +149,8 @@ const QuizForm = ({ onSubmit }: QuizFormProps) => {
         rows={4}
       />
 
-      {/* Minimal Toggle Switch for Hints */}
-      {/* <div className="flex items-center space-x-2">
-        <span className="text-sm font-medium text-gray-700">
-          Include Hints?
-        </span>
-        <button
-          type="button"
-          className={`w-10 h-5 rounded-full ${
-            includeHints ? "bg-blue-500" : "bg-gray-300"
-          } relative`}
-          onClick={() => setIncludeHints(!includeHints)}
-        >
-          <span
-            className={`absolute w-4 h-4 bg-white rounded-full transition-all ${
-              includeHints ? "right-1" : "left-1"
-            }`}
-          />
-        </button>
-      </div> */}
       <Toggle
-        label="Include Hints?"
+        label="Include Question Hints?"
         options={["Yes", "No"]}
         value={includeHints ? "Yes" : "No"}
         onChange={(selected, e) => {
