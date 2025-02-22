@@ -6,6 +6,7 @@ import Image, { StaticImageData } from "next/image";
 import BooksIcon from "@/public/books-icon.png";
 import PuzzleIcon from "@/public/puzzle-icon.png";
 import FlaskIcon from "@/public/flask-icon.png";
+import ClipBoardIcon from "@/public/clip-board.png";
 
 interface MyItemsListProps {
   items: { itemType: string; count: number }[]; // Dynamic item list
@@ -19,10 +20,11 @@ const MyItemsList: React.FC<MyItemsListProps> = ({ items }) => {
     "Lesson Plans": BooksIcon,
     Analogies: PuzzleIcon,
     Labs: FlaskIcon,
+    Quizzes: ClipBoardIcon,
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="flex flex-wrap gap-6 justify-start">
       {items.map((item) => (
         <Card
           key={item.itemType}
@@ -34,7 +36,7 @@ const MyItemsList: React.FC<MyItemsListProps> = ({ items }) => {
                 .replace(" ", "-")}`
             )
           }
-          className="cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-200 p-6 flex flex-col items-start min-w-[250px]"
+          className="cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-200 p-6 flex flex-col items-start min-w-[250px] max-w-[300px] flex-grow"
         >
           <Image
             src={iconMap[item.itemType] || BooksIcon} // Default icon fallback

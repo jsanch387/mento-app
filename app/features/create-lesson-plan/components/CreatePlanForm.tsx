@@ -59,14 +59,14 @@ const CreatePlanForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center px-4">
       {!lessonPlan && !loading && !error && (
         <LessonPlanForm onSubmit={handleGenerateLessonPlan} />
       )}
       {loading && (
         <div className="min-h-screen flex items-center justify-center w-full">
           <ProgressLoading
-            className="w-full"
+            className="my-auto w-full"
             duration={20000}
             stopAt90={!progressPaused}
           />

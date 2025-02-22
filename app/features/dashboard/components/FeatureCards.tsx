@@ -3,6 +3,7 @@ import React from "react";
 import BooksIcon from "@/public/books-icon.png";
 import PuzzleIcon from "@/public/puzzle-icon.png";
 import FlaskIcon from "@/public/flask-icon.png";
+import ClipBoardIcon from "@/public/clip-board.png";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -27,6 +28,13 @@ const features = [
       "Create a complete lab with objectives, materials, and activities tailored to your class needs.",
     href: "/dashboard/create-lab",
     iconSrc: FlaskIcon,
+  },
+  {
+    title: "Quiz",
+    description:
+      "Generate customizable quizzes with diverse question types to assess student understanding effectively.",
+    href: "/dashboard/create-quiz",
+    iconSrc: ClipBoardIcon,
   },
 ];
 
