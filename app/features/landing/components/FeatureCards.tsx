@@ -4,7 +4,7 @@ import Image from "next/image";
 
 // Import image assets
 import FlaskIcon from "@/public/flask-icon.png";
-import PuzzleIcon from "@/public/puzzle-icon.png";
+import ClipBoardIcon from "@/public/clip-board.png";
 import BooksIcon from "@/public/books-icon.png";
 
 const features = [
@@ -16,10 +16,10 @@ const features = [
     isComingSoon: false, // Indicates the feature is available
   },
   {
-    title: "Analogies Crafter",
+    title: "Quiz Crafter",
     description:
-      "Provide a topic, and we’ll craft analogies that break it down for your students in an engaging way.",
-    icon: PuzzleIcon,
+      "Generate customizable quizzes with diverse question types to assess student understanding effectively.",
+    icon: ClipBoardIcon,
     isComingSoon: false, // Indicates the feature is coming soon
   },
   {

@@ -2,26 +2,7 @@ import React, { useState } from "react";
 import Dropdown from "@/app/shared/components/DropDown";
 import Input from "@/app/shared/components/Input";
 import Button from "@/app/shared/components/Button";
-
-const subjectOptions = [
-  "Math",
-  "Science",
-  "History",
-  "Language Arts",
-  "English Literature",
-  "Social Studies",
-  "Art",
-  "Music",
-  "Physical Education",
-  "Health",
-  "Computer Science",
-  "STEM/STEAM",
-  "Economics",
-  "Government",
-  "World Languages",
-  "Geography",
-  "Special Education",
-];
+import { gradeOptions, subjectOptions } from "@/app/shared/constants/constants";
 
 const LessonPlanForm = ({
   onSubmit,
@@ -93,20 +74,7 @@ const LessonPlanForm = ({
       <Dropdown
         label="What grade are you teaching?"
         placeholder="Select a grade"
-        options={[
-          "1st Grade",
-          "2nd Grade",
-          "3rd Grade",
-          "4th Grade",
-          "5th Grade",
-          "6th Grade",
-          "7th Grade",
-          "8th Grade",
-          "9th Grade",
-          "10th Grade",
-          "11th Grade",
-          "12th Grade",
-        ]}
+        options={gradeOptions}
         onSelect={(value: string) => setGrade(value)}
       />
 

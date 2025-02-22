@@ -20,3 +20,50 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Hide everything except the quiz */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Target only the quiz section for printing */
+  .print-section,
+  .print-section * {
+    visibility: visible;
+  }
+
+  /* Remove browser-generated headers/footers */
+  @page {
+    margin: 0.5in; /* Adjust as needed */
+    size: auto;
+  }
+
+  /* Remove extra spaces and UI */
+  .no-print,
+  nav,
+  footer,
+  header {
+    display: none !important;
+  }
+
+  /* Remove shadows, unnecessary margins */
+  .print-section {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  /* Ensure no questions break across pages */
+  .quiz-question {
+    page-break-inside: avoid;
+  }
+}

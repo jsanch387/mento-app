@@ -5,41 +5,7 @@ import Dropdown from "@/app/shared/components/DropDown";
 import TextArea from "@/app/shared/components/TextArea";
 import Input from "@/app/shared/components/Input";
 import Button from "@/app/shared/components/Button";
-
-const subjectOptions = [
-  "Math",
-  "Science",
-  "History",
-  "Language Arts",
-  "English Literature",
-  "Social Studies",
-  "Art",
-  "Music",
-  "Physical Education",
-  "Health",
-  "Computer Science",
-  "STEM/STEAM",
-  "Economics",
-  "Government",
-  "World Languages",
-  "Geography",
-  "Special Education",
-];
-
-const gradeOptions = [
-  "1st Grade",
-  "2nd Grade",
-  "3rd Grade",
-  "4th Grade",
-  "5th Grade",
-  "6th Grade",
-  "7th Grade",
-  "8th Grade",
-  "9th Grade",
-  "10th Grade",
-  "11th Grade",
-  "12th Grade",
-];
+import { gradeOptions, subjectOptions } from "@/app/shared/constants/constants";
 
 interface LabFormProps {
   onSubmit: (data: {

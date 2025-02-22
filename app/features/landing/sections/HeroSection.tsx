@@ -10,12 +10,12 @@ export default function HeroSection() {
         {/* Left Column - Text Content */}
         <div className="flex flex-col items-start w-full sm:w-1/2 space-y-6">
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-black text-white leading-tight">
-            <span className="block">AI-Powered Lesson Planning</span>
+            <span className="block">AI-Powered Teaching Platform</span>
             <span className="block mt-2 sm:mt-3">Save Time, Teach More</span>
           </h1>
 
           <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
-            Create lesson plans, labs, analogies, and more in minutes – Mento
+            Create lesson plans, labs, quizzes, and more in minutes – Mento
             makes teaching easier, faster, and more effective.
           </p>
 
