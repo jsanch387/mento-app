@@ -8,7 +8,6 @@ import QuizForm from "./QuizForm";
 import { Quiz } from "../types/quiz.types";
 import { createQuiz } from "../api/create-quiz";
 import QuizViewer from "./QuizViewer/QuizViewer";
-import { mockQuiz } from "../data/mockQuiz";
 
 const CreateQuizPage = () => {
   const { tokens, handleConsumeToken } = useConsumeToken(); // Token utility

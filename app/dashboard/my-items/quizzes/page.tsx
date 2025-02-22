@@ -1,4 +1,3 @@
-import LessonPlanList from "@/app/features/my-items/LessonPlanList";
 import QuizPreviews from "@/app/features/my-items/QuizPreviews";
 import { createServerApiClient } from "@/app/lib/utils/api/serverApiClient";
 

@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import QuizActions from "./QuizActions";
 import QuizHeader from "./QuizHeader";
-import QuizStudentInfo from "./QuizStudentInfo";
 import QuizQuestion from "./QuizQuestion";
 import { Quiz } from "../../types/quiz.types";
 
