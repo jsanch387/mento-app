@@ -51,7 +51,7 @@ export default function RootLayout({
             url: "https://www.mentoteaching.com/",
             description:
               "Mento helps teachers create AI-powered lesson plans, analogies, and labs to save time and improve teaching.",
-            logo: "https://www.mentoteaching.com/favicon.ico",
+            logo: "https://www.mentoteaching.com/icon.png",
           })}
         </script>
       </Head>
