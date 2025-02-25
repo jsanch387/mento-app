@@ -42,6 +42,10 @@ export default function RootLayout({
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.mentoteaching.com/" />
 
+        {/* Favicon Links */}
+        <link rel="icon" href="/icon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/icon.png" />
+
         {/* Structured Data (Google Schema for SEO) */}
         <script type="application/ld+json">
           {JSON.stringify({
