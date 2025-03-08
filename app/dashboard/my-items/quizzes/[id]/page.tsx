@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import QuizViewer from "@/app/features/create-quiz/components/QuizViewer/QuizViewer";
 import { createServerApiClient } from "@/app/lib/utils/api/serverApiClient";
 
-type Params = Promise<{ id: string }>;
+type Params = { id: string };
 
 interface QuizPageProps {
   params: Params;
@@ -23,17 +22,33 @@ export default async function QuizPage({ params }: QuizPageProps) {
   }
 
   let quiz = null;
+  let launchStatus = {
+    isLaunched: false,
+    deploymentLink: "",
+    qrCodeData: "",
+  };
 
   try {
     const apiClient = await createServerApiClient();
-    const response = await apiClient.get(`/quizzes/${id}`);
-    quiz = response.data.quiz;
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error("Error fetching quiz:", error.message);
-    } else {
-      console.error("Error fetching quiz:", error);
+
+    // Fetch the quiz
+    const quizResponse = await apiClient.get(`/quizzes/${id}`);
+    quiz = quizResponse.data.quiz;
+
+    // Fetch launch status (new step!)
+    const launchResponse = await apiClient.get(
+      `/quizzes/${id}/existing-launch`
+    );
+
+    if (launchResponse.data.exists) {
+      launchStatus = {
+        isLaunched: true,
+        deploymentLink: launchResponse.data.deploymentLink || "",
+        qrCodeData: launchResponse.data.qrCodeData || "",
+      };
     }
+  } catch (error: unknown) {
+    console.error("Error loading quiz or launch status:", error);
   }
 
   if (!quiz) {
@@ -48,7 +63,7 @@ export default async function QuizPage({ params }: QuizPageProps) {
 
   return (
     <div className="min-h-screen p-6">
-      <QuizViewer quiz={quiz} />
+      <QuizViewer quiz={quiz} initialLaunchStatus={launchStatus} />
     </div>
   );
 }

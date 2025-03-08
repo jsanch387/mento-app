@@ -35,7 +35,7 @@ export default function FeatureCards() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
       {features.map((feature, index) => (
-        <Card variant="outline" key={index}>
+        <Card variant="outline" rounded="rounded-3xl" key={index}>
           <div className="flex flex-col items-start">
             {/* Icon and Coming Soon Label */}
             <div className="flex items-center justify-between w-full mb-5">

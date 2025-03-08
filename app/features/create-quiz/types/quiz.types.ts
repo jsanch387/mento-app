@@ -34,3 +34,11 @@ export interface QuizQuestion {
   // Hints can be included or excluded
   hint?: string;
 }
+
+export interface GradedAnswer {
+  question: string;
+  studentAnswer: string;
+  correctAnswer: string;
+  isCorrect: boolean;
+  explanation: string;
+}

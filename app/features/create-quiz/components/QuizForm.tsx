@@ -9,13 +9,23 @@ import MultiSelect from "@/app/shared/components/MultiSelect";
 import Toggle from "@/app/shared/components/Toggle";
 import { gradeOptions, subjectOptions } from "@/app/shared/constants/constants";
 
-const questionCountOptions = ["5", "10", "15"];
+// Mapping for display vs backend types
+const questionTypeMapping = {
+  "Multiple Choice": "multiple_choice",
+  "Short Answer": "short_answer",
+  "True/False": "true_false",
+  "Fill in the Blank": "fill_in_the_blank",
+};
+
+// Display options for the multi-select (human-friendly)
 const questionTypeOptions = [
   "Multiple Choice",
   "Short Answer",
   "True/False",
   "Fill in the Blank",
 ];
+
+const questionCountOptions = ["5", "10", "15"];
 
 interface QuizFormProps {
   onSubmit: (data: {
@@ -34,7 +44,9 @@ const QuizForm = ({ onSubmit }: QuizFormProps) => {
   const [customSubject, setCustomSubject] = useState("");
   const [grade, setGrade] = useState("");
   const [questionCount, setQuestionCount] = useState<number | null>(null);
-  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [selectedTypes, setSelectedTypes] = useState<
+    (keyof typeof questionTypeMapping)[]
+  >([]);
   const [customInstructions, setCustomInstructions] = useState("");
   const [includeHints, setIncludeHints] = useState(false);
   const [topic, setTopic] = useState("");
@@ -53,10 +65,8 @@ const QuizForm = ({ onSubmit }: QuizFormProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Determine the subject (use custom if provided, else use selected)
     const finalSubject = customSubject.trim() || subject.trim();
 
-    // Perform validation only during form submission
     if (
       finalSubject !== "" &&
       grade.trim() !== "" &&
@@ -64,20 +74,23 @@ const QuizForm = ({ onSubmit }: QuizFormProps) => {
       selectedTypes.length > 0 &&
       topic.trim() !== ""
     ) {
+      // Convert displayed question types to backend-friendly types
+      const backendQuestionTypes = selectedTypes.map(
+        (type) => questionTypeMapping[type as keyof typeof questionTypeMapping]
+      );
+
       const quizData = {
         topic: topic.trim(),
         subject: finalSubject,
         gradeLevel: grade,
         numberOfQuestions: questionCount!,
-        questionTypes: selectedTypes,
+        questionTypes: backendQuestionTypes,
         includeHints,
         customInstructions: customInstructions.trim() || undefined,
       };
 
-      // Call the onSubmit function with the complete data
       onSubmit(quizData);
     } else {
-      // Only log an error during form submission if required fields are missing
       console.error("Subject is required for quiz creation.");
     }
   };
@@ -131,12 +144,13 @@ const QuizForm = ({ onSubmit }: QuizFormProps) => {
         onSelect={(value) => setQuestionCount(Number(value))}
       />
 
-      {/* Temporary Multi-Select for Question Types */}
       <MultiSelect
         label="Select Question Types"
-        options={questionTypeOptions}
+        options={questionTypeOptions} // ✅ Now human-readable
         selectedOptions={selectedTypes}
-        onChange={setSelectedTypes}
+        onChange={(selected: string[]) =>
+          setSelectedTypes(selected as (keyof typeof questionTypeMapping)[])
+        }
       />
 
       <TextArea
@@ -154,7 +168,6 @@ const QuizForm = ({ onSubmit }: QuizFormProps) => {
         options={["Yes", "No"]}
         value={includeHints ? "Yes" : "No"}
         onChange={(selected, e) => {
-          // Prevent form submission when toggling
           e.preventDefault();
           setIncludeHints(selected === "Yes");
         }}
