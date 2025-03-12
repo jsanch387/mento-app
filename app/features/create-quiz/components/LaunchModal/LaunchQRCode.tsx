@@ -81,9 +81,7 @@ const LaunchQRCode: React.FC<LaunchQRCodeProps> = ({
 
             {/* Copy Success Message */}
             {copySuccess && (
-              <p className="text-green-600 font-medium mt-2">
-                ✅ Link Copied to Clipboard!
-              </p>
+              <p className="text-green-600 font-medium mt-2">✅ Link Copied!</p>
             )}
           </div>
         </div>

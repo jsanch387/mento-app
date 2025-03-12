@@ -9,6 +9,7 @@ import {
   Cog6ToothIcon,
   EnvelopeIcon,
 } from "@heroicons/react/24/solid";
+import { RocketLaunchIcon } from "@heroicons/react/16/solid";
 
 interface SideNavLinksProps {
   authenticated: boolean;
@@ -22,6 +23,11 @@ const primaryLinks = [
     name: "My Items",
     href: "/dashboard/my-items",
     icon: DocumentDuplicateIcon,
+  },
+  {
+    name: "Launched Quizzes",
+    href: "/dashboard/launched-quizzes",
+    icon: RocketLaunchIcon,
   },
 ];
 

@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import QuizActions from "./QuizActions";
 import QuizHeader from "./QuizHeader";
 import QuizQuestion from "./QuizQuestion";
 import { Quiz } from "../../types/quiz.types";
 import { launchQuiz } from "../../api/launch-quiz.api";
-import { checkLaunchedQuiz } from "../../api/checkLaunchedQuiz.api";
 import LaunchModal from "../LaunchModal/LaunchModal";
 
 interface InitialLaunchStatus {
@@ -47,26 +46,6 @@ const QuizViewer: React.FC<QuizViewerProps> = ({
   const handlePrint = () => {
     window.print();
   };
-
-  // Fetch initial launch status on load (optional, remove if not needed)
-  useEffect(() => {
-    if (!quiz?.id) return;
-
-    const fetchLaunchStatus = async () => {
-      try {
-        const result = await checkLaunchedQuiz(quiz.id);
-
-        if (result.exists && !initialLaunchStatus?.isLaunched) {
-          setDeploymentLink(result.deploymentLink || "");
-          setQrCodeData(result.qrCodeData || "");
-        }
-      } catch (err) {
-        console.error("Failed to check launch status", err);
-      }
-    };
-
-    fetchLaunchStatus();
-  }, [quiz?.id]);
 
   // Open class & notes modal (initial step)
   const handleOpenLaunchModal = () => {

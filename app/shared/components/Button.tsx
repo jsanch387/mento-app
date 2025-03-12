@@ -11,6 +11,7 @@ interface ButtonProps {
   className?: string; // Additional classes
   disabled?: boolean; // Disabled state
   outlineColor?: "black" | "white" | "primary"; // Outline color for secondary buttons
+  iconLeft?: React.ReactNode; // ✅ Optional left icon
 }
 
 const sizeStyles = {
@@ -34,9 +35,10 @@ export default function Button({
   className,
   disabled = false,
   outlineColor = "primary", // Default outline color if secondary
+  iconLeft, // ✅ New optional left icon
 }: ButtonProps) {
   const baseStyles =
-    "rounded-full font-semibold text-center transition-transform duration-200";
+    "rounded-full font-semibold text-center flex items-center justify-center gap-2 transition-transform duration-200";
 
   const variantStyles =
     variant === "primary"
@@ -55,6 +57,8 @@ export default function Button({
 
   return (
     <button onClick={onClick} className={buttonClasses} disabled={disabled}>
+      {iconLeft && <span className="w-5 h-5">{iconLeft}</span>}{" "}
+      {/* ✅ Left Icon */}
       {label}
     </button>
   );
