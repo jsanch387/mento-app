@@ -1,27 +1,49 @@
-import { fetchQuizOverview } from "@/app/features/launched-quizzes/api/fetchQuizOverview";
+import {
+  fetchQuizOverview,
+  QuizOverview,
+} from "@/app/features/launched-quizzes/api/fetchQuizOverview";
 import QuizDetails from "@/app/features/launched-quizzes/components/QuizDetails/QuizDetails";
+import ErrorMessage from "@/app/shared/components/ErrorMessage";
 
 interface Props {
   params: { id: string };
 }
 
 export default async function LaunchedQuizPage({ params }: Props) {
+  let quiz: QuizOverview | null = null;
+  let error: string | null = null;
+
   if (!params?.id) {
-    return <div className="text-center text-gray-600">Invalid Quiz ID</div>;
+    return <ErrorMessage error="Invalid Quiz ID." />;
   }
 
   try {
-    // ✅ Fetch quiz overview data from the API
-    const quiz = await fetchQuizOverview(params.id);
+    quiz = await fetchQuizOverview(params.id);
 
-    // ✅ Pass data as a prop (only serializable values)
-    return <QuizDetails quiz={quiz} />;
-  } catch (error) {
-    console.error("❌ Error fetching quiz overview:", error);
-    return (
-      <div className="text-center text-gray-600">
-        Failed to load quiz overview. Please try again later.
-      </div>
-    );
+    if (quiz?.status === "closed") {
+      console.log("📌 Quiz is closed. Ensuring smart insights are loaded...");
+      console.log("🧠 Smart Insights:", quiz.smartInsights);
+    }
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("❌ Error fetching quiz overview:", err.message);
+      error = "Failed to load quiz overview. Please try again later.";
+    } else {
+      console.error("❌ Unexpected error fetching quiz overview:", err);
+      error = "An unexpected error occurred.";
+    }
   }
+
+  return (
+    <div className="min-h-screen">
+      {/* Show error message if API call fails */}
+      {error ? (
+        <ErrorMessage error={error} />
+      ) : quiz ? (
+        <QuizDetails quiz={quiz} />
+      ) : (
+        <p className="text-center text-gray-500 mt-4">No quiz found.</p>
+      )}
+    </div>
+  );
 }

@@ -1,14 +1,5 @@
 import { createServerApiClient } from "@/app/lib/utils/api/serverApiClient";
-
-export interface LaunchedQuiz {
-  id: string;
-  title: string;
-  className: string;
-  launchDate: string;
-  studentsTaken: number;
-  averageScore: number;
-  status: string;
-}
+import { LaunchedQuiz } from "../types/launched-quizzes.type";
 
 export async function fetchLaunchedQuizzes(): Promise<LaunchedQuiz[]> {
   try {
@@ -27,7 +18,7 @@ export async function fetchLaunchedQuizzes(): Promise<LaunchedQuiz[]> {
       status: quiz.status as string, // ✅ Fetch real status from backend
     }));
   } catch (error) {
-    console.error("❌ Error fetching launched quizzes:", error);
-    return [];
+    console.error("❌ API Error:", error);
+    throw new Error("Failed to fetch launched quizzes. Please try again.");
   }
 }

@@ -2,19 +2,11 @@
 
 import LaunchedQuizCard from "@/app/features/launched-quizzes/components/LaunchedQuizCard";
 import NoLaunchedQuizzes from "./NoLaunchedQuizzes";
+import { LaunchedQuiz } from "../types/launched-quizzes.type";
 
 interface LaunchedQuizzesProps {
-  quizzes: {
-    id: string;
-    title: string;
-    className: string;
-    launchDate: string;
-    studentsTaken: number;
-    averageScore: number;
-    status: string;
-  }[];
+  quizzes: LaunchedQuiz[];
 }
-
 export default function LaunchedQuizzes({ quizzes }: LaunchedQuizzesProps) {
   return (
     <div className="min-h-screen flex flex-col px-8 py-6">

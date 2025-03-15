@@ -65,7 +65,7 @@ const StudentQuiz: React.FC<StudentQuizProps> = ({ quiz, studentName }) => {
       setGradedResults(gradedAnswers);
     } catch (error) {
       console.error("❌ Error submitting quiz:", error);
-      setError("Failed to grade quiz. Please try again.");
+      setError("⚠️ Unexpected error while grading. Please try again.");
     } finally {
       setIsLoading(false);
       document.body.style.overflow = ""; // Re-enable scroll after grading
@@ -100,7 +100,7 @@ const StudentQuiz: React.FC<StudentQuizProps> = ({ quiz, studentName }) => {
       </div>
 
       {error && (
-        <p className="text-red-500 text-center mt-4 text-sm sm:text-base">
+        <p className="text-red-500 font-semibold text-center mt-4 text-sm sm:text-base">
           {error}
         </p>
       )}

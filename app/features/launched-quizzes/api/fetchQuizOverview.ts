@@ -9,9 +9,8 @@ export interface Student {
   status: string;
 }
 
-export interface AiInsights {
-  struggles?: { concept: string; reason: string }[];
-  reinforcement?: string[];
+export interface SmartInsights {
+  markdown?: string; // Store AI-generated insights as Markdown
 }
 
 export interface QuizOverview {
@@ -23,9 +22,9 @@ export interface QuizOverview {
   averageScore: number;
   status: string;
   launchUrl: string;
-  qrCodeData?: string; // ✅ Include QR Code
+  qrCodeData?: string;
   totalQuestions: number;
-  aiInsights: AiInsights;
+  smartInsights?: SmartInsights | null; // ✅ Updated to match backend
   students: Student[];
 }
 
@@ -38,7 +37,11 @@ export async function fetchQuizOverview(
       `/quizzes/launched/${quizId}/overview`
     );
 
-    console.log("📥 API Response:", response.data); // ✅ Debugging log
+    console.log("📥 API Response:", response.data);
+
+    if (!response.data || Object.keys(response.data).length === 0) {
+      return null;
+    }
 
     return {
       id: response.data.quiz.id,
@@ -49,13 +52,15 @@ export async function fetchQuizOverview(
       averageScore: response.data.quiz.averageScore ?? 0,
       status: response.data.quiz.status,
       launchUrl: response.data.quiz.launchUrl,
-      qrCodeData: response.data.quiz.qrCodeData, // ✅ Fetch QR Code
+      qrCodeData: response.data.quiz.qrCodeData,
       totalQuestions: response.data.quiz.totalQuestions,
-      aiInsights: response.data.quiz.aiInsights ?? {},
+      smartInsights: response.data.quiz.smartInsights
+        ? { markdown: response.data.quiz.smartInsights } // ✅ Store AI-generated insights
+        : null,
       students: response.data.quiz.students ?? [],
     };
   } catch (error) {
     console.error("❌ Error fetching quiz overview:", error);
-    return null;
+    throw new Error("Failed to fetch quiz overview. Please try again.");
   }
 }

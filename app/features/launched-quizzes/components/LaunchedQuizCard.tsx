@@ -2,6 +2,7 @@ import Link from "next/link";
 import { UsersIcon, ChartBarIcon } from "@heroicons/react/24/solid";
 import Card from "@/app/shared/components/Card";
 import StatusBadge from "./StatusBadge";
+import Button from "@/app/shared/components/Button";
 
 interface LaunchedQuizCardProps {
   quiz: {
@@ -46,9 +47,7 @@ export default function LaunchedQuizCard({ quiz }: LaunchedQuizCardProps) {
 
       {/* View Details Button */}
       <Link href={`/dashboard/launched-quizzes/${quiz.id}`}>
-        <button className="mt-5 w-full bg-blue-600 text-white py-2 px-4 rounded-3xl text-sm font-medium hover:bg-blue-700 transition duration-300">
-          View Details
-        </button>
+        <Button label="View Details" size="small" className="w-full mt-5" />
       </Link>
     </Card>
   );

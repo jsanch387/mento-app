@@ -4,6 +4,7 @@ import React from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import LaunchForm from "./LaunchForm";
 import LaunchQRCode from "./LaunchQRCode";
+import LoadingSpinner from "@/app/shared/components/LoadingSpinner";
 
 interface LaunchModalProps {
   isOpen: boolean;
@@ -44,7 +45,13 @@ const LaunchModal: React.FC<LaunchModalProps> = ({
           <XMarkIcon className="w-6 h-6" />
         </button>
 
-        {mode === "form" ? (
+        {/* Show Loading Spinner while waiting for QR Code */}
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-10">
+            <LoadingSpinner size="large" />
+            <p className="text-gray-600 mt-4">Generating QR Code...</p>
+          </div>
+        ) : mode === "form" ? (
           <LaunchForm
             className={className}
             setClassName={setClassName}

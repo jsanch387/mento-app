@@ -10,7 +10,7 @@ const primaryColor = "#007BFF";
 
 const GradedQuestionCard: React.FC<Props> = ({ index, result }) => {
   return (
-    <div className="relative p-6 rounded-3xl shadow-md bg-white border border-gray-200 transition-all hover:shadow-xl">
+    <div className="relative p-6 rounded-3xl shadow-md bg-white border border-gray-200 transition-all">
       {/* Header - Number + Full Question + Correct/Incorrect Badge */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
         <div className="flex items-start gap-2 flex-1">

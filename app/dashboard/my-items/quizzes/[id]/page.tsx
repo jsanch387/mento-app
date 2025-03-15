@@ -34,19 +34,6 @@ export default async function QuizPage({ params }: QuizPageProps) {
     // Fetch the quiz
     const quizResponse = await apiClient.get(`/quizzes/${id}`);
     quiz = quizResponse.data.quiz;
-
-    // Fetch launch status (new step!)
-    const launchResponse = await apiClient.get(
-      `/quizzes/${id}/existing-launch`
-    );
-
-    if (launchResponse.data.exists) {
-      launchStatus = {
-        isLaunched: true,
-        deploymentLink: launchResponse.data.deploymentLink || "",
-        qrCodeData: launchResponse.data.qrCodeData || "",
-      };
-    }
   } catch (error: unknown) {
     console.error("Error loading quiz or launch status:", error);
   }
