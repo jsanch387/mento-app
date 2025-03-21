@@ -6,24 +6,23 @@ import QuizDetails from "@/app/features/launched-quizzes/components/QuizDetails/
 import ErrorMessage from "@/app/shared/components/ErrorMessage";
 
 interface Props {
-  params: { id: string };
+  params: { id?: string }; // ✅ Make `id` optional for safety
 }
 
 export default async function LaunchedQuizPage({ params }: Props) {
-  let quiz: QuizOverview | null = null;
-  let error: string | null = null;
+  // ✅ Ensure `params` is properly awaited
+  const resolvedParams = await Promise.resolve(params);
+  const quizId = resolvedParams?.id;
 
-  if (!params?.id) {
+  if (!quizId) {
     return <ErrorMessage error="Invalid Quiz ID." />;
   }
 
-  try {
-    quiz = await fetchQuizOverview(params.id);
+  let quiz: QuizOverview | null = null;
+  let error: string | null = null;
 
-    if (quiz?.status === "closed") {
-      console.log("📌 Quiz is closed. Ensuring smart insights are loaded...");
-      console.log("🧠 Smart Insights:", quiz.smartInsights);
-    }
+  try {
+    quiz = await fetchQuizOverview(quizId);
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.error("❌ Error fetching quiz overview:", err.message);

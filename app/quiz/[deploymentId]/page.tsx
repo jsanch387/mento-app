@@ -2,20 +2,14 @@ import StudentQuizWrapper from "@/app/features/student-quiz/components/StudentQu
 import { createServerApiClient } from "@/app/lib/utils/api/serverApiClient";
 import { notFound } from "next/navigation";
 
-// Fetch quiz on the server side
-async function fetchQuiz(deploymentId: string) {
-  const apiClient = await createServerApiClient();
-  const response = await apiClient.get(`/quizzes/launched/${deploymentId}`);
-  return response.data.quiz;
-}
-
-// ✅ Updated Page component that handles params correctly
 export default async function Page({
   params,
 }: {
-  params: { deploymentId?: string }; // Make deploymentId optional in case it's missing
+  params: { deploymentId?: string };
 }) {
-  const deploymentId = params?.deploymentId;
+  // ✅ Ensure `params` is awaited properly
+  const resolvedParams = await Promise.resolve(params);
+  const deploymentId = resolvedParams?.deploymentId;
 
   if (!deploymentId) {
     return (
@@ -26,18 +20,18 @@ export default async function Page({
   }
 
   let quiz = null;
-
   try {
-    quiz = await fetchQuiz(deploymentId);
+    const apiClient = await createServerApiClient(false);
+    const response = await apiClient.get(`/quizzes/launched/${deploymentId}`);
+    quiz = response.data.quiz;
   } catch (error) {
     console.error("Error fetching quiz:", error);
-    return notFound(); // Use Next.js's notFound helper
+    return notFound();
   }
 
   if (!quiz) {
     return notFound();
   }
 
-  // ✅ Pass `quiz` and `deploymentId` to client wrapper
   return <StudentQuizWrapper deploymentId={deploymentId} quiz={quiz} />;
 }

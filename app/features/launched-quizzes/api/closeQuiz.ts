@@ -8,7 +8,7 @@ export const closeQuiz = async (
       status: "closed",
     });
 
-    console.log("✅ API Response:", response.data);
+    // console.log("✅ API Response:", response.data);
 
     return {
       status: response.data.status,

@@ -23,6 +23,7 @@ export interface QuizOverview {
   status: string;
   launchUrl: string;
   qrCodeData?: string;
+  accessCode: string; // ✅ Include Access Code
   totalQuestions: number;
   smartInsights?: SmartInsights | null; // ✅ Updated to match backend
   students: Student[];
@@ -37,7 +38,7 @@ export async function fetchQuizOverview(
       `/quizzes/launched/${quizId}/overview`
     );
 
-    console.log("📥 API Response:", response.data);
+    // console.log("📥 API Response:", response.data);
 
     if (!response.data || Object.keys(response.data).length === 0) {
       return null;
@@ -53,6 +54,7 @@ export async function fetchQuizOverview(
       status: response.data.quiz.status,
       launchUrl: response.data.quiz.launchUrl,
       qrCodeData: response.data.quiz.qrCodeData,
+      accessCode: response.data.quiz.accessCode, // ✅ Store Access Code
       totalQuestions: response.data.quiz.totalQuestions,
       smartInsights: response.data.quiz.smartInsights
         ? { markdown: response.data.quiz.smartInsights } // ✅ Store AI-generated insights

@@ -14,6 +14,7 @@ interface QuizHeaderProps {
     launchDate: string;
     launchUrl: string;
     qrCodeData?: string;
+    accessCode?: string;
     status: string;
   };
   quizStatus: string;
@@ -48,7 +49,6 @@ export default function QuizHeader({
 
     try {
       const response = await closeQuiz(quiz.id);
-      console.log("✅ Quiz closed successfully:", response);
 
       if (response?.smartInsights) {
         onQuizClosed(response.smartInsights); // ✅ Set insights after closing
@@ -113,6 +113,7 @@ export default function QuizHeader({
         onClose={() => setIsModalOpen(false)}
         qrCodeData={quiz.qrCodeData}
         deploymentLink={quiz.launchUrl}
+        accessCode={quiz.accessCode} // ✅ Pass the Access Code
       />
     </div>
   );

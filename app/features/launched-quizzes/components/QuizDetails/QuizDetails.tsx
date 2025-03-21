@@ -32,9 +32,6 @@ export default function QuizDetails({ quiz }: QuizDetailsProps) {
 
   useEffect(() => {
     if (quiz?.status === "closed" && quiz.smartInsights) {
-      console.log("📌 Quiz is closed. Ensuring smart insights are loaded...");
-      console.log("🧠 Smart Insights:", quiz.smartInsights);
-
       setSmartInsights(
         typeof quiz.smartInsights === "object"
           ? (quiz.smartInsights as SmartInsightsData).markdown // ✅ Extract Markdown content

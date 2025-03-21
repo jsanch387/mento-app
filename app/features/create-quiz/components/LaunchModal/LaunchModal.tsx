@@ -18,6 +18,7 @@ interface LaunchModalProps {
   loading: boolean;
   qrCodeData?: string;
   deploymentLink?: string;
+  accessCode?: string; // ✅ New Access Code field
 }
 
 const LaunchModal: React.FC<LaunchModalProps> = ({
@@ -32,6 +33,7 @@ const LaunchModal: React.FC<LaunchModalProps> = ({
   loading,
   qrCodeData,
   deploymentLink,
+  accessCode, // ✅ Added Access Code prop
 }) => {
   if (!isOpen) return null;
 
@@ -65,6 +67,7 @@ const LaunchModal: React.FC<LaunchModalProps> = ({
           <LaunchQRCode
             qrCodeData={qrCodeData}
             deploymentLink={deploymentLink}
+            accessCode={accessCode} // ✅ Pass Access Code to QR Component
             onClose={onClose}
           />
         )}

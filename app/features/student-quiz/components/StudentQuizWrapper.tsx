@@ -6,6 +6,7 @@ import { QuizQuestion } from "../../create-quiz/types/quiz.types";
 import Input from "@/app/shared/components/Input";
 import Button from "@/app/shared/components/Button";
 import Card from "@/app/shared/components/Card";
+import AccessCodeInput from "./AccessCodeInput";
 
 interface StudentQuizWrapperProps {
   deploymentId: string;
@@ -23,9 +24,17 @@ export default function StudentQuizWrapper({
   const [quizStarted, setQuizStarted] = useState<boolean>(false);
   const [loadingSession, setLoadingSession] = useState(true);
   const [error, setError] = useState<string>("");
+  const [accessVerified, setAccessVerified] = useState<boolean>(false);
 
-  // Fetch session on load
+  // ✅ Check if access code is already verified
   useEffect(() => {
+    const storedAccessCode = sessionStorage.getItem(
+      `quizAccessCode-${deploymentId}`
+    );
+    if (storedAccessCode) {
+      setAccessVerified(true);
+    }
+
     const storedSession = sessionStorage.getItem(
       `studentSession-${deploymentId}`
     );
@@ -42,6 +51,16 @@ export default function StudentQuizWrapper({
       <div className="min-h-screen flex items-center justify-center">
         <p className="text-gray-600 text-lg">Loading your session...</p>
       </div>
+    );
+  }
+
+  // ✅ Show Access Code Input first if not verified
+  if (!accessVerified) {
+    return (
+      <AccessCodeInput
+        deploymentId={deploymentId}
+        onAccessVerified={() => setAccessVerified(true)}
+      />
     );
   }
 

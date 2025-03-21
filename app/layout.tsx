@@ -3,8 +3,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
-import Head from "next/head";
-import Script from "next/script"; // Import next/script
+import Script from "next/script"; // Import Next.js Script
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,21 +31,26 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <Head>
-        {/* SEO Essentials */}
+      <head>
+        {/* ✅ SEO Essentials */}
         <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://www.mentoteaching.com/" />
 
-        {/* Favicon Links */}
+        {/* ✅ Favicon Links */}
         <link rel="icon" href="/icon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/icon.png" />
 
-        {/* Structured Data (Google Schema for SEO) */}
+        {/* ✅ Prevent Hydration Error: Move <noscript> Inside <head> */}
+        <noscript>
+          This website requires JavaScript to function properly. Please enable
+          it in your browser.
+        </noscript>
+
+        {/* ✅ Structured Data (Google Schema for SEO) */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -58,42 +62,50 @@ export default function RootLayout({
             logo: "https://www.mentoteaching.com/icon.png",
           })}
         </script>
-      </Head>
+      </head>
 
-      {/* Meta Pixel Code - OUTSIDE Head */}
-      <Script
-        id="facebook-pixel"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '1164238438526373'); 
-            fbq('track', 'PageView');
-          `,
-        }}
-      />
-      <noscript>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          height="1"
-          width="1"
-          style={{ display: "none" }}
-          src="https://www.facebook.com/tr?id=1164238438526373&ev=PageView&noscript=1"
-          alt="" // Decorative image for accessibility
-        />
-      </noscript>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* ✅ Auth Session Initialization */}
         <AuthInitializer />
+
+        {/* ✅ Meta Pixel Code (Facebook Tracking) */}
+        <Script
+          id="facebook-pixel"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '1164238438526373'); 
+              fbq('track', 'PageView');
+            `,
+          }}
+        />
+
+        {/* ✅ Meta Pixel Image Fallback */}
+        <noscript>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=1164238438526373&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
+
+        {/* ✅ Vercel Analytics */}
         <Analytics />
+
+        {/* ✅ Render Children (Main App Content) */}
         {children}
       </body>
     </html>

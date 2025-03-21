@@ -1,5 +1,6 @@
 import { fetchLaunchedQuizzes } from "@/app/features/launched-quizzes/api/fetchLaunchedQuizzes";
 import LaunchedQuizzes from "@/app/features/launched-quizzes/components/LaunchedQuizzes";
+import NoLaunchedQuizzes from "@/app/features/launched-quizzes/components/NoLaunchedQuizzes";
 import { LaunchedQuiz } from "@/app/features/launched-quizzes/types/launched-quizzes.type";
 import ErrorMessage from "@/app/shared/components/ErrorMessage";
 
@@ -27,7 +28,7 @@ export default async function LaunchedQuizzesPage() {
       ) : quizzes.length > 0 ? (
         <LaunchedQuizzes quizzes={quizzes} />
       ) : (
-        <p className="text-center text-gray-500 mt-4">No quizzes found.</p>
+        <NoLaunchedQuizzes />
       )}
     </div>
   );

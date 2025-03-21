@@ -12,7 +12,7 @@ interface SubmitQuizParams {
 }
 
 export async function submitQuiz(submissionData: SubmitQuizParams) {
-  console.log("📤 Submitting quiz data:", submissionData);
+  // console.log("📤 Submitting quiz data:", submissionData);
 
   const response = await apiClient.post("/quizzes/grade", submissionData);
 
@@ -20,7 +20,7 @@ export async function submitQuiz(submissionData: SubmitQuizParams) {
     throw new Error("Failed to grade quiz.");
   }
 
-  console.log("✅ Full Grading Response:", response.data);
+  // console.log("✅ Full Grading Response:", response.data);
 
   return response.data.gradedAnswers;
 }

@@ -12,6 +12,7 @@ interface InitialLaunchStatus {
   isLaunched: boolean;
   deploymentLink: string;
   qrCodeData: string;
+  accessCode: string; // ✅ Added Access Code
 }
 
 interface QuizViewerProps {
@@ -31,23 +32,22 @@ const QuizViewer: React.FC<QuizViewerProps> = ({
   const [deploymentLink, setDeploymentLink] = useState<string>(
     initialLaunchStatus?.deploymentLink || ""
   );
+  const [accessCode, setAccessCode] = useState<string>(
+    initialLaunchStatus?.accessCode || ""
+  ); // ✅ Store Access Code
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [isLaunchModalOpen, setIsLaunchModalOpen] = useState<boolean>(false);
 
-  // Controls whether the modal is showing form or QR code
   const [modalMode, setModalMode] = useState<"form" | "qr">("form");
-
   const [className, setClassName] = useState<string>("");
   const [notes, setNotes] = useState<string>("");
 
-  // Handle Print Functionality
   const handlePrint = () => {
     window.print();
   };
 
-  // Open class & notes modal (initial step)
   const handleOpenLaunchModal = () => {
     setClassName("");
     setNotes("");
@@ -55,7 +55,6 @@ const QuizViewer: React.FC<QuizViewerProps> = ({
     setIsLaunchModalOpen(true);
   };
 
-  // Submit class name & notes, launch process
   const handleSubmitLaunch = async () => {
     if (!quiz?.id) {
       setError("Quiz ID is missing.");
@@ -70,7 +69,7 @@ const QuizViewer: React.FC<QuizViewerProps> = ({
     setError("");
 
     try {
-      const { deploymentLink, qrCodeData } = await launchQuiz({
+      const { deploymentLink, qrCodeData, accessCode } = await launchQuiz({
         quizId: quiz.id,
         className,
         notes,
@@ -78,8 +77,8 @@ const QuizViewer: React.FC<QuizViewerProps> = ({
 
       setDeploymentLink(deploymentLink);
       setQrCodeData(qrCodeData);
+      setAccessCode(accessCode); // ✅ Store Access Code
 
-      // Switch to QR code view after successful launch
       setModalMode("qr");
     } catch (err) {
       console.error("Launch Quiz Error:", err);
@@ -91,14 +90,12 @@ const QuizViewer: React.FC<QuizViewerProps> = ({
 
   return (
     <div className="w-full max-w-4xl mx-auto bg-white print-section">
-      {/* Actions */}
       <QuizActions
         showAnswers={showAnswers}
         setShowAnswers={setShowAnswers}
         onLaunchQuiz={handleOpenLaunchModal}
       />
 
-      {/* Quiz Content */}
       <div className="max-w-5xl mx-auto p-8 space-y-10 bg-white rounded-2xl shadow-lg relative print:border-0 print:shadow-none print:p-0">
         <QuizHeader title={quiz?.title || "Quiz"} onPrint={handlePrint} />
 
@@ -111,17 +108,10 @@ const QuizViewer: React.FC<QuizViewerProps> = ({
           />
         ))}
 
-        {showAnswers && quiz && (
-          <div className="mt-6 text-gray-600 text-sm border-t pt-4">
-            <strong>Teaching Insight:</strong> {quiz.teaching_insights}
-          </div>
-        )}
-
         {loading && <p className="text-blue-500">Launching quiz...</p>}
         {error && <p className="text-red-500">{error}</p>}
       </div>
 
-      {/* Combined Launch Modal (Form & QR Code) */}
       <LaunchModal
         isOpen={isLaunchModalOpen}
         onClose={() => setIsLaunchModalOpen(false)}
@@ -134,6 +124,7 @@ const QuizViewer: React.FC<QuizViewerProps> = ({
         loading={loading}
         qrCodeData={qrCodeData}
         deploymentLink={deploymentLink}
+        accessCode={accessCode} // ✅ Pass Access Code to Modal
       />
     </div>
   );

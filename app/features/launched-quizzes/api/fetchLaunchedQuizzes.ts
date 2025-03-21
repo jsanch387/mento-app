@@ -6,7 +6,7 @@ export async function fetchLaunchedQuizzes(): Promise<LaunchedQuiz[]> {
     const apiClient = await createServerApiClient();
     const response = await apiClient.get("/quizzes/launched");
 
-    console.log("📥 API Response:", response.data); // ✅ Debugging log
+    // console.log("📥 API Response:", response.data); // ✅ Debugging log
 
     return response.data.map((quiz: Record<string, unknown>) => ({
       id: quiz.id as string,
@@ -18,7 +18,7 @@ export async function fetchLaunchedQuizzes(): Promise<LaunchedQuiz[]> {
       status: quiz.status as string, // ✅ Fetch real status from backend
     }));
   } catch (error) {
-    console.error("❌ API Error:", error);
+    console.error("API Error:", error);
     throw new Error("Failed to fetch launched quizzes. Please try again.");
   }
 }
