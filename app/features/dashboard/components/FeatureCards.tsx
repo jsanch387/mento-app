@@ -43,6 +43,7 @@ const FeatureCards = () => {
     <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 md:gap-4 lg:gap-4 mt-6 w-full">
       {features.map((feature) => (
         <Card
+          rounded="rounded-3xl"
           key={feature.title}
           variant="outline"
           className="cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-200"

@@ -3,27 +3,31 @@ import { createClient } from "../supabase/server"; // Import your Supabase serve
 
 /**
  * Creates an API client configured with the user's access token for SSR.
- * @returns Axios instance with Authorization header.
+ * @param {boolean} [authRequired=true] - If true, requires authentication. If false, allows unauthenticated requests.
+ * @returns Axios instance with or without Authorization header.
  */
-export async function createServerApiClient() {
+export async function createServerApiClient(authRequired: boolean = true) {
   // Initialize Supabase server client
   const supabase = await createClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session || !session.access_token) {
+  if (authRequired && (!session || !session.access_token)) {
     throw new Error("Unauthorized: No valid session found.");
   }
 
-  const token = session.access_token;
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
 
-  // Create and return an Axios client with the Authorization header
+  if (authRequired && session?.access_token) {
+    headers.Authorization = `Bearer ${session.access_token}`;
+  }
+
+  // Create and return an Axios client
   return axios.create({
     baseURL: process.env.NEXT_PUBLIC_BACKEND_URL, // Backend API URL
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+    headers,
   });
 }

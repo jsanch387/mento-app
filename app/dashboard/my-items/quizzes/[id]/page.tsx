@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import QuizViewer from "@/app/features/create-quiz/components/QuizViewer/QuizViewer";
 import { createServerApiClient } from "@/app/lib/utils/api/serverApiClient";
 
-type Params = Promise<{ id: string }>;
-
-interface QuizPageProps {
-  params: Params;
-}
-
-export default async function QuizPage({ params }: QuizPageProps) {
-  const { id } = await params;
+// Fix: params is a Promise now in Next.js 15
+export default async function QuizPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params; // ✅ Await the promise
 
   if (!id) {
     console.error("Missing ID in params");
@@ -23,17 +21,21 @@ export default async function QuizPage({ params }: QuizPageProps) {
   }
 
   let quiz = null;
+  const launchStatus = {
+    isLaunched: false,
+    deploymentLink: "",
+    qrCodeData: "",
+    accessCode: "",
+  };
 
   try {
     const apiClient = await createServerApiClient();
-    const response = await apiClient.get(`/quizzes/${id}`);
-    quiz = response.data.quiz;
+
+    // Fetch the quiz
+    const quizResponse = await apiClient.get(`/quizzes/${id}`);
+    quiz = quizResponse.data.quiz;
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error("Error fetching quiz:", error.message);
-    } else {
-      console.error("Error fetching quiz:", error);
-    }
+    console.error("Error loading quiz or launch status:", error);
   }
 
   if (!quiz) {
@@ -48,7 +50,7 @@ export default async function QuizPage({ params }: QuizPageProps) {
 
   return (
     <div className="min-h-screen p-6">
-      <QuizViewer quiz={quiz} />
+      <QuizViewer quiz={quiz} initialLaunchStatus={launchStatus} />
     </div>
   );
 }

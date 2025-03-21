@@ -4,16 +4,18 @@ interface CardProps {
   children: ReactNode; // Accept any type of content
   className?: string; // Allow additional styles if needed
   variant?: "frosted" | "solid" | "outline"; // Three variants
+  rounded?: string; // Allow custom rounded corners
   handleOnClick?: () => void;
 }
 
 export default function Card({
   children,
   className = "",
+  rounded,
   variant = "outline", // Default to outline variant
   handleOnClick,
 }: CardProps) {
-  const baseStyles = "rounded-xl p-6";
+  const baseStyles = rounded ? `${rounded} p-6` : "rounded-xl p-6";
 
   // Variant styles
   const variantStyles = {

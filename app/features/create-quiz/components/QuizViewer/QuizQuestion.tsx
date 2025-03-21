@@ -25,8 +25,8 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
       {question.type === "multiple_choice" && question.options && (
         <ul className="ml-4 space-y-2">
           {question.options.map((option, i) => (
-            <li key={i} className="flex items-center space-x-3">
-              <span className="w-6 h-6 border-2 border-gray-600 rounded-full inline-block"></span>
+            <li key={i} className="flex items-start space-x-3">
+              <span className="w-6 h-6 border-2 border-gray-600 rounded-full mt-1 flex-shrink-0"></span>
               <span className="text-lg">{option}</span>
             </li>
           ))}

@@ -27,6 +27,7 @@ const MyItemsList: React.FC<MyItemsListProps> = ({ items }) => {
     <div className="flex flex-wrap gap-6 justify-start">
       {items.map((item) => (
         <Card
+          rounded="rounded-3xl"
           key={item.itemType}
           variant="outline"
           handleOnClick={() =>
