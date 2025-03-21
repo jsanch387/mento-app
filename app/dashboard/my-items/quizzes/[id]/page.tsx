@@ -1,14 +1,13 @@
 import QuizViewer from "@/app/features/create-quiz/components/QuizViewer/QuizViewer";
 import { createServerApiClient } from "@/app/lib/utils/api/serverApiClient";
 
-type Params = { id: string };
-
-interface QuizPageProps {
-  params: Params;
-}
-
-export default async function QuizPage({ params }: QuizPageProps) {
-  const { id } = await params;
+// Fix: params is a Promise now in Next.js 15
+export default async function QuizPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params; // ✅ Await the promise
 
   if (!id) {
     console.error("Missing ID in params");
@@ -22,10 +21,11 @@ export default async function QuizPage({ params }: QuizPageProps) {
   }
 
   let quiz = null;
-  let launchStatus = {
+  const launchStatus = {
     isLaunched: false,
     deploymentLink: "",
     qrCodeData: "",
+    accessCode: "",
   };
 
   try {

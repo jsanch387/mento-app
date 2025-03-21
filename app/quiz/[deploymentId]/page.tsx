@@ -5,11 +5,10 @@ import { notFound } from "next/navigation";
 export default async function Page({
   params,
 }: {
-  params: { deploymentId?: string };
+  params: Promise<{ deploymentId: string }>;
 }) {
-  // ✅ Ensure `params` is awaited properly
-  const resolvedParams = await Promise.resolve(params);
-  const deploymentId = resolvedParams?.deploymentId;
+  // ✅ Await params properly (Next.js 15 requirement)
+  const { deploymentId } = await params;
 
   if (!deploymentId) {
     return (

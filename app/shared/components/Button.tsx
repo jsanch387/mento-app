@@ -4,14 +4,16 @@ import React from "react";
 import classNames from "classnames";
 
 interface ButtonProps {
-  variant?: "primary" | "secondary"; // Primary is solid, secondary is outlined
-  size?: "small" | "medium" | "large"; // Different sizes
-  label: string; // Button text
-  onClick?: () => void; // Click handler
-  className?: string; // Additional classes
-  disabled?: boolean; // Disabled state
-  outlineColor?: "black" | "white" | "primary"; // Outline color for secondary buttons
-  iconLeft?: React.ReactNode; // ✅ Optional left icon
+  variant?: "primary" | "secondary";
+  size?: "small" | "medium" | "large";
+  label: string;
+  onClick?: () => void;
+  className?: string;
+  disabled?: boolean;
+  outlineColor?: "black" | "white" | "primary";
+  iconLeft?: React.ReactNode;
+  bgColor?: string; // ✅ Custom background color
+  textColor?: string; // ✅ Custom text color
 }
 
 const sizeStyles = {
@@ -20,7 +22,6 @@ const sizeStyles = {
   large: "px-8 py-4 text-lg",
 };
 
-// Outline colors map
 const outlineStyles = {
   black: "border-black text-black",
   white: "border-white text-white",
@@ -34,15 +35,19 @@ export default function Button({
   onClick,
   className,
   disabled = false,
-  outlineColor = "primary", // Default outline color if secondary
-  iconLeft, // ✅ New optional left icon
+  outlineColor = "primary",
+  iconLeft,
+  bgColor,
+  textColor,
 }: ButtonProps) {
   const baseStyles =
     "rounded-full font-semibold text-center flex items-center justify-center gap-2 transition-transform duration-200";
 
   const variantStyles =
     variant === "primary"
-      ? "bg-primary text-white hover:scale-105"
+      ? `${bgColor ?? "bg-primary"} ${
+          textColor ?? "text-white"
+        } hover:scale-105`
       : `border ${outlineStyles[outlineColor]} hover:bg-opacity-10`;
 
   const disabledStyles = disabled ? "opacity-50 cursor-not-allowed" : "";
@@ -57,8 +62,7 @@ export default function Button({
 
   return (
     <button onClick={onClick} className={buttonClasses} disabled={disabled}>
-      {iconLeft && <span className="w-5 h-5">{iconLeft}</span>}{" "}
-      {/* ✅ Left Icon */}
+      {iconLeft && <span className="w-5 h-5">{iconLeft}</span>}
       {label}
     </button>
   );
