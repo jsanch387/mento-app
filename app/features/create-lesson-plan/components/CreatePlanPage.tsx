@@ -5,26 +5,28 @@ import useTokenStore from "../../token-tracker/store/tokenStore";
 import LessonPlanForm from "./LessonPlanForm";
 import ErrorMessage from "../../../shared/components/ErrorMessage";
 import ProgressLoading from "@/app/shared/components/ProgressLoading";
-import LessonPlan from "./LessonPlan";
-import { createLessonPlan } from "../api/create-lesson-plan";
 import { consumeToken } from "../../settings/components/api/user-api";
-import { CreateLessonPlanResponse } from "../types/types";
+import { generateLessonPlan } from "../api/create-lesson-plan";
+import LessonPlanView from "./LessonPlanView";
+import { GenerateLessonPlanRequest } from "../types/types";
 
-const CreatePlanForm = () => {
-  const { tokens, setTokens } = useTokenStore(); // Token management hook
-  const [lessonPlan, setLessonPlan] = useState<
-    CreateLessonPlanResponse["lessonPlan"] | null
-  >(null);
-  const [loading, setLoading] = useState(false); // Tracks loading state
-  const [progressPaused, setProgressPaused] = useState(false); // Tracks if progress stops at 90%
-  const [error, setError] = useState<string | null>(null); // Error state
+type MarkdownLessonPlanType = {
+  id: string;
+  content: string;
+};
 
-  const handleGenerateLessonPlan = async (requestData: {
-    gradeLevel: string;
-    subject: string;
-    duration: string;
-    additionalDetails?: string;
-  }) => {
+const CreatePlanPage = () => {
+  const { tokens, setTokens } = useTokenStore();
+  const [lessonPlan, setLessonPlan] = useState<MarkdownLessonPlanType | null>(
+    null
+  );
+  const [loading, setLoading] = useState(false);
+  const [progressPaused, setProgressPaused] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleGenerateLessonPlan = async (
+    requestData: GenerateLessonPlanRequest
+  ) => {
     if (tokens === undefined) {
       setError("Unable to determine token status. Please try again later.");
       return;
@@ -36,25 +38,24 @@ const CreatePlanForm = () => {
     }
 
     setLoading(true);
-    setProgressPaused(false); // Reset progress bar state
+    setProgressPaused(false);
     setError(null);
 
     try {
-      const response = await createLessonPlan(requestData); // Fetch lesson plan
-      setLessonPlan(response.lessonPlan); // Set the lesson plan
+      // 🔹 Call the API function instead of fetch
+      const response = await generateLessonPlan(requestData);
+      setLessonPlan(response); // ✅ directly use the full response object now
 
-      // Consume token
+      // 🔹 Consume token
       if (tokens !== null) {
         await consumeToken();
         setTokens(tokens - 1);
       }
-
-      setLoading(false); // Stop loading immediately when response is ready
-    } catch (err: unknown) {
-      setError(
-        err instanceof Error ? err.message : "An unexpected error occurred."
-      );
-      setLoading(false); // Ensure loading stops on error
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      setError(err.message || "An unexpected error occurred.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,9 +76,11 @@ const CreatePlanForm = () => {
       {!loading && error && (
         <ErrorMessage className="max-w-lg mx-auto" error={error} />
       )}
-      {!loading && lessonPlan && <LessonPlan lessonPlan={lessonPlan} />}
+      {!loading && lessonPlan && (
+        <LessonPlanView content={lessonPlan.content} />
+      )}
     </div>
   );
 };
 
-export default CreatePlanForm;
+export default CreatePlanPage;
