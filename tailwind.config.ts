@@ -1,6 +1,8 @@
 import type { Config } from "tailwindcss";
+import typography from "@tailwindcss/typography";
+// import lineClamp from "@tailwindcss/line-clamp"; // Uncomment if needed
 
-export default {
+const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -12,10 +14,15 @@ export default {
         background: "var(--background)",
         inactive: "var(--inactive)",
         primary: "var(--primary)",
-        "text-primary": "#000000", // Black for primary text
-        "text-secondary": "#6b7280", // Gray for secondary text
+        "text-primary": "#000000",
+        "text-secondary": "#6b7280",
       },
     },
   },
-  // plugins: [require("@tailwindcss/line-clamp")], // Add this line
-} satisfies Config;
+  plugins: [
+    typography,
+    // lineClamp, // Uncomment this line if using line clamping
+  ],
+};
+
+export default config;

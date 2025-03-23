@@ -3,17 +3,14 @@ import Dropdown from "@/app/shared/components/DropDown";
 import Input from "@/app/shared/components/Input";
 import Button from "@/app/shared/components/Button";
 import { gradeOptions, subjectOptions } from "@/app/shared/constants/constants";
+import { GenerateLessonPlanRequest } from "../types/types";
 
-const LessonPlanForm = ({
-  onSubmit,
-}: {
-  onSubmit: (data: {
-    gradeLevel: string;
-    subject: string;
-    duration: string;
-    additionalDetails?: string;
-  }) => void;
-}) => {
+// 🔹 Props Interface
+interface LessonPlanFormProps {
+  onSubmit: (data: GenerateLessonPlanRequest) => void;
+}
+
+const LessonPlanForm: React.FC<LessonPlanFormProps> = ({ onSubmit }) => {
   const [subject, setSubject] = useState("");
   const [customSubject, setCustomSubject] = useState("");
   const [grade, setGrade] = useState("");
@@ -43,16 +40,16 @@ const LessonPlanForm = ({
 
   return (
     <form
-      className="space-y-8 mt-10 w-full max-w-lg px-4 mx-auto"
+      className="space-y-8 mt-5 w-full max-w-lg px-4 mx-auto"
       onSubmit={handleSubmit}
     >
-      <h1 className="text-4xl font-sans font-black mb-4">
-        Create a lesson plan
-      </h1>
-      <p className="text-md text-text-secondary mb-8">
-        Quickly generate a tailored lesson plan designed to fit your
-        class&apos;s needs.
-      </p>
+      <div className="space-y-5">
+        <h1 className="text-4xl font-sans font-black">Create Lesson Plan</h1>
+        <p className="text-md text-text-secondary mb-8">
+          Quickly generate a tailored lesson plan designed to fit your
+          class&apos;s needs.
+        </p>
+      </div>
 
       <Dropdown
         label="What subject are you teaching?"

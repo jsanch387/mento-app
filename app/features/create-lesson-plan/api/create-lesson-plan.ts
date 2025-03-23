@@ -1,39 +1,33 @@
 import apiClient from "@/app/lib/utils/api/apiClient";
-import { CreateLessonPlanResponse } from "../types/types";
+import { AxiosError } from "axios";
+import { GenerateLessonPlanRequest, LessonPlanResponse } from "../types/types";
 
-export const createLessonPlan = async ({
-  gradeLevel,
-  subject,
-  duration,
-  additionalDetails,
-}: {
-  gradeLevel: string;
-  subject: string;
-  duration: string;
-  additionalDetails?: string;
-}): Promise<CreateLessonPlanResponse> => {
+// 🔹 API Call
+export const generateLessonPlan = async (
+  payload: GenerateLessonPlanRequest
+): Promise<LessonPlanResponse> => {
   try {
-    const response = await apiClient.post("/lesson-plans", {
-      gradeLevel,
-      subject,
-      duration,
-      additionalDetails,
-    });
+    const response = await apiClient.post<LessonPlanResponse>(
+      "/lesson-plans/generate",
+      payload
+    );
 
-    // Validate that the response contains the `lessonPlan` object
-    if (!response.data.lessonPlan) {
-      throw new Error("Invalid API response: Missing 'lessonPlan' field.");
+    if (!response.data?.content) {
+      throw new Error("Invalid API response: Missing 'content' field.");
     }
 
     return response.data;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    console.error(
-      "Error creating lesson plan:",
-      error.response?.data || error.message
-    );
-    throw new Error(
-      error.response?.data?.message || "Failed to create lesson plan"
-    );
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      const message =
+        error.response?.data?.message ||
+        error.message ||
+        "Failed to create lesson plan.";
+      console.error("Axios error:", message);
+      throw new Error(message);
+    }
+
+    console.error("Unknown error:", error);
+    throw new Error("An unexpected error occurred. Please try again.");
   }
 };

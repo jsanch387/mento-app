@@ -83,7 +83,7 @@ export default function SideNavLinks({
               aria-hidden="true"
             />
             <span
-              className={`font-semibold ${
+              className={`font-semibold font-sans ${
                 isActive ? "text-primary" : "text-text-secondary"
               }`}
             >
