@@ -8,6 +8,8 @@
   --text-primary: #000000; /* Black for primary text */
   --text-secondary: #6b7280; /* Medium gray for secondary text */
   --inactive: #a3a3a3; /* Light gray for inactive text */
+  --primary-hue: 210; /* 0066cc in HSL: hue 210°, saturation 100%, lightness 40% */
+  --primary: hsl(var(--primary-hue), 100%, 40%); /* Your existing 0066cc */
 }
 
 /* @media (prefers-color-scheme: dark) {
